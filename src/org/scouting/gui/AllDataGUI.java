@@ -169,6 +169,7 @@ public class AllDataGUI extends javax.swing.JFrame
 
     public String[][] sortBest(String array[][], int member)
     {
+        System.out.println("------------------------------------------");
         String result[][] = new String[teamCount][7];
 
         double topMember = 0;
@@ -181,9 +182,12 @@ public class AllDataGUI extends javax.swing.JFrame
         int teamNumber = 0;
         for(int i = 0; i < teamCount; i++)
         {
+            System.out.println("---");
+            System.out.println("Trying Team " + array[i][0] + "'s value of " + array[i][member] + " in member column " + member);
             double firstNumber = Double.parseDouble(array[i][member]);
             if(firstNumber > topMember)
             {
+                System.out.println("Team " + array[i][0] + "'s Score is the best so far!");
                 teamNumber = Integer.parseInt(array[i][0]);
                 topAuto = Double.parseDouble(array[i][1]);
                 topMain = Double.parseDouble(array[i][2]);
@@ -209,6 +213,10 @@ public class AllDataGUI extends javax.swing.JFrame
             result[0][member] = Integer.toString((int) topMember);
         }
 
+        System.out.println("-+-+-");
+        System.out.println("+++ Team " + teamNumber + "'is the best with " + topMember + " as a value!");
+        System.out.println("-+-+-\n");
+
         for(int i = 0; i < teamCount - 1; i++)
         {
             topMember = 0;
@@ -221,6 +229,9 @@ public class AllDataGUI extends javax.swing.JFrame
             teamNumber = 0;
             for(int j = 0; j < teamCount; j++)
             {
+                System.out.println("---");
+                System.out.println("Trying Team " + array[j][0] + "'s value of " + array[i][member] + " in member column " + member);
+
                 double currentNumber = Double.parseDouble(array[j][member]);
                 double lastNumber = Double.parseDouble(result[i][member]);
 
