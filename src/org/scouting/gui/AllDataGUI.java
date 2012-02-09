@@ -109,23 +109,28 @@ public class AllDataGUI extends javax.swing.JFrame
 
         if(optionChosen.equals("Team Number"))
         {
-            data = sortBest(allData, 0);
+            //data = sortBest(allData, 0);
+            data = sortBestBubble(allData, 0);
         }
         else if(optionChosen.equals("Overall Score"))
         {
-            data = sortBest(allData, 4);
+            //data = sortBest(allData, 0);
+            data = sortBestBubble(allData, 4);
         }
         else if(optionChosen.equals("Autonomous"))
         {
-            data = sortBest(allData, 1);
+            //data = sortBest(allData, 0);
+            data = sortBestBubble(allData, 1);
         }
         else if(optionChosen.equals("Main Game"))
         {
-            data = sortBest(allData, 2);
+            //data = sortBest(allData, 0);
+            data = sortBestBubble(allData, 2);
         }
         else if(optionChosen.equals("End Game"))
         {
-            data = sortBest(allData, 3);
+            //data = sortBest(allData, 0);
+            data = sortBestBubble(allData, 3);
         }
         else
         {
@@ -165,6 +170,58 @@ public class AllDataGUI extends javax.swing.JFrame
     public void setAllData(String data[][])
     {
         allData = data;
+    }
+
+    public String[][] sortBestBubble(String array[][], int member)
+    {
+        String result[][] = array;
+
+        for(int mainC = 0; mainC < Math.pow(teamCount, 2); mainC++)
+        {
+            for(int tIter = 1; tIter < teamCount; tIter++)
+            {
+                double value0 = Double.parseDouble(array[tIter][0]);
+                double value1 = Double.parseDouble(array[tIter][1]);
+                double value2 = Double.parseDouble(array[tIter][2]);
+                double value3 = Double.parseDouble(array[tIter][3]);
+                double value4 = Double.parseDouble(array[tIter][4]);
+                double value5 = Double.parseDouble(array[tIter][5]);
+                double value6 = Double.parseDouble(array[tIter][6]);
+                double valueM = Double.parseDouble(array[tIter][member]);
+                
+                double valueN10 = Double.parseDouble(array[tIter - 1][0]);
+                double valueN11 = Double.parseDouble(array[tIter - 1][1]);
+                double valueN12 = Double.parseDouble(array[tIter - 1][2]);
+                double valueN13 = Double.parseDouble(array[tIter - 1][3]);
+                double valueN14 = Double.parseDouble(array[tIter - 1][4]);
+                double valueN15 = Double.parseDouble(array[tIter - 1][5]);
+                double valueN16 = Double.parseDouble(array[tIter - 1][6]);
+                double valueN1M = Double.parseDouble(array[tIter - 1][member]);
+                if(valueM > valueN1M)
+                {
+                    result[tIter][0] = String.valueOf(valueN10);
+                    result[tIter][1] = String.valueOf(valueN11);
+                    result[tIter][2] = String.valueOf(valueN12);
+                    result[tIter][3] = String.valueOf(valueN13);
+                    result[tIter][4] = String.valueOf(valueN14);
+                    result[tIter][5] = String.valueOf(valueN15);
+                    result[tIter][6] = String.valueOf(valueN16);
+                    result[tIter][member] = String.valueOf(valueN1M);
+
+                    result[tIter - 1][0] = String.valueOf(value0);
+                    result[tIter - 1][1] = String.valueOf(value1);
+                    result[tIter - 1][2] = String.valueOf(value2);
+                    result[tIter - 1][3] = String.valueOf(value3);
+                    result[tIter - 1][4] = String.valueOf(value4);
+                    result[tIter - 1][5] = String.valueOf(value5);
+                    result[tIter - 1][6] = String.valueOf(value6);
+
+                    result[tIter - 1][member] = String.valueOf(valueM);
+                }
+            }
+        }
+
+        return result;
     }
 
     public String[][] sortBest(String array[][], int member)
