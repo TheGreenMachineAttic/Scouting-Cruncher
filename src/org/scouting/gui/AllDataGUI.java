@@ -13,6 +13,7 @@ package org.scouting.gui;
 
 import java.text.DecimalFormat;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /*
  * @author aoneill
@@ -23,6 +24,7 @@ public class AllDataGUI extends javax.swing.JFrame
     private static String tableHeader[] = new String[] {"Team Name", "Overall Score", "Auto Score", "Main Score", "End Score", "Penalty Number"};
     private String[][] allData;
     private int teamCount;
+    private static final int DATA_POINTS = 7;
     private String DECIMAL_FORMAT = "#.###";
 
 
@@ -171,6 +173,38 @@ public class AllDataGUI extends javax.swing.JFrame
     {
         allData = data;
     }
+
+//    public String[][] sortBestRowMethod(String array[][], int member)
+//    {
+//        String result[][];
+//
+//        DataRow list[] = new DataRow[teamCount];
+//        DataRow dr1;
+//        DataRow dr2;
+//        DataRow buffer;
+//        DataRow parser;
+//
+//        for(int mainC = 0; mainC < teamCount; mainC++)
+//        {
+//            list[mainC] = new DataRow(array, mainC, DATA_POINTS);
+//        }
+//
+//        for(int mainC = 0; mainC < Math.pow(teamCount, 2); mainC++)
+//        {
+//            for(int tIter = 1; tIter < teamCount; tIter++)
+//            {
+//                dr1 = new DataRow(array, tIter, DATA_POINTS);
+//                dr2 = new DataRow(array, tIter - 1, DATA_POINTS);
+//
+//                if(Double.parseDouble(dr1.valueAt(member)) > Double.parseDouble(dr2.valueAt(member)))
+//                {
+//
+//                }
+//            }
+//        }
+//
+//        return result;
+//    }
 
     public String[][] sortBestBubble(String array[][], int member)
     {
