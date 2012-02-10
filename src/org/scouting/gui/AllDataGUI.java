@@ -25,6 +25,7 @@ public class AllDataGUI extends javax.swing.JFrame
     private String[][] allData;
     private int teamCount;
     private static final int DATA_POINTS = 7;
+    private static final String TITLE_BASE = "All Scores - ";
     private String DECIMAL_FORMAT = "#.###";
 
 
@@ -112,31 +113,31 @@ public class AllDataGUI extends javax.swing.JFrame
         if(optionChosen.equals("Team Number"))
         {
             //data = sortBest(allData, 0);
-            data = sortBestRowMethod(allData, 0);
-        }
-        else if(optionChosen.equals("Overall Score"))
-        {
-            //data = sortBest(allData, 0);
-            data = sortBestRowMethod(allData, 4);
+            data = sortBest(allData, 0);
         }
         else if(optionChosen.equals("Autonomous"))
         {
             //data = sortBest(allData, 0);
-            data = sortBestRowMethod(allData, 1);
+            data = sortBest(allData, 1);
         }
         else if(optionChosen.equals("Main Game"))
         {
             //data = sortBest(allData, 0);
-            data = sortBestRowMethod(allData, 2);
+            data = sortBest(allData, 2);
         }
         else if(optionChosen.equals("End Game"))
         {
             //data = sortBest(allData, 0);
-            data = sortBestRowMethod(allData, 3);
+            data = sortBest(allData, 3);
+        }
+        else if(optionChosen.equals("Overall Score"))
+        {
+            //data = sortBest(allData, 0);
+            data = sortBest(allData, 4);
         }
         else
         {
-            System.out.println("OH GOD! THE BLOOD!! ITS EVERYWHERE");
+            System.err.println("OH GOD! THE BLOOD!! ITS EVERYWHERE");
             System.exit(1);
         }
 
@@ -159,8 +160,7 @@ public class AllDataGUI extends javax.swing.JFrame
 
     public void initTable()
     {
-        String data[][] = {};
-        data = sortBestRowMethod(allData, 0);
+        String data[][] = sortBest(allData, 0);
         writeToTable(data);
     }
 
@@ -174,42 +174,42 @@ public class AllDataGUI extends javax.swing.JFrame
         allData = data;
     }
 
-    public String[][] sortBestRowMethod(String array[][], int member)
+    public String[][] sortBest(String array[][], int member)
     {
-        System.out.println("--------------------------");
-        
+        // System.out.println("--------------------------");
         DataRow list[] = new DataRow[teamCount];
         DataRow dr2;
         DataRow dr1;
         DataRow parser = new DataRow();
 
-        System.out.println("Creating DataRow list...");
+        //System.out.println("Creating DataRow list...");
         for(int mainC = 0; mainC < teamCount; mainC++)
         {
             list[mainC] = new DataRow(array, mainC, DATA_POINTS);
-            System.out.println("Storing Team " + list[mainC].valueAt(0));
+            //System.out.println("Storing Team " + list[mainC].valueAt(0));
         }
 
-        System.out.println("--------------------------");
+        //System.out.println("--------------------------");
         for(int mainC = 0; mainC < Math.pow(teamCount, 2); mainC++)
         {
             for(int tIter = 1; tIter < teamCount; tIter++)
             {
                 dr1 = list[tIter - 1];
-                System.out.println("Trying Team " + dr1.valueAt(0) + "'s value of " + dr1.valueAt(member) + " at member " + member);
+                //System.out.println("Trying Team " + dr1.valueAt(0) + "'s value of " + dr1.valueAt(member) + " at member " + member);
 
                 dr2 = list[tIter];
-                System.out.println("Trying Team " + dr2.valueAt(0) + "'s value of " + dr2.valueAt(member) + " at member " + member);
+                //System.out.println("Trying Team " + dr2.valueAt(0) + "'s value of " + dr2.valueAt(member) + " at member " + member);
                 
 
                 if(Double.parseDouble(dr2.valueAt(member)) > Double.parseDouble(dr1.valueAt(member)))
                 {
-                    System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
+                    //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
                     list[tIter] = dr1;
                     list[tIter - 1] = dr2;
-                    System.out.println("Swapping teams...");
+                    //System.out.println("Swapping teams...");
                 }
 
+                /*
                 System.out.println("--------------------------");
                 System.out.println("Team List");
                 for(int i = 0; i < teamCount; i++)
@@ -217,26 +217,27 @@ public class AllDataGUI extends javax.swing.JFrame
                     System.out.println("> " + list[i].valueAt(0));
                 }
                 System.out.println("--------------------------");
+                 */
             }
         }
 
         return parser.dataRowArrayToStringArray(list, DATA_POINTS);
     }
 
-    double roundTwoDecimals(double num)
+    double roundTwoDecimals(double number)
     {
-        DecimalFormat form = new DecimalFormat(DECIMAL_FORMAT);
-        return Double.valueOf(form.format(num));
+        DecimalFormat dFormat = new DecimalFormat(DECIMAL_FORMAT);
+        return Double.valueOf(dFormat.format(number));
     }
     
-    void setTeamCount(int num)
+    void setTeamCount(int number)
     {
-        teamCount = num;
+        teamCount = number;
     }
 
     private void updateTitle(String suffix)
     {
-        setTitle("All Scores - " + suffix);
+        setTitle(TITLE_BASE + suffix);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
