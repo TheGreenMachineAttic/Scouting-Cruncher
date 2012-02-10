@@ -179,8 +179,8 @@ public class AllDataGUI extends javax.swing.JFrame
         System.out.println("--------------------------");
         
         DataRow list[] = new DataRow[teamCount];
-        DataRow dr1;
         DataRow dr2;
+        DataRow dr1;
         DataRow parser = new DataRow();
 
         System.out.println("Creating DataRow list...");
@@ -192,28 +192,30 @@ public class AllDataGUI extends javax.swing.JFrame
 
         for(int mainC = 0; mainC < Math.pow(teamCount, 2); mainC++)
         {
-            System.out.println("--------------------------");
-            System.out.println("Team List");
-            for(int i = 0; i < teamCount; i++)
-            {
-                System.out.println("> " + list[i].valueAt(0));
-            }
-
             for(int tIter = 1; tIter < teamCount; tIter++)
             {
                 System.out.println("--------------------------");
-                dr1 = list[tIter];
+
+                dr1 = list[tIter - 1];
                 System.out.println("Trying Team " + dr1.valueAt(0) + "'s value of " + dr1.valueAt(member) + " at member " + member);
 
-                dr2 = list[tIter - 1];
+                dr2 = list[tIter];
                 System.out.println("Trying Team " + dr2.valueAt(0) + "'s value of " + dr2.valueAt(member) + " at member " + member);
+                
 
-                if(Double.parseDouble(dr1.valueAt(member)) > Double.parseDouble(dr2.valueAt(member)))
+                if(Double.parseDouble(dr2.valueAt(member)) > Double.parseDouble(dr1.valueAt(member)))
                 {
                     System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
-                    list[tIter] = dr2;
-                    list[tIter - 1] = dr1;
+                    list[tIter] = dr1;
+                    list[tIter - 1] = dr2;
                     System.out.println("Swapping teams...");
+                }
+
+                System.out.println("--------------------------");
+                System.out.println("Team List");
+                for(int i = 0; i < teamCount; i++)
+                {
+                    System.out.println("> " + list[i].valueAt(0));
                 }
             }
         }
