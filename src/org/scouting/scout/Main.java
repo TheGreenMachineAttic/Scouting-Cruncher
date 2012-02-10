@@ -17,6 +17,7 @@ public class Main
 {
     private static int EXTRACTED_DATA_POINTS = 4;
     private static int FINAL_DATA_POINTS = 6;
+    private static int teamCount = 0;
 
 
 
@@ -57,7 +58,6 @@ public class Main
 
         teamListFileScanner.openFile(currentDir + "/" + workspaceFolderName, teamListFile);
 
-        int teamCount = 0;
         while(teamListFileScanner.hasNextEntry())
         {
             teamCount++;

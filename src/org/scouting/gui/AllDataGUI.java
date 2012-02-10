@@ -211,6 +211,7 @@ public class AllDataGUI extends javax.swing.JFrame
                     list[tIter - 1] = dr2;
 
                     finished = false;
+                    iter++;
                     //System.out.println("Swapping teams...");
                 }
 
@@ -223,7 +224,6 @@ public class AllDataGUI extends javax.swing.JFrame
                 }
                 System.out.println("--------------------------");
                  */
-                iter++;
             }
         }
 
