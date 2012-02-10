@@ -21,7 +21,7 @@ import javax.swing.table.TableModel;
  */
 public class AllDataGUI extends javax.swing.JFrame
 {
-    private static String tableHeader[] = new String[] {"Team Name", "Overall Score", "Auto Score", "Main Score", "End Score", "Penalty Number"};
+    private static String tableHeader[] = new String[] {"Team Name", "Auto Score", "Main Score", "End Score", "Overall Score", "Penalty Number"};
     private String[][] allData;
     private int teamCount;
     private static final int DATA_POINTS = 7;
@@ -112,7 +112,7 @@ public class AllDataGUI extends javax.swing.JFrame
         if(optionChosen.equals("Team Number"))
         {
             //data = sortBest(allData, 0);
-            data = sortBest(allData, 0);
+            data = sortBestRowMethod(allData, 0);
         }
         else if(optionChosen.equals("Overall Score"))
         {
@@ -122,17 +122,17 @@ public class AllDataGUI extends javax.swing.JFrame
         else if(optionChosen.equals("Autonomous"))
         {
             //data = sortBest(allData, 0);
-            data = sortBestBubble(allData, 1);
+            data = sortBestRowMethod(allData, 1);
         }
         else if(optionChosen.equals("Main Game"))
         {
             //data = sortBest(allData, 0);
-            data = sortBestBubble(allData, 2);
+            data = sortBestRowMethod(allData, 2);
         }
         else if(optionChosen.equals("End Game"))
         {
             //data = sortBest(allData, 0);
-            data = sortBestBubble(allData, 3);
+            data = sortBestRowMethod(allData, 3);
         }
         else
         {
@@ -160,7 +160,7 @@ public class AllDataGUI extends javax.swing.JFrame
     public void initTable()
     {
         String data[][] = {};
-        data = sortBest(allData, 0);
+        data = sortBestRowMethod(allData, 0);
         writeToTable(data);
     }
 
@@ -190,12 +190,11 @@ public class AllDataGUI extends javax.swing.JFrame
             System.out.println("Storing Team " + list[mainC].valueAt(0));
         }
 
+        System.out.println("--------------------------");
         for(int mainC = 0; mainC < Math.pow(teamCount, 2); mainC++)
         {
             for(int tIter = 1; tIter < teamCount; tIter++)
             {
-                System.out.println("--------------------------");
-
                 dr1 = list[tIter - 1];
                 System.out.println("Trying Team " + dr1.valueAt(0) + "'s value of " + dr1.valueAt(member) + " at member " + member);
 
@@ -217,163 +216,11 @@ public class AllDataGUI extends javax.swing.JFrame
                 {
                     System.out.println("> " + list[i].valueAt(0));
                 }
+                System.out.println("--------------------------");
             }
         }
 
         return parser.dataRowArrayToStringArray(list, DATA_POINTS);
-    }
-
-    public String[][] sortBestBubble(String array[][], int member)
-    {
-        String result[][] = array;
-
-        for(int mainC = 0; mainC < Math.pow(teamCount, 2); mainC++)
-        {
-            for(int tIter = 1; tIter < teamCount; tIter++)
-            {
-                double value0 = Double.parseDouble(array[tIter][0]);
-                double value1 = Double.parseDouble(array[tIter][1]);
-                double value2 = Double.parseDouble(array[tIter][2]);
-                double value3 = Double.parseDouble(array[tIter][3]);
-                double value4 = Double.parseDouble(array[tIter][4]);
-                double value5 = Double.parseDouble(array[tIter][5]);
-                double value6 = Double.parseDouble(array[tIter][6]);
-                double valueM = Double.parseDouble(array[tIter][member]);
-                
-                double valueN10 = Double.parseDouble(array[tIter - 1][0]);
-                double valueN11 = Double.parseDouble(array[tIter - 1][1]);
-                double valueN12 = Double.parseDouble(array[tIter - 1][2]);
-                double valueN13 = Double.parseDouble(array[tIter - 1][3]);
-                double valueN14 = Double.parseDouble(array[tIter - 1][4]);
-                double valueN15 = Double.parseDouble(array[tIter - 1][5]);
-                double valueN16 = Double.parseDouble(array[tIter - 1][6]);
-                double valueN1M = Double.parseDouble(array[tIter - 1][member]);
-                if(valueM > valueN1M)
-                {
-                    result[tIter][0] = String.valueOf(valueN10);
-                    result[tIter][1] = String.valueOf(valueN11);
-                    result[tIter][2] = String.valueOf(valueN12);
-                    result[tIter][3] = String.valueOf(valueN13);
-                    result[tIter][4] = String.valueOf(valueN14);
-                    result[tIter][5] = String.valueOf(valueN15);
-                    result[tIter][6] = String.valueOf(valueN16);
-                    result[tIter][member] = String.valueOf(valueN1M);
-
-                    result[tIter - 1][0] = String.valueOf(value0);
-                    result[tIter - 1][1] = String.valueOf(value1);
-                    result[tIter - 1][2] = String.valueOf(value2);
-                    result[tIter - 1][3] = String.valueOf(value3);
-                    result[tIter - 1][4] = String.valueOf(value4);
-                    result[tIter - 1][5] = String.valueOf(value5);
-                    result[tIter - 1][6] = String.valueOf(value6);
-
-                    result[tIter - 1][member] = String.valueOf(valueM);
-                }
-            }
-        }
-
-        return result;
-    }
-
-    public String[][] sortBest(String array[][], int member)
-    {
-        System.out.println("------------------------------------------");
-        String result[][] = new String[teamCount][7];
-
-        double topMember = 0;
-        double topAuto = 0;
-        double topMain = 0;
-        double topEnd = 0;
-        double topOverall = 0;
-        String topPenalties = "";
-        String penalties = "";
-        int teamNumber = 0;
-        for(int i = 0; i < teamCount; i++)
-        {
-            System.out.println("---");
-            System.out.println("Trying Team " + array[i][0] + "'s value of " + array[i][member] + " in member column " + member);
-            double firstNumber = Double.parseDouble(array[i][member]);
-            if(firstNumber > topMember)
-            {
-                System.out.println("Team " + array[i][0] + "'s Score is the best so far!");
-                teamNumber = Integer.parseInt(array[i][0]);
-                topAuto = Double.parseDouble(array[i][1]);
-                topMain = Double.parseDouble(array[i][2]);
-                topEnd = Double.parseDouble(array[i][3]);
-                topOverall = Double.parseDouble(array[i][4]);
-                topPenalties = array[i][5];
-                penalties = array[i][6];
-                topMember = Double.parseDouble(array[i][member]);
-            }
-        }
-
-        result[0][0] = Integer.toString(teamNumber);
-        result[0][1] = Double.toString(roundTwoDecimals(topAuto));
-        result[0][2] = Double.toString(roundTwoDecimals(topMain));
-        result[0][3] = Double.toString(roundTwoDecimals(topEnd));
-        result[0][4] = Double.toString(roundTwoDecimals(topOverall));
-        result[0][5] = topPenalties;
-        result[0][6] = penalties;
-        result[0][member] = Double.toString(roundTwoDecimals(topMember));
-
-        if(member == 0)
-        {
-            result[0][member] = Integer.toString((int) topMember);
-        }
-
-        System.out.println("-+-+-");
-        System.out.println("+++ Team " + teamNumber + "'is the best with " + topMember + " as a value!");
-        System.out.println("-+-+-\n");
-
-        for(int i = 0; i < teamCount - 1; i++)
-        {
-            topMember = 0;
-            topAuto = 0;
-            topMain = 0;
-            topEnd = 0;
-            topOverall = 0;
-            topPenalties = "";
-            penalties = "";
-            teamNumber = 0;
-            for(int j = 0; j < teamCount; j++)
-            {
-                System.out.println("---");
-                System.out.println("Trying Team " + array[j][0] + "'s value of " + array[i][member] + " in member column " + member);
-
-                double currentNumber = Double.parseDouble(array[j][member]);
-                double lastNumber = Double.parseDouble(result[i][member]);
-
-                if(currentNumber > topMember && currentNumber < lastNumber)
-                {
-                    teamNumber = Integer.parseInt(array[j][0]);
-                    topAuto = Double.parseDouble(array[j][1]);
-                    topMain = Double.parseDouble(array[j][2]);
-                    topEnd = Double.parseDouble(array[j][3]);
-                    topOverall = Double.parseDouble(array[j][4]);
-                    topPenalties = array[j][5];
-                    penalties = array[j][6];
-                    topMember = Double.parseDouble(array[j][member]);
-                }
-            }
-
-            //TODO: Impliment Stuff here!
-
-            result[i + 1][0] = Integer.toString(teamNumber);
-            result[i + 1][1] = Double.toString(roundTwoDecimals(topAuto));
-            result[i + 1][2] = Double.toString(roundTwoDecimals(topMain));
-            result[i + 1][3] = Double.toString(roundTwoDecimals(topEnd));
-            result[i + 1][4] = Double.toString(roundTwoDecimals(topOverall));
-            result[i + 1][5] = topPenalties;
-            result[i + 1][6] = penalties;
-            result[i + 1][member] = Double.toString(roundTwoDecimals(topMember));
-
-            if(member == 0)
-            {
-                result[i + 1][member] = Integer.toString((int) topMember);
-            }
-        }
-
-        return result;
     }
 
     double roundTwoDecimals(double num)
