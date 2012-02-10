@@ -112,12 +112,12 @@ public class AllDataGUI extends javax.swing.JFrame
         if(optionChosen.equals("Team Number"))
         {
             //data = sortBest(allData, 0);
-            data = sortBestBubble(allData, 0);
+            data = sortBest(allData, 0);
         }
         else if(optionChosen.equals("Overall Score"))
         {
             //data = sortBest(allData, 0);
-            data = sortBestBubble(allData, 4);
+            data = sortBestRowMethod(allData, 4);
         }
         else if(optionChosen.equals("Autonomous"))
         {
@@ -174,37 +174,52 @@ public class AllDataGUI extends javax.swing.JFrame
         allData = data;
     }
 
-//    public String[][] sortBestRowMethod(String array[][], int member)
-//    {
-//        String result[][];
-//
-//        DataRow list[] = new DataRow[teamCount];
-//        DataRow dr1;
-//        DataRow dr2;
-//        DataRow buffer;
-//        DataRow parser;
-//
-//        for(int mainC = 0; mainC < teamCount; mainC++)
-//        {
-//            list[mainC] = new DataRow(array, mainC, DATA_POINTS);
-//        }
-//
-//        for(int mainC = 0; mainC < Math.pow(teamCount, 2); mainC++)
-//        {
-//            for(int tIter = 1; tIter < teamCount; tIter++)
-//            {
-//                dr1 = new DataRow(array, tIter, DATA_POINTS);
-//                dr2 = new DataRow(array, tIter - 1, DATA_POINTS);
-//
-//                if(Double.parseDouble(dr1.valueAt(member)) > Double.parseDouble(dr2.valueAt(member)))
-//                {
-//
-//                }
-//            }
-//        }
-//
-//        return result;
-//    }
+    public String[][] sortBestRowMethod(String array[][], int member)
+    {
+        System.out.println("--------------------------");
+        
+        DataRow list[] = new DataRow[teamCount];
+        DataRow dr1;
+        DataRow dr2;
+        DataRow parser = new DataRow();
+
+        System.out.println("Creating DataRow list...");
+        for(int mainC = 0; mainC < teamCount; mainC++)
+        {
+            list[mainC] = new DataRow(array, mainC, DATA_POINTS);
+            System.out.println("Storing Team " + list[mainC].valueAt(0));
+        }
+
+        for(int mainC = 0; mainC < Math.pow(teamCount, 2); mainC++)
+        {
+            System.out.println("--------------------------");
+            System.out.println("Team List");
+            for(int i = 0; i < teamCount; i++)
+            {
+                System.out.println("> " + list[i].valueAt(0));
+            }
+
+            for(int tIter = 1; tIter < teamCount; tIter++)
+            {
+                System.out.println("--------------------------");
+                dr1 = list[tIter];
+                System.out.println("Trying Team " + dr1.valueAt(0) + "'s value of " + dr1.valueAt(member) + " at member " + member);
+
+                dr2 = list[tIter - 1];
+                System.out.println("Trying Team " + dr2.valueAt(0) + "'s value of " + dr2.valueAt(member) + " at member " + member);
+
+                if(Double.parseDouble(dr1.valueAt(member)) > Double.parseDouble(dr2.valueAt(member)))
+                {
+                    System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
+                    list[tIter] = dr2;
+                    list[tIter - 1] = dr1;
+                    System.out.println("Swapping teams...");
+                }
+            }
+        }
+
+        return parser.dataRowArrayToStringArray(list, DATA_POINTS);
+    }
 
     public String[][] sortBestBubble(String array[][], int member)
     {
