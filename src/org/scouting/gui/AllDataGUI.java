@@ -190,8 +190,11 @@ public class AllDataGUI extends javax.swing.JFrame
         }
 
         //System.out.println("--------------------------");
-        for(int mainC = 0; mainC < Math.pow(teamCount, 2); mainC++)
+        boolean finished = false;
+        int iter = 0;
+        while(!finished)
         {
+            finished = true;
             for(int tIter = 1; tIter < teamCount; tIter++)
             {
                 dr1 = list[tIter - 1];
@@ -206,6 +209,8 @@ public class AllDataGUI extends javax.swing.JFrame
                     //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
                     list[tIter] = dr1;
                     list[tIter - 1] = dr2;
+
+                    finished = false;
                     //System.out.println("Swapping teams...");
                 }
 
@@ -218,8 +223,11 @@ public class AllDataGUI extends javax.swing.JFrame
                 }
                 System.out.println("--------------------------");
                  */
+                iter++;
             }
         }
+
+        System.out.println("Loops to Sort: " + iter);
 
         return parser.dataRowArrayToStringArray(list, DATA_POINTS);
     }
