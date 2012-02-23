@@ -28,6 +28,8 @@ public class AllDataGUI extends javax.swing.JFrame
     private static final int DATA_POINTS = 7;
     private static final String TITLE_BASE = "All Scores - ";
     private String DECIMAL_FORMAT = "#.###";
+    private final int LOW_TO_HIGH = 1;
+    private final int HIGH_TO_LOW = 2;
 
 
     /** Creates new form AllDataGUI */
@@ -108,33 +110,35 @@ public class AllDataGUI extends javax.swing.JFrame
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
+        int mode = HIGH_TO_LOW;
+
         String optionChosen = jComboBox1.getSelectedItem().toString();
         String data[][] = {};
 
         if(optionChosen.equals("Team Number"))
         {
             //data = sortBest(allData, 0);
-            data = sortBest(allData, 0);
+            data = sortBest(allData, 0, mode);
         }
         else if(optionChosen.equals("Autonomous"))
         {
             //data = sortBest(allData, 0);
-            data = sortBest(allData, 1);
+            data = sortBest(allData, 1, mode);
         }
         else if(optionChosen.equals("Main Game"))
         {
             //data = sortBest(allData, 0);
-            data = sortBest(allData, 2);
+            data = sortBest(allData, 2, mode);
         }
         else if(optionChosen.equals("End Game"))
         {
             //data = sortBest(allData, 0);
-            data = sortBest(allData, 3);
+            data = sortBest(allData, 3, mode);
         }
         else if(optionChosen.equals("Overall Score"))
         {
             //data = sortBest(allData, 0);
-            data = sortBest(allData, 4);
+            data = sortBest(allData, 4, mode);
         }
         else
         {
@@ -161,7 +165,7 @@ public class AllDataGUI extends javax.swing.JFrame
 
     public void initTable()
     {
-        String data[][] = sortBest(allData, 0);
+        String data[][] = sortBest(allData, 0, HIGH_TO_LOW);
         writeToTable(data);
     }
 
@@ -175,19 +179,21 @@ public class AllDataGUI extends javax.swing.JFrame
         allData = data;
     }
 
-    public String[][] sortBest(String array[][], int member)
+    public String[][] sortBest(String array[][], int member, int direction)
     {
         // System.out.println("--------------------------");
-        DataRow list[] = new DataRow[teamCount];
+
+        int arrayLength = getArrayWidth(array);
+        DataRow list[] = new DataRow[arrayLength];
         DataRow dr2;
         DataRow dr1;
         DataRow parser = new DataRow();
 
         //System.out.println("Creating DataRow list...");
-        for(int i = 0; i < teamCount; i++)
+        for(int mainC = 0; mainC < arrayLength; mainC++)
         {
-            System.out.println(array[member][i]);
-            list[i] = new DataRow(array, i, DATA_POINTS);
+            list[mainC] = new DataRow(array, mainC, DATA_POINTS);
+            list[mainC].printRowData();
             //System.out.println("Storing Team " + list[mainC].valueAt(0));
         }
 
@@ -197,41 +203,70 @@ public class AllDataGUI extends javax.swing.JFrame
         while(!finished)
         {
             finished = true;
-            for(int tIter = 1; tIter < teamCount; tIter++)
+            for(int tIter = 1; tIter < arrayLength; tIter++)
             {
                 dr1 = list[tIter - 1];
                 //System.out.println("Trying Team " + dr1.valueAt(0) + "'s value of " + dr1.valueAt(member) + " at member " + member);
 
                 dr2 = list[tIter];
                 //System.out.println("Trying Team " + dr2.valueAt(0) + "'s value of " + dr2.valueAt(member) + " at member " + member);
-                
 
-                if(Double.parseDouble(dr2.valueAt(member)) > Double.parseDouble(dr1.valueAt(member)))
+                switch(direction)
                 {
-                    //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
-                    list[tIter] = dr1;
-                    list[tIter - 1] = dr2;
+                    case LOW_TO_HIGH:
+                        if(Double.parseDouble(dr2.valueAt(member)) < Double.parseDouble(dr1.valueAt(member)))
+                        {
+                            //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
+                            list[tIter] = dr1;
+                            list[tIter - 1] = dr2;
 
-                    finished = false;
-                    iter++;
-                    //System.out.println("Swapping teams...");
-                }
+                            finished = false;
+                            iter++;
+                            //System.out.println("Swapping teams...");
+                        }
+                        break;
+                    case HIGH_TO_LOW:
+                        if(Double.parseDouble(dr2.valueAt(member)) > Double.parseDouble(dr1.valueAt(member)))
+                        {
+                            //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
+                            list[tIter] = dr1;
+                            list[tIter - 1] = dr2;
 
-                /*
-                System.out.println("--------------------------");
-                System.out.println("Team List");
-                for(int i = 0; i < teamCount; i++)
-                {
-                    System.out.println("> " + list[i].valueAt(0));
+                            finished = false;
+                            iter++;
+                            //System.out.println("Swapping teams...");
+                        }
+                        break;
+                    default:
+                        System.err.println("I wont even try...");
+                        break;
                 }
-                System.out.println("--------------------------");
-                 */
             }
         }
 
         System.out.println("Loops to Sort: " + iter);
 
         return parser.dataRowArrayToStringArray(list, DATA_POINTS);
+    }
+
+    private int getArrayWidth(String array[][])
+    {
+        boolean done = false;
+        int count = 0;
+        while(!done)
+        {
+            try
+            {
+                String xyz = array[count][0];
+                count++;
+            }
+            catch(Exception e)
+            {
+                done = true;
+            }
+        }
+
+        return count;
     }
 
     double roundTwoDecimals(double number)
