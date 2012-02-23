@@ -269,9 +269,11 @@ public class DataByTeamGUI extends javax.swing.JFrame
         showData(Integer.parseInt(teamList[0]));
         sortComboBox.setModel(new DefaultComboBoxModel(dataTableHeader));
 
+        System.out.println("-----------");
         System.out.println("Init Data:");
         System.out.println("Team Count: " + teamCount);
         System.out.println("First Team: " + Integer.parseInt(teamList[0]));
+        System.out.println("-----------");
     }
 
     private void showData()
@@ -289,6 +291,8 @@ public class DataByTeamGUI extends javax.swing.JFrame
         String data[][] = getContent(teamNumber);
         displayData(data);
         updateTitle(String.valueOf(teamNumber));
+
+        recentData = data;
     }
 
     private void showTeamList(String list[])

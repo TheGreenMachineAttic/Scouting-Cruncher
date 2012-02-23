@@ -184,9 +184,10 @@ public class AllDataGUI extends javax.swing.JFrame
         DataRow parser = new DataRow();
 
         //System.out.println("Creating DataRow list...");
-        for(int mainC = 0; mainC < teamCount; mainC++)
+        for(int i = 0; i < teamCount; i++)
         {
-            list[mainC] = new DataRow(array, mainC, DATA_POINTS);
+            System.out.println(array[member][i]);
+            list[i] = new DataRow(array, i, DATA_POINTS);
             //System.out.println("Storing Team " + list[mainC].valueAt(0));
         }
 
