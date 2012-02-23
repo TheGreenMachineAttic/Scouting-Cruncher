@@ -11,6 +11,8 @@
 
 package org.scouting.gui;
 
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import org.scouting.filer.Extracter;
 import org.scouting.filer.FileScanner;
@@ -45,6 +47,8 @@ public class DataByTeamGUI extends javax.swing.JFrame
         this.teamList = teamList;
         showTeamList(teamList);
         showData(Integer.parseInt(teamList[0]));
+        sortComboBox.setModel(new DefaultComboBoxModel(dataTableHeader));
+
         setVisible(true);
     }
 
@@ -56,6 +60,8 @@ public class DataByTeamGUI extends javax.swing.JFrame
         teamCount = teamList.length - 1;
         showTeamList(teamList);
         showData(Integer.parseInt(teamList[0]));
+        sortComboBox.setModel(new DefaultComboBoxModel(dataTableHeader));
+
         setVisible(true);
     }
 
@@ -222,7 +228,7 @@ public class DataByTeamGUI extends javax.swing.JFrame
 
     private void sortComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortComboBoxActionPerformed
         // TODO add your handling code here:
-
+        resultComboBoxActionPerformed(evt);
     }//GEN-LAST:event_sortComboBoxActionPerformed
 
     private void resultComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultComboBoxActionPerformed
@@ -234,25 +240,30 @@ public class DataByTeamGUI extends javax.swing.JFrame
 
         String data[][] = {};
 
-        if(optionChosen.equals("Team Number"))
+        if(optionChosen.equals(dataTableHeader[0]))
         {
             //data = sortBest(recentData, 0);
             data = sortBest(recentData, 0, mode);
         }
-        else if(optionChosen.equals("Autonomous"))
+        else if(optionChosen.equals(dataTableHeader[1]))
         {
             //data = sortBest(recentData, 0);
             data = sortBest(recentData, 1, mode);
         }
-        else if(optionChosen.equals("Main Game"))
+        else if(optionChosen.equals(dataTableHeader[2]))
         {
             //data = sortBest(recentData, 0);
             data = sortBest(recentData, 2, mode);
         }
-        else if(optionChosen.equals("End Game"))
+        else if(optionChosen.equals(dataTableHeader[3]))
         {
             //data = sortBest(recentData, 0);
             data = sortBest(recentData, 3, mode);
+        }
+        else if(optionChosen.equals(dataTableHeader[4]))
+        {
+            //data = sortBest(recentData, 0);
+            data = sortBest(recentData, 4, mode);
         }
         else
         {
