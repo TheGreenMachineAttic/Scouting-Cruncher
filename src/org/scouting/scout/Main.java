@@ -239,6 +239,7 @@ public class Main
         rGUI.setOverallTable(totalScoreData);
         rGUI.setPeanltiesData(penaltyData);
         rGUI.setAllScoresTable(allData);
+        rGUI.setTeamList(teamArray);
         rGUI.setVisible(true);
 
 

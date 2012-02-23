@@ -30,8 +30,10 @@ public class ResultGUI extends javax.swing.JFrame
     private static String mainData[][];
     private static String endData[][];
     private static String totalData[][];
-    private String[][] penaltiesData;
-    private String[][] over9000Data;
+    private static String[][] penaltiesData;
+    private static String[][] over9000Data;
+    private static String[] teamList;
+
     private int teamCount;
     private String commentDir;
     private String DECIMAL_FORMAT = "#.###";
@@ -70,6 +72,7 @@ public class ResultGUI extends javax.swing.JFrame
         moreButton = new javax.swing.JButton();
         penaltiesButton = new javax.swing.JButton();
         commentsButton = new javax.swing.JButton();
+        byTeamButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Results");
@@ -245,7 +248,7 @@ public class ResultGUI extends javax.swing.JFrame
                 .add(totalScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
         );
 
-        moreButton.setText("See All Data");
+        moreButton.setText("See All Average Data");
         moreButton.setFocusable(false);
         moreButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,6 +272,14 @@ public class ResultGUI extends javax.swing.JFrame
             }
         });
 
+        byTeamButton.setText("See All Data Per Team");
+        byTeamButton.setFocusable(false);
+        byTeamButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                byTeamButtonActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -286,16 +297,18 @@ public class ResultGUI extends javax.swing.JFrame
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, avrTotalScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(layout.createSequentialGroup()
                         .add(moreButton)
-                        .add(149, 149, 149)
-                        .add(penaltiesButton)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 161, Short.MAX_VALUE)
-                        .add(commentsButton)))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 381, Short.MAX_VALUE)
+                        .add(commentsButton))
+                    .add(layout.createSequentialGroup()
+                        .add(byTeamButton)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 361, Short.MAX_VALUE)
+                        .add(penaltiesButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(20, 20, 20)
+                .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .add(avrEndScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -308,10 +321,12 @@ public class ResultGUI extends javax.swing.JFrame
                         .add(18, 18, 18)
                         .add(avrMainScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(17, 17, 17)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(moreButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(penaltiesButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(moreButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(byTeamButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(penaltiesButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -342,6 +357,11 @@ public class ResultGUI extends javax.swing.JFrame
         cGUI.setComments(over9000Data);
         cGUI.setVisible(true);
     }//GEN-LAST:event_commentsButtonActionPerformed
+
+    private void byTeamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_byTeamButtonActionPerformed
+        // TODO add your handling code here:
+        DataByTeamGUI dbtGUI = new DataByTeamGUI(teamList);
+    }//GEN-LAST:event_byTeamButtonActionPerformed
 
     /**
     * @param args the command line arguments
@@ -485,6 +505,18 @@ public class ResultGUI extends javax.swing.JFrame
         over9000Data = data;
     }
 
+    public void setTeamList(String data[])
+    {
+        String newData[] = new String[data.length - 1];
+
+        for(int i = 0; i < newData.length; i++)
+        {
+            newData[i] = data[i + 1];
+        }
+
+        teamList = newData;
+    }
+
     double roundTwoDecimals(double num)
     {
         DecimalFormat form = new DecimalFormat(DECIMAL_FORMAT);
@@ -499,6 +531,7 @@ public class ResultGUI extends javax.swing.JFrame
     private javax.swing.JPanel avrEndScorePanel;
     private javax.swing.JPanel avrMainScorePanel;
     private javax.swing.JPanel avrTotalScorePanel;
+    private javax.swing.JButton byTeamButton;
     private javax.swing.JButton commentsButton;
     private javax.swing.JLabel endLabel;
     private javax.swing.JScrollPane endScrollPane;
