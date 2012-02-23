@@ -96,6 +96,12 @@ public class DataByTeamGUI extends javax.swing.JFrame
                 return canEdit [columnIndex];
             }
         });
+        teamTable.setCellSelectionEnabled(true);
+        teamTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                teamTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(teamTable);
 
         dataTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -182,6 +188,12 @@ public class DataByTeamGUI extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void teamTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamTableMouseClicked
+        // TODO add your handling code here:
+        int teamNumber = getTeamNumber();
+        showData(teamNumber);
+    }//GEN-LAST:event_teamTableMouseClicked
+
     private void showData()
     {
         int teamNumber = getTeamNumber();
@@ -229,8 +241,6 @@ public class DataByTeamGUI extends javax.swing.JFrame
         String workspaceFolderName = Main.workspaceFolderName;
         String teamFolderName = Main.teamFolderName;
 
-        System.out.println();
-        System.out.println("Team " + String.valueOf(teamNumber) + ":");
         teamFileScanner.openFile(currentDir + "/" + workspaceFolderName + "/" + teamFolderName, String.valueOf(teamNumber) + ".txt");
 
         String nextLine = teamFileScanner.getNextLine();
@@ -246,26 +256,20 @@ public class DataByTeamGUI extends javax.swing.JFrame
             lineCount++;
         }
 
-        System.out.println("Found Line numbers (" + lineCount + ") in " + String.valueOf(teamNumber) + ".txt");
-
         String content[] = new String[lineCount];
         teamFileScanner.openFile(currentDir + "/" + workspaceFolderName + "/" + teamFolderName, String.valueOf(teamNumber) + ".txt");
 
         nextLine = teamFileScanner.getNextLine();
-        System.out.println("::: " + nextLine);
         while(nextLine.startsWith("#"))
         {
             nextLine = teamFileScanner.getNextLine();
-            System.out.println("::: " + nextLine);
         }
 
         content[0] = nextLine;
-        System.out.println("     content[0] = " + nextLine);
         for(int j = 1; j < lineCount; j++)
         //while(teamFileScanner.hasNextEntry())
         {
             content[j] = teamFileScanner.getNextLine();
-            System.out.println("    content[" + j + "] = " + content[j]);
         }
 
         String extractedData[][] = new String[lineCount][5];
