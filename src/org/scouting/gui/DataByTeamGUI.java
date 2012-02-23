@@ -17,7 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import org.scouting.filer.Extracter;
 import org.scouting.filer.FileScanner;
-import org.scouting.gui.utilities.DataRowFlipped;
+import org.scouting.gui.utilities.DataRow;
 import org.scouting.scout.Main;
 
 /*
@@ -28,7 +28,7 @@ public class DataByTeamGUI extends javax.swing.JFrame
 {
     private static String VERSION = "";
     private static String TITLE_BASE = "Data For Team ";
-    private int DATA_POINTS = 7;
+    private int DATA_POINTS = 5;
 
     private final int LOW_TO_HIGH = 1;
     private final int HIGH_TO_LOW = 2;
@@ -375,21 +375,27 @@ public class DataByTeamGUI extends javax.swing.JFrame
 
     private int getTeamNumber()
     {
-        return Integer.parseInt(teamTable.getValueAt(teamTable.getSelectedRow(), teamTable.getSelectedColumn()).toString());
+        return Integer.parseInt(
+                teamTable.getValueAt(
+                teamTable.getSelectedRow(), teamTable.getSelectedColumn()
+                ).toString()
+                );
     }
 
     public String[][] sortBest(String array[][], int member, int direction)
     {
         // System.out.println("--------------------------");
-        DataRowFlipped list[] = new DataRowFlipped[teamCount];
-        DataRowFlipped dr2;
-        DataRowFlipped dr1;
-        DataRowFlipped parser = new DataRowFlipped();
+
+        int arrayLength = getArrayWidth(array);
+        DataRow list[] = new DataRow[arrayLength];
+        DataRow dr2;
+        DataRow dr1;
+        DataRow parser = new DataRow();
 
         //System.out.println("Creating DataRow list...");
-        for(int mainC = 0; mainC < teamCount; mainC++)
+        for(int mainC = 0; mainC < arrayLength; mainC++)
         {
-            list[mainC] = new DataRowFlipped(array, mainC, DATA_POINTS);
+            list[mainC] = new DataRow(array, mainC, DATA_POINTS);
             list[mainC].printRowData();
             //System.out.println("Storing Team " + list[mainC].valueAt(0));
         }
@@ -400,7 +406,7 @@ public class DataByTeamGUI extends javax.swing.JFrame
         while(!finished)
         {
             finished = true;
-            for(int tIter = 1; tIter < teamCount; tIter++)
+            for(int tIter = 1; tIter < arrayLength; tIter++)
             {
                 dr1 = list[tIter - 1];
                 //System.out.println("Trying Team " + dr1.valueAt(0) + "'s value of " + dr1.valueAt(member) + " at member " + member);
@@ -444,6 +450,26 @@ public class DataByTeamGUI extends javax.swing.JFrame
         System.out.println("Loops to Sort: " + iter);
 
         return parser.dataRowArrayToStringArray(list, DATA_POINTS);
+    }
+
+    private int getArrayWidth(String array[][])
+    {
+        boolean done = false;
+        int count = 0;
+        while(!done)
+        {
+            try
+            {
+                String xyz = array[count][0];
+                count++;
+            }
+            catch(Exception e)
+            {
+                done = true;
+            }
+        }
+
+        return count;
     }
 
     /**
