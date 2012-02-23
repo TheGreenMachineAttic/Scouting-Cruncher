@@ -40,6 +40,19 @@ public class DataRow
         return dataRow[member];
     }
 
+    public void printRowData()
+    {
+        System.out.println("--------------");
+        System.out.println("Data Row Data:");
+        System.out.println("== Length: " + dataRow.length);
+        System.out.println("== Data:");
+        for(int i = 0; i < dataRow.length; i++)
+        {
+            System.out.println("== Row[" + i + "]: " + dataRow[i]);
+        }
+        System.out.println("--------------");
+    }
+
     public String[][] dataRowArrayToStringArray(DataRow array[], int finalWidth)
     {
         int finalLength = array.length;
