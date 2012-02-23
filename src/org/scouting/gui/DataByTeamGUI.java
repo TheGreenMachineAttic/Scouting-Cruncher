@@ -38,6 +38,7 @@ public class DataByTeamGUI extends javax.swing.JFrame
     private String dataTableHeader[] = new String[] {"Match Number", "Auto Score", "Main Score", "End Score", "Penalties"};
     private String teamTableHeader[] = new String[] {"Team Number"};
     private int teamCount;
+    private int recentTeamNumber;
 
     /** Creates new form DataByTeamGUI */
     public DataByTeamGUI() {}
@@ -258,7 +259,7 @@ public class DataByTeamGUI extends javax.swing.JFrame
         }
 
         displayData(data);
-        updateTitle(getTeamNumber() + " - " + optionChosen);
+        updateTitle(recentTeamNumber + " - " + optionChosen);
     }//GEN-LAST:event_resultComboBoxActionPerformed
 
     private void init(String list[])
@@ -293,6 +294,7 @@ public class DataByTeamGUI extends javax.swing.JFrame
         updateTitle(String.valueOf(teamNumber));
 
         recentData = data;
+        recentTeamNumber = teamNumber;
     }
 
     private void showTeamList(String list[])
