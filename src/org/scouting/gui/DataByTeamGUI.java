@@ -11,6 +11,7 @@
 
 package org.scouting.gui;
 
+import javax.swing.table.DefaultTableModel;
 import org.scouting.filer.Extracter;
 import org.scouting.filer.FileScanner;
 import org.scouting.scout.Main;
@@ -21,12 +22,22 @@ import org.scouting.scout.Main;
  */
 public class DataByTeamGUI extends javax.swing.JFrame
 {
-    String VERSION = "";
+    private static String VERSION = "";
+    private static String TITLE_BASE = "Data For Team ";
+
+    private  String teamList[];
+    private  String tableHeader[] = new String[] {"Match Number", "Team Name", "Auto Score", "Main Score", "End Score"};
 
     /** Creates new form DataByTeamGUI */
+    public DataByTeamGUI() {}
+
     public DataByTeamGUI(String teamList[])
     {
         initComponents();
+
+
+        this.teamList = teamList;
+        showData(Integer.parseInt(teamList[0]));
     }
 
     public DataByTeamGUI(String teamList[], String version)
@@ -170,6 +181,25 @@ public class DataByTeamGUI extends javax.swing.JFrame
     {
         int teamNumber = getTeamNumber();
         String data[][] = getContent(teamNumber);
+        displayData(data);
+        updateTitle(String.valueOf(teamNumber));
+    }
+
+    public void showData(int teamNumber)
+    {
+        String data[][] = getContent(teamNumber);
+        displayData(data);
+        updateTitle(String.valueOf(teamNumber));
+    }
+
+    private void updateTitle(String suffix)
+    {
+        setTitle(TITLE_BASE + suffix);
+    }
+
+    public void displayData(String data[][])
+    {
+        dataTable.setModel(new DefaultTableModel(data, tableHeader));
     }
 
     public String[][] getContent(int teamNumber)
