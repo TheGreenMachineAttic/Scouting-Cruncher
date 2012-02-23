@@ -35,14 +35,18 @@ public class DataByTeamGUI extends javax.swing.JFrame
     {
         initComponents();
 
-
         this.teamList = teamList;
         showData(Integer.parseInt(teamList[0]));
+        setVisible(true);
     }
 
     public DataByTeamGUI(String teamList[], String version)
     {
         VERSION = version;
+
+        this.teamList = teamList;
+        showData(Integer.parseInt(teamList[0]));
+        setVisible(true);
     }
 
     /** This method is called from within the constructor to
