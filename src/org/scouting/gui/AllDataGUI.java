@@ -37,6 +37,8 @@ public class AllDataGUI extends javax.swing.JFrame
     {
         initComponents();
         updateTitle("Team Number");
+
+        //ssortDirComboBox.setSelectedIndex(1);
     }
 
     /** This method is called from within the constructor to
@@ -48,20 +50,22 @@ public class AllDataGUI extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scoresLabel = new javax.swing.JLabel();
+        modeComboBox = new javax.swing.JComboBox();
+        dataScrollPane = new javax.swing.JScrollPane();
         dataTable = new javax.swing.JTable();
+        resultsLabel = new javax.swing.JLabel();
+        sortDirComboBox = new javax.swing.JComboBox();
 
         setTitle("All Scores");
 
-        jLabel1.setText("All Average Scores By");
+        scoresLabel.setText("All Average Scores By");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Team Number", "Overall Score", "Autonomous", "Main Game", "End Game" }));
-        jComboBox1.setFocusable(false);
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        modeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Team Number", "Overall Score", "Autonomous", "Main Game", "End Game" }));
+        modeComboBox.setFocusable(false);
+        modeComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                modeComboBoxActionPerformed(evt);
             }
         });
 
@@ -77,42 +81,60 @@ public class AllDataGUI extends javax.swing.JFrame
             }
         ));
         dataTable.setMinimumSize(new java.awt.Dimension(64, 64));
-        jScrollPane1.setViewportView(dataTable);
+        dataScrollPane.setViewportView(dataTable);
+
+        resultsLabel.setText("with results");
+
+        sortDirComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Low to High", "High to Low" }));
+        sortDirComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sortDirComboBoxActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(jLabel1)
+                    .add(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(dataScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .add(200, 200, 200)
+                        .add(scoresLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE))
+                        .add(modeComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(resultsLabel)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(sortDirComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(20, 20, 20)
+                .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel1)
-                    .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(scoresLabel)
+                    .add(modeComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(resultsLabel)
+                    .add(sortDirComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 346, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(dataScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 346, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void modeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeComboBoxActionPerformed
         // TODO add your handling code here:
-        int mode = HIGH_TO_LOW;
+        int mode = sortDirComboBox.getSelectedItem().toString().equals("Low to High") ?
+            LOW_TO_HIGH : HIGH_TO_LOW;
 
-        String optionChosen = jComboBox1.getSelectedItem().toString();
+        String optionChosen = modeComboBox.getSelectedItem().toString();
         String data[][] = {};
 
         if(optionChosen.equals("Team Number"))
@@ -149,7 +171,12 @@ public class AllDataGUI extends javax.swing.JFrame
         updateTitle(optionChosen);
         writeToTable(data);
 
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_modeComboBoxActionPerformed
+
+    private void sortDirComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortDirComboBoxActionPerformed
+        // TODO add your handling code here:
+        modeComboBoxActionPerformed(evt);
+    }//GEN-LAST:event_sortDirComboBoxActionPerformed
 
     /**
     * @param args the command line arguments
@@ -193,7 +220,7 @@ public class AllDataGUI extends javax.swing.JFrame
         for(int mainC = 0; mainC < arrayLength; mainC++)
         {
             list[mainC] = new DataRow(array, mainC, DATA_POINTS);
-            list[mainC].printRowData();
+            //list[mainC].printRowData();
             //System.out.println("Storing Team " + list[mainC].valueAt(0));
         }
 
@@ -286,10 +313,12 @@ public class AllDataGUI extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane dataScrollPane;
     private javax.swing.JTable dataTable;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox modeComboBox;
+    private javax.swing.JLabel resultsLabel;
+    private javax.swing.JLabel scoresLabel;
+    private javax.swing.JComboBox sortDirComboBox;
     // End of variables declaration//GEN-END:variables
 
 
