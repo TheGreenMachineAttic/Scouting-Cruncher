@@ -17,6 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import org.scouting.filer.Extracter;
 import org.scouting.filer.FileScanner;
+import org.scouting.gui.utilities.DataRowFlipped;
 import org.scouting.scout.Main;
 
 /*
@@ -34,7 +35,7 @@ public class DataByTeamGUI extends javax.swing.JFrame
 
     private String teamList[];
     private String recentData[][];
-    private String dataTableHeader[] = new String[] {"Match Number", "Team Number", "Auto Score", "Main Score", "End Score"};
+    private String dataTableHeader[] = new String[] {"Match Number", "Auto Score", "Main Score", "End Score", "Penalties"};
     private String teamTableHeader[] = new String[] {"Team Number"};
     private int teamCount;
 
@@ -46,9 +47,7 @@ public class DataByTeamGUI extends javax.swing.JFrame
         initComponents();
 
         this.teamList = teamList;
-        showTeamList(teamList);
-        showData(Integer.parseInt(teamList[0]));
-        sortComboBox.setModel(new DefaultComboBoxModel(dataTableHeader));
+        init(teamList);
 
         setVisible(true);
     }
@@ -56,12 +55,7 @@ public class DataByTeamGUI extends javax.swing.JFrame
     public DataByTeamGUI(String teamList[], String version)
     {
         VERSION = version;
-
-        this.teamList = teamList;
-        teamCount = teamList.length - 1;
-        showTeamList(teamList);
-        showData(Integer.parseInt(teamList[0]));
-        sortComboBox.setModel(new DefaultComboBoxModel(dataTableHeader));
+        init(teamList);
 
         setVisible(true);
     }
@@ -114,9 +108,6 @@ public class DataByTeamGUI extends javax.swing.JFrame
         teamTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 teamTableMousePressed(evt);
-            }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teamTableMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(teamTable);
@@ -215,12 +206,6 @@ public class DataByTeamGUI extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void teamTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamTableMouseClicked
-        // TODO add your handling code here:
-        int teamNumber = getTeamNumber();
-        showData(teamNumber);
-    }//GEN-LAST:event_teamTableMouseClicked
-
     private void teamTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamTableMousePressed
         // TODO add your handling code here:
         int teamNumber = getTeamNumber();
@@ -273,7 +258,21 @@ public class DataByTeamGUI extends javax.swing.JFrame
         }
 
         displayData(data);
+        updateTitle(getTeamNumber() + " - " + optionChosen);
     }//GEN-LAST:event_resultComboBoxActionPerformed
+
+    private void init(String list[])
+    {
+        teamList = list;
+        teamCount = teamList.length - 1;
+        showTeamList(teamList);
+        showData(Integer.parseInt(teamList[0]));
+        sortComboBox.setModel(new DefaultComboBoxModel(dataTableHeader));
+
+        System.out.println("Init Data:");
+        System.out.println("Team Count: " + teamCount);
+        System.out.println("First Team: " + Integer.parseInt(teamList[0]));
+    }
 
     private void showData()
     {
@@ -378,15 +377,16 @@ public class DataByTeamGUI extends javax.swing.JFrame
     public String[][] sortBest(String array[][], int member, int direction)
     {
         // System.out.println("--------------------------");
-        DataRow list[] = new DataRow[teamCount];
-        DataRow dr2;
-        DataRow dr1;
-        DataRow parser = new DataRow();
+        DataRowFlipped list[] = new DataRowFlipped[teamCount];
+        DataRowFlipped dr2;
+        DataRowFlipped dr1;
+        DataRowFlipped parser = new DataRowFlipped();
 
         //System.out.println("Creating DataRow list...");
         for(int mainC = 0; mainC < teamCount; mainC++)
         {
-            list[mainC] = new DataRow(array, mainC, DATA_POINTS);
+            list[mainC] = new DataRowFlipped(array, mainC, DATA_POINTS);
+            list[mainC].printRowData();
             //System.out.println("Storing Team " + list[mainC].valueAt(0));
         }
 
