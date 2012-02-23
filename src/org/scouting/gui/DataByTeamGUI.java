@@ -26,7 +26,8 @@ public class DataByTeamGUI extends javax.swing.JFrame
     private static String TITLE_BASE = "Data For Team ";
 
     private  String teamList[];
-    private  String tableHeader[] = new String[] {"Match Number", "Team Name", "Auto Score", "Main Score", "End Score"};
+    private  String dataTableHeader[] = new String[] {"Match Number", "Team Number", "Auto Score", "Main Score", "End Score"};
+    private  String teamTableHeader[] = new String[] {"Team Number"};
 
     /** Creates new form DataByTeamGUI */
     public DataByTeamGUI() {}
@@ -36,6 +37,7 @@ public class DataByTeamGUI extends javax.swing.JFrame
         initComponents();
 
         this.teamList = teamList;
+        showTeamList(teamList);
         showData(Integer.parseInt(teamList[0]));
         setVisible(true);
     }
@@ -45,6 +47,7 @@ public class DataByTeamGUI extends javax.swing.JFrame
         VERSION = version;
 
         this.teamList = teamList;
+        showTeamList(teamList);
         showData(Integer.parseInt(teamList[0]));
         setVisible(true);
     }
@@ -66,8 +69,6 @@ public class DataByTeamGUI extends javax.swing.JFrame
         sortComboBox = new javax.swing.JComboBox();
         resultLabel = new javax.swing.JLabel();
         resultComboBox = new javax.swing.JComboBox();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         teamTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -181,7 +182,7 @@ public class DataByTeamGUI extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void showData()
+    private void showData()
     {
         int teamNumber = getTeamNumber();
         String data[][] = getContent(teamNumber);
@@ -189,11 +190,24 @@ public class DataByTeamGUI extends javax.swing.JFrame
         updateTitle(String.valueOf(teamNumber));
     }
 
-    public void showData(int teamNumber)
+    private void showData(int teamNumber)
     {
         String data[][] = getContent(teamNumber);
         displayData(data);
         updateTitle(String.valueOf(teamNumber));
+    }
+
+    private void showTeamList(String list[])
+    {
+        String newList[][] = new String[list.length][1];
+
+        for(int i = 0; i < list.length; i++)
+        {
+            newList[i][0] = list[i];
+        }
+
+
+        teamTable.setModel(new DefaultTableModel(newList, teamTableHeader));
     }
 
     private void updateTitle(String suffix)
@@ -201,12 +215,12 @@ public class DataByTeamGUI extends javax.swing.JFrame
         setTitle(TITLE_BASE + suffix);
     }
 
-    public void displayData(String data[][])
+    private void displayData(String data[][])
     {
-        dataTable.setModel(new DefaultTableModel(data, tableHeader));
+        dataTable.setModel(new DefaultTableModel(data, dataTableHeader));
     }
 
-    public String[][] getContent(int teamNumber)
+    private String[][] getContent(int teamNumber)
     {
         FileScanner teamFileScanner = new FileScanner();
         Extracter extract = new Extracter();
@@ -271,7 +285,7 @@ public class DataByTeamGUI extends javax.swing.JFrame
     }
 
 
-    public int getTeamNumber()
+    private int getTeamNumber()
     {
         return Integer.parseInt(teamTable.getValueAt(teamTable.getSelectedRow(), teamTable.getSelectedColumn()).toString());
     }
