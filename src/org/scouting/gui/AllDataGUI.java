@@ -11,6 +11,7 @@
 
 package org.scouting.gui;
 
+import org.scouting.gui.utilities.DataRow;
 import java.text.DecimalFormat;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;

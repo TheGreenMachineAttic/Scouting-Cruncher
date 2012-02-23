@@ -11,6 +11,7 @@
 
 package org.scouting.gui;
 
+import org.scouting.gui.utilities.DataRow;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;

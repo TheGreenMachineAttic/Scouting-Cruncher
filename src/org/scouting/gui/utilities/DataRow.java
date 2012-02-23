@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.scouting.gui;
+package org.scouting.gui.utilities;
 /*
  * @author aoneill
  * @breif
