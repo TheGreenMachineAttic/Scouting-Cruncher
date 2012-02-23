@@ -243,7 +243,7 @@ public class DataByTeamGUI extends javax.swing.JFrame
         else if(optionChosen.equals(dataTableHeader[4]))
         {
             // Penalties box! Make another sorter!
-            //data = sortBest(recentData, 4, mode);
+            data = sort.filterPenalties(recentData, 4, mode);
         }
         else
         {

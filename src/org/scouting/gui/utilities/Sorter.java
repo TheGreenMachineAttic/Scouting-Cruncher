@@ -90,6 +90,76 @@ public class Sorter
         return parser.dataRowArrayToStringArray(list, DATA_POINTS);
     }
 
+    public String[][] filterPenalties(String array[][], int member, int direction)
+    {
+        // System.out.println("--------------------------");
+
+        int arrayLength = getArrayWidth(array);
+        DataRow list[] = new DataRow[arrayLength];
+        DataRow dr2;
+        DataRow dr1;
+        DataRow parser = new DataRow();
+
+        //System.out.println("Creating DataRow list...");
+        for(int mainC = 0; mainC < arrayLength; mainC++)
+        {
+            list[mainC] = new DataRow(array, mainC, DATA_POINTS);
+            //list[mainC].printRowData();
+            //System.out.println("Storing Team " + list[mainC].valueAt(0));
+        }
+
+        //System.out.println("--------------------------");
+        boolean finished = false;
+        int iter = 0;
+        while(!finished)
+        {
+            finished = true;
+            for(int tIter = 1; tIter < arrayLength; tIter++)
+            {
+                dr1 = list[tIter - 1];
+                //System.out.println("Trying Team " + dr1.valueAt(0) + "'s value of " + dr1.valueAt(member) + " at member " + member);
+
+                dr2 = list[tIter];
+                //System.out.println("Trying Team " + dr2.valueAt(0) + "'s value of " + dr2.valueAt(member) + " at member " + member);
+
+                switch(direction)
+                {
+                    case LOW_TO_HIGH:
+                        if(dr2.valueAt(member).equals("none") && !dr1.valueAt(member).equals("none"))
+                        {
+                            //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
+                            list[tIter] = dr1;
+                            list[tIter - 1] = dr2;
+
+                            finished = false;
+                            iter++;
+                            //System.out.println("Swapping teams...");
+                        }
+                        break;
+                    case HIGH_TO_LOW:
+                        if(!dr2.valueAt(member).equals("none") && dr1.valueAt(member).equals("none"))
+                        {
+                            //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
+                            list[tIter] = dr1;
+                            list[tIter - 1] = dr2;
+
+                            finished = false;
+                            iter++;
+                            //System.out.println("Swapping teams...");
+                        }
+                        break;
+                    default:
+                        System.err.println("I wont even try...");
+                        break;
+                }
+            }
+        }
+
+        System.out.println("Loops to Sort: " + iter);
+
+        return parser.dataRowArrayToStringArray(list, DATA_POINTS);
+    }
+
     private int getArrayWidth(String array[][])
     {
         boolean done = false;
