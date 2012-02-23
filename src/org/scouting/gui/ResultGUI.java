@@ -336,7 +336,6 @@ public class ResultGUI extends javax.swing.JFrame
         // TODO add your handling code here:
         AllDataGUI aGUI= new AllDataGUI();
         aGUI.setAllData(over9000Data);
-        aGUI.setTeamCount(teamCount);
         aGUI.initTable();
         aGUI.setVisible(true);
     }//GEN-LAST:event_moreButtonActionPerformed

@@ -11,14 +11,12 @@
 
 package org.scouting.gui;
 
-import org.scouting.gui.utilities.DataRow;
-import javax.swing.ComboBoxModel;
+import org.scouting.gui.utilities.*;
+import org.scouting.filer.*;
+import org.scouting.scout.Main;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
-import org.scouting.filer.Extracter;
-import org.scouting.filer.FileScanner;
-import org.scouting.gui.utilities.DataRow;
-import org.scouting.scout.Main;
 
 /*
  * @author aoneill
@@ -29,9 +27,6 @@ public class DataByTeamGUI extends javax.swing.JFrame
     private static String VERSION = "";
     private static String TITLE_BASE = "Data For Team ";
     private int DATA_POINTS = 5;
-
-    private final int LOW_TO_HIGH = 1;
-    private final int HIGH_TO_LOW = 2;
 
     private String teamList[];
     private String recentData[][];
@@ -220,36 +215,33 @@ public class DataByTeamGUI extends javax.swing.JFrame
 
     private void resultComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultComboBoxActionPerformed
         // TODO add your handling code here:
+        Sorter sort = new Sorter(DATA_POINTS);
+
         String optionChosen = sortComboBox.getSelectedItem().toString();
 
         int mode = resultComboBox.getSelectedItem().toString().equals("Low to High") ?
-            LOW_TO_HIGH : HIGH_TO_LOW;
+            Sorter.LOW_TO_HIGH : Sorter.HIGH_TO_LOW;
 
         String data[][] = {};
 
         if(optionChosen.equals(dataTableHeader[0]))
         {
-            //data = sortBest(recentData, 0);
-            data = sortBest(recentData, 0, mode);
+            data = sort.sortBest(recentData, 0, mode);
         }
         else if(optionChosen.equals(dataTableHeader[1]))
         {
-            //data = sortBest(recentData, 0);
-            data = sortBest(recentData, 1, mode);
+            data = sort.sortBest(recentData, 1, mode);
         }
         else if(optionChosen.equals(dataTableHeader[2]))
         {
-            //data = sortBest(recentData, 0);
-            data = sortBest(recentData, 2, mode);
+            data = sort.sortBest(recentData, 2, mode);
         }
         else if(optionChosen.equals(dataTableHeader[3]))
         {
-            //data = sortBest(recentData, 0);
-            data = sortBest(recentData, 3, mode);
+            data = sort.sortBest(recentData, 3, mode);
         }
         else if(optionChosen.equals(dataTableHeader[4]))
         {
-            //data = sortBest(recentData, 0);
             // Penalties box! Make another sorter!
             //data = sortBest(recentData, 4, mode);
         }
@@ -378,101 +370,7 @@ public class DataByTeamGUI extends javax.swing.JFrame
 
     private int getTeamNumber()
     {
-        return Integer.parseInt(
-                teamTable.getValueAt(
-                teamTable.getSelectedRow(), teamTable.getSelectedColumn()
-                ).toString()
-                );
-    }
-
-    public String[][] sortBest(String array[][], int member, int direction)
-    {
-        // System.out.println("--------------------------");
-
-        int arrayLength = getArrayWidth(array);
-        DataRow list[] = new DataRow[arrayLength];
-        DataRow dr2;
-        DataRow dr1;
-        DataRow parser = new DataRow();
-
-        //System.out.println("Creating DataRow list...");
-        for(int mainC = 0; mainC < arrayLength; mainC++)
-        {
-            list[mainC] = new DataRow(array, mainC, DATA_POINTS);
-            list[mainC].printRowData();
-            //System.out.println("Storing Team " + list[mainC].valueAt(0));
-        }
-
-        //System.out.println("--------------------------");
-        boolean finished = false;
-        int iter = 0;
-        while(!finished)
-        {
-            finished = true;
-            for(int tIter = 1; tIter < arrayLength; tIter++)
-            {
-                dr1 = list[tIter - 1];
-                //System.out.println("Trying Team " + dr1.valueAt(0) + "'s value of " + dr1.valueAt(member) + " at member " + member);
-
-                dr2 = list[tIter];
-                //System.out.println("Trying Team " + dr2.valueAt(0) + "'s value of " + dr2.valueAt(member) + " at member " + member);
-
-                switch(direction)
-                {
-                    case LOW_TO_HIGH:
-                        if(Double.parseDouble(dr2.valueAt(member)) < Double.parseDouble(dr1.valueAt(member)))
-                        {
-                            //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
-                            list[tIter] = dr1;
-                            list[tIter - 1] = dr2;
-
-                            finished = false;
-                            iter++;
-                            //System.out.println("Swapping teams...");
-                        }
-                        break;
-                    case HIGH_TO_LOW:
-                        if(Double.parseDouble(dr2.valueAt(member)) > Double.parseDouble(dr1.valueAt(member)))
-                        {
-                            //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
-                            list[tIter] = dr1;
-                            list[tIter - 1] = dr2;
-
-                            finished = false;
-                            iter++;
-                            //System.out.println("Swapping teams...");
-                        }
-                        break;
-                    default:
-                        System.err.println("I wont even try...");
-                        break;
-                }
-            }
-        }
-
-        System.out.println("Loops to Sort: " + iter);
-
-        return parser.dataRowArrayToStringArray(list, DATA_POINTS);
-    }
-
-    private int getArrayWidth(String array[][])
-    {
-        boolean done = false;
-        int count = 0;
-        while(!done)
-        {
-            try
-            {
-                String xyz = array[count][0];
-                count++;
-            }
-            catch(Exception e)
-            {
-                done = true;
-            }
-        }
-
-        return count;
+        return Integer.parseInt(teamTable.getValueAt(teamTable.getSelectedRow(), teamTable.getSelectedColumn()).toString());
     }
 
     /**

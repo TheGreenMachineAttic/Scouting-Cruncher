@@ -11,10 +11,10 @@
 
 package org.scouting.gui;
 
-import org.scouting.gui.utilities.DataRow;
+import org.scouting.gui.utilities.*;
+
 import java.text.DecimalFormat;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /*
  * @author aoneill
@@ -24,12 +24,10 @@ public class AllDataGUI extends javax.swing.JFrame
 {
     private static String tableHeader[] = new String[] {"Team Name", "Auto Score", "Main Score", "End Score", "Overall Score", "Penalty Number"};
     private String[][] allData;
-    private int teamCount;
+
     private static final int DATA_POINTS = 7;
     private static final String TITLE_BASE = "All Scores - ";
     private String DECIMAL_FORMAT = "#.###";
-    private final int LOW_TO_HIGH = 1;
-    private final int HIGH_TO_LOW = 2;
 
 
     /** Creates new form AllDataGUI */
@@ -131,8 +129,10 @@ public class AllDataGUI extends javax.swing.JFrame
 
     private void modeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeComboBoxActionPerformed
         // TODO add your handling code here:
+        Sorter sort = new Sorter(DATA_POINTS);
+
         int mode = sortDirComboBox.getSelectedItem().toString().equals("Low to High") ?
-            LOW_TO_HIGH : HIGH_TO_LOW;
+            Sorter.LOW_TO_HIGH : Sorter.HIGH_TO_LOW;
 
         String optionChosen = modeComboBox.getSelectedItem().toString();
         String data[][] = {};
@@ -140,27 +140,27 @@ public class AllDataGUI extends javax.swing.JFrame
         if(optionChosen.equals("Team Number"))
         {
             //data = sortBest(allData, 0);
-            data = sortBest(allData, 0, mode);
+            data = sort.sortBest(allData, 0, mode);
         }
         else if(optionChosen.equals("Autonomous"))
         {
             //data = sortBest(allData, 0);
-            data = sortBest(allData, 1, mode);
+            data = sort.sortBest(allData, 1, mode);
         }
         else if(optionChosen.equals("Main Game"))
         {
             //data = sortBest(allData, 0);
-            data = sortBest(allData, 2, mode);
+            data = sort.sortBest(allData, 2, mode);
         }
         else if(optionChosen.equals("End Game"))
         {
             //data = sortBest(allData, 0);
-            data = sortBest(allData, 3, mode);
+            data = sort.sortBest(allData, 3, mode);
         }
         else if(optionChosen.equals("Overall Score"))
         {
             //data = sortBest(allData, 0);
-            data = sortBest(allData, 4, mode);
+            data = sort.sortBest(allData, 4, mode);
         }
         else
         {
@@ -170,7 +170,6 @@ public class AllDataGUI extends javax.swing.JFrame
 
         updateTitle(optionChosen);
         writeToTable(data);
-
     }//GEN-LAST:event_modeComboBoxActionPerformed
 
     private void sortDirComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortDirComboBoxActionPerformed
@@ -192,7 +191,8 @@ public class AllDataGUI extends javax.swing.JFrame
 
     public void initTable()
     {
-        String data[][] = sortBest(allData, 0, HIGH_TO_LOW);
+        Sorter sort = new Sorter(DATA_POINTS);
+        String data[][] = sort.sortBest(allData, 0, Sorter.LOW_TO_HIGH);
         writeToTable(data);
     }
 
@@ -206,106 +206,12 @@ public class AllDataGUI extends javax.swing.JFrame
         allData = data;
     }
 
-    public String[][] sortBest(String array[][], int member, int direction)
-    {
-        // System.out.println("--------------------------");
-
-        int arrayLength = getArrayWidth(array);
-        DataRow list[] = new DataRow[arrayLength];
-        DataRow dr2;
-        DataRow dr1;
-        DataRow parser = new DataRow();
-
-        //System.out.println("Creating DataRow list...");
-        for(int mainC = 0; mainC < arrayLength; mainC++)
-        {
-            list[mainC] = new DataRow(array, mainC, DATA_POINTS);
-            //list[mainC].printRowData();
-            //System.out.println("Storing Team " + list[mainC].valueAt(0));
-        }
-
-        //System.out.println("--------------------------");
-        boolean finished = false;
-        int iter = 0;
-        while(!finished)
-        {
-            finished = true;
-            for(int tIter = 1; tIter < arrayLength; tIter++)
-            {
-                dr1 = list[tIter - 1];
-                //System.out.println("Trying Team " + dr1.valueAt(0) + "'s value of " + dr1.valueAt(member) + " at member " + member);
-
-                dr2 = list[tIter];
-                //System.out.println("Trying Team " + dr2.valueAt(0) + "'s value of " + dr2.valueAt(member) + " at member " + member);
-
-                switch(direction)
-                {
-                    case LOW_TO_HIGH:
-                        if(Double.parseDouble(dr2.valueAt(member)) < Double.parseDouble(dr1.valueAt(member)))
-                        {
-                            //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
-                            list[tIter] = dr1;
-                            list[tIter - 1] = dr2;
-
-                            finished = false;
-                            iter++;
-                            //System.out.println("Swapping teams...");
-                        }
-                        break;
-                    case HIGH_TO_LOW:
-                        if(Double.parseDouble(dr2.valueAt(member)) > Double.parseDouble(dr1.valueAt(member)))
-                        {
-                            //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
-                            list[tIter] = dr1;
-                            list[tIter - 1] = dr2;
-
-                            finished = false;
-                            iter++;
-                            //System.out.println("Swapping teams...");
-                        }
-                        break;
-                    default:
-                        System.err.println("I wont even try...");
-                        break;
-                }
-            }
-        }
-
-        System.out.println("Loops to Sort: " + iter);
-
-        return parser.dataRowArrayToStringArray(list, DATA_POINTS);
-    }
-
-    private int getArrayWidth(String array[][])
-    {
-        boolean done = false;
-        int count = 0;
-        while(!done)
-        {
-            try
-            {
-                String xyz = array[count][0];
-                count++;
-            }
-            catch(Exception e)
-            {
-                done = true;
-            }
-        }
-
-        return count;
-    }
-
-    double roundTwoDecimals(double number)
+    private double roundTwoDecimals(double number)
     {
         DecimalFormat dFormat = new DecimalFormat(DECIMAL_FORMAT);
         return Double.valueOf(dFormat.format(number));
     }
     
-    void setTeamCount(int number)
-    {
-        teamCount = number;
-    }
 
     private void updateTitle(String suffix)
     {
