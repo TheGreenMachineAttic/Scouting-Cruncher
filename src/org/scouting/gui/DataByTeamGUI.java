@@ -24,10 +24,16 @@ public class DataByTeamGUI extends javax.swing.JFrame
 {
     private static String VERSION = "";
     private static String TITLE_BASE = "Data For Team ";
+    private int DATA_POINTS = 7;
 
-    private  String teamList[];
-    private  String dataTableHeader[] = new String[] {"Match Number", "Team Number", "Auto Score", "Main Score", "End Score"};
-    private  String teamTableHeader[] = new String[] {"Team Number"};
+    private final int LOW_TO_HIGH = 1;
+    private final int HIGH_TO_LOW = 2;
+
+    private String teamList[];
+    private String recentData[][];
+    private String dataTableHeader[] = new String[] {"Match Number", "Team Number", "Auto Score", "Main Score", "End Score"};
+    private String teamTableHeader[] = new String[] {"Team Number"};
+    private int teamCount;
 
     /** Creates new form DataByTeamGUI */
     public DataByTeamGUI() {}
@@ -47,6 +53,7 @@ public class DataByTeamGUI extends javax.swing.JFrame
         VERSION = version;
 
         this.teamList = teamList;
+        teamCount = teamList.length - 1;
         showTeamList(teamList);
         showData(Integer.parseInt(teamList[0]));
         setVisible(true);
@@ -98,6 +105,9 @@ public class DataByTeamGUI extends javax.swing.JFrame
         });
         teamTable.setCellSelectionEnabled(true);
         teamTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                teamTableMousePressed(evt);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 teamTableMouseClicked(evt);
             }
@@ -141,10 +151,20 @@ public class DataByTeamGUI extends javax.swing.JFrame
         sortLabel.setText("Sort By");
 
         sortComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Match", "Autonomous", "Main Game", "End Game", "Penalty Number" }));
+        sortComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sortComboBoxActionPerformed(evt);
+            }
+        });
 
         resultLabel.setText("with results");
 
         resultComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Low to High", "High to Low" }));
+        resultComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resultComboBoxActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -194,12 +214,63 @@ public class DataByTeamGUI extends javax.swing.JFrame
         showData(teamNumber);
     }//GEN-LAST:event_teamTableMouseClicked
 
+    private void teamTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamTableMousePressed
+        // TODO add your handling code here:
+        int teamNumber = getTeamNumber();
+        showData(teamNumber);
+    }//GEN-LAST:event_teamTableMousePressed
+
+    private void sortComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortComboBoxActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_sortComboBoxActionPerformed
+
+    private void resultComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultComboBoxActionPerformed
+        // TODO add your handling code here:
+        String optionChosen = sortComboBox.getSelectedItem().toString();
+
+        int mode = resultComboBox.getSelectedItem().toString().equals("Low to High") ?
+            LOW_TO_HIGH : HIGH_TO_LOW;
+
+        String data[][] = {};
+
+        if(optionChosen.equals("Team Number"))
+        {
+            //data = sortBest(recentData, 0);
+            data = sortBest(recentData, 0, mode);
+        }
+        else if(optionChosen.equals("Autonomous"))
+        {
+            //data = sortBest(recentData, 0);
+            data = sortBest(recentData, 1, mode);
+        }
+        else if(optionChosen.equals("Main Game"))
+        {
+            //data = sortBest(recentData, 0);
+            data = sortBest(recentData, 2, mode);
+        }
+        else if(optionChosen.equals("End Game"))
+        {
+            //data = sortBest(recentData, 0);
+            data = sortBest(recentData, 3, mode);
+        }
+        else
+        {
+            System.err.println("OH GOD! THE BLOOD!! ITS EVERYWHERE");
+            System.exit(1);
+        }
+
+        displayData(data);
+    }//GEN-LAST:event_resultComboBoxActionPerformed
+
     private void showData()
     {
         int teamNumber = getTeamNumber();
         String data[][] = getContent(teamNumber);
         displayData(data);
         updateTitle(String.valueOf(teamNumber));
+
+        recentData = data;
     }
 
     private void showData(int teamNumber)
@@ -292,6 +363,72 @@ public class DataByTeamGUI extends javax.swing.JFrame
         return Integer.parseInt(teamTable.getValueAt(teamTable.getSelectedRow(), teamTable.getSelectedColumn()).toString());
     }
 
+    public String[][] sortBest(String array[][], int member, int direction)
+    {
+        // System.out.println("--------------------------");
+        DataRow list[] = new DataRow[teamCount];
+        DataRow dr2;
+        DataRow dr1;
+        DataRow parser = new DataRow();
+
+        //System.out.println("Creating DataRow list...");
+        for(int mainC = 0; mainC < teamCount; mainC++)
+        {
+            list[mainC] = new DataRow(array, mainC, DATA_POINTS);
+            //System.out.println("Storing Team " + list[mainC].valueAt(0));
+        }
+
+        //System.out.println("--------------------------");
+        boolean finished = false;
+        int iter = 0;
+        while(!finished)
+        {
+            finished = true;
+            for(int tIter = 1; tIter < teamCount; tIter++)
+            {
+                dr1 = list[tIter - 1];
+                //System.out.println("Trying Team " + dr1.valueAt(0) + "'s value of " + dr1.valueAt(member) + " at member " + member);
+
+                dr2 = list[tIter];
+                //System.out.println("Trying Team " + dr2.valueAt(0) + "'s value of " + dr2.valueAt(member) + " at member " + member);
+
+                switch(direction)
+                {
+                    case LOW_TO_HIGH:
+                        if(Double.parseDouble(dr2.valueAt(member)) < Double.parseDouble(dr1.valueAt(member)))
+                        {
+                            //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
+                            list[tIter] = dr1;
+                            list[tIter - 1] = dr2;
+
+                            finished = false;
+                            iter++;
+                            //System.out.println("Swapping teams...");
+                        }
+                        break;
+                    case HIGH_TO_LOW:
+                        if(Double.parseDouble(dr2.valueAt(member)) > Double.parseDouble(dr1.valueAt(member)))
+                        {
+                            //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
+                            list[tIter] = dr1;
+                            list[tIter - 1] = dr2;
+
+                            finished = false;
+                            iter++;
+                            //System.out.println("Swapping teams...");
+                        }
+                        break;
+                    default:
+                        System.err.println("I wont even try...");
+                        break;
+                }
+            }
+        }
+
+        System.out.println("Loops to Sort: " + iter);
+
+        return parser.dataRowArrayToStringArray(list, DATA_POINTS);
+    }
 
     /**
     * @param args the command line arguments
