@@ -268,17 +268,15 @@ public class DataByTeamGUI extends javax.swing.JFrame
             System.out.println("    content[" + j + "] = " + content[j]);
         }
 
-
-        String extractedData[][] = new String[5][lineCount];
+        String extractedData[][] = new String[lineCount][5];
         for(int j = 0; j < lineCount; j++)
         {
-            // Ignoring Round Number
             // <roundNum>:<autoPoints>:<mainPoints>:<endPoints>:<penalties>
-            extractedData[0][j] = extract.extractEntry(content[j], 1);
-            extractedData[1][j] = extract.extractEntry(content[j], 2);
-            extractedData[2][j] = extract.extractEntry(content[j], 3);
-            extractedData[3][j] = extract.extractEntry(content[j], 4);
-            extractedData[4][j] = extract.extractEntry(content[j], 5);
+            extractedData[j][0] = extract.extractEntry(content[j], 1);
+            extractedData[j][1] = extract.extractEntry(content[j], 2);
+            extractedData[j][2] = extract.extractEntry(content[j], 3);
+            extractedData[j][3] = extract.extractEntry(content[j], 4);
+            extractedData[j][4] = extract.extractEntry(content[j], 5);
         }
 
         return extractedData;
