@@ -11,6 +11,10 @@
 
 package org.scouting.gui;
 
+import org.scouting.filer.Extracter;
+import org.scouting.filer.FileScanner;
+import org.scouting.scout.Main;
+
 /*
  * @author aoneill
  * @note Made by the Netbeans built-in GUI creator
@@ -20,14 +24,14 @@ public class DataByTeamGUI extends javax.swing.JFrame
     String VERSION = "";
 
     /** Creates new form DataByTeamGUI */
-    public DataByTeamGUI()
+    public DataByTeamGUI(String teamList[])
     {
         initComponents();
     }
 
-    public DataByTeamGUI(String VERSION)
+    public DataByTeamGUI(String teamList[], String version)
     {
-        this.VERSION = VERSION;
+        VERSION = version;
     }
 
     /** This method is called from within the constructor to
@@ -162,10 +166,76 @@ public class DataByTeamGUI extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void showData(int teamNumber)
+    public void showData()
     {
-        
+        int teamNumber = getTeamNumber();
+        String data[][] = getContent(teamNumber);
     }
+
+    public String[][] getContent(int teamNumber)
+    {
+        FileScanner teamFileScanner = new FileScanner();
+        Extracter extract = new Extracter();
+
+        String currentDir = Main.currentDir;
+        String workspaceFolderName = Main.workspaceFolderName;
+        String teamFolderName = Main.teamFolderName;
+
+        System.out.println();
+        System.out.println("Team " + String.valueOf(teamNumber) + ":");
+        teamFileScanner.openFile(currentDir + "/" + workspaceFolderName + "/" + teamFolderName, String.valueOf(teamNumber) + ".txt");
+
+        String nextLine = teamFileScanner.getNextLine();
+        while(nextLine.startsWith("#"))
+        {
+            nextLine = teamFileScanner.getNextLine();
+        }
+
+        int lineCount = 1;
+        while(teamFileScanner.hasNextEntry())
+        {
+            teamFileScanner.getNextLine();
+            lineCount++;
+        }
+
+        System.out.println("Found Line numbers (" + lineCount + ") in " + String.valueOf(teamNumber) + ".txt");
+
+        String content[] = new String[lineCount];
+        teamFileScanner.openFile(currentDir + "/" + workspaceFolderName + "/" + teamFolderName, String.valueOf(teamNumber) + ".txt");
+
+        nextLine = teamFileScanner.getNextLine();
+        System.out.println("::: " + nextLine);
+        while(nextLine.startsWith("#"))
+        {
+            nextLine = teamFileScanner.getNextLine();
+            System.out.println("::: " + nextLine);
+        }
+
+        content[0] = nextLine;
+        System.out.println("     content[0] = " + nextLine);
+        for(int j = 1; j < lineCount; j++)
+        //while(teamFileScanner.hasNextEntry())
+        {
+            content[j] = teamFileScanner.getNextLine();
+            System.out.println("    content[" + j + "] = " + content[j]);
+        }
+
+
+        String extractedData[][] = new String[5][lineCount];
+        for(int j = 0; j < lineCount; j++)
+        {
+            // Ignoring Round Number
+            // <roundNum>:<autoPoints>:<mainPoints>:<endPoints>:<penalties>
+            extractedData[0][j] = extract.extractEntry(content[j], 1);
+            extractedData[1][j] = extract.extractEntry(content[j], 2);
+            extractedData[2][j] = extract.extractEntry(content[j], 3);
+            extractedData[3][j] = extract.extractEntry(content[j], 4);
+            extractedData[4][j] = extract.extractEntry(content[j], 5);
+        }
+
+        return extractedData;
+    }
+
 
     public int getTeamNumber()
     {

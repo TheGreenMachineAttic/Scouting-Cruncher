@@ -5,8 +5,6 @@ import org.scouting.gui.*;
 // These may be unused, but they are still a good idea to keep!
 import java.io.*;
 import java.util.*;
-//import org.apache.poi.hssf.usermodel.HSSFSheet;
-//import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 /*
  * @author aoneill
@@ -20,21 +18,19 @@ public class Main
     private static int teamCount = 0;
 
 
+    // ----- Variables -----//
+    private static FileScanner teamFileScanner = new FileScanner();
+    private static FileScanner teamListFileScanner = new FileScanner();
+    private static Extracter extract = new Extracter();
+
+    public static String currentDir = System.getProperty("user.dir");
+    public static String workspaceFolderName = "Workspace";
+    public static String teamFolderName = "TeamDir";
+    public static String commentFolderName = "Comments";
+    public static String teamListFile = "TeamList.txt";
 
     public static void main(String[] args) throws InterruptedException, FileNotFoundException
-    {
-        // ----- Variables -----//
-        FileScanner teamFileScanner = new FileScanner();
-        FileScanner teamListFileScanner = new FileScanner();
-        FileCreator fileCreo = new FileCreator();
-        Extracter extract = new Extracter();
-
-        String currentDir = System.getProperty("user.dir");
-        String workspaceFolderName = "Workspace";
-        String teamFolderName = "TeamDir";
-        String commentFolderName = "Comments";
-        String teamListFile = "TeamList.txt";
-        
+    {   
         String workspaceDir = currentDir;
         String commentDir;
         boolean logActivate = false;
@@ -289,5 +285,15 @@ public class Main
         }
 
         return result;
+    }
+
+    public String getWorkspaceFolderName()
+    {
+        return workspaceFolderName;
+    }
+
+    public String getTeamFolderName()
+    {
+        return teamFolderName;
     }
 }
