@@ -235,9 +235,6 @@ public class Main
         rGUI.setAllScoresTable(allData);
         rGUI.setTeamList(teamArray);
         rGUI.setVisible(true);
-
-
-        //System.exit(0);
     }
 
     public static String[][] sortBest(String array[][])
