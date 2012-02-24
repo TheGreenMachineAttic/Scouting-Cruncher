@@ -89,26 +89,20 @@ public class Main
                 lineCount++;
             }
 
-            System.out.println("Found Line numbers (" + lineCount + ") in " + teamArray[i] + ".txt");
-
             String content[] = new String[lineCount];
             teamFileScanner.openFile(currentDir + "/" + workspaceFolderName + "/" + teamFolderName, teamArray[i] + ".txt");
 
             nextLine = teamFileScanner.getNextLine();
-            System.out.println("::: " + nextLine);
             while(nextLine.startsWith("#"))
             {
                 nextLine = teamFileScanner.getNextLine();
-                System.out.println("::: " + nextLine);
             }
 
             content[0] = nextLine;
-            System.out.println("     content[0] = " + nextLine);
             for(int j = 1; j < lineCount; j++)
             //while(teamFileScanner.hasNextEntry())
             {
                 content[j] = teamFileScanner.getNextLine();
-                System.out.println("    content[" + j + "] = " + content[j]);
             }
 
 
