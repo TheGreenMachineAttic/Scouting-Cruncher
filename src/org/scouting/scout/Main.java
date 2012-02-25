@@ -34,6 +34,7 @@ public class Main
     public static void main(String[] args) throws InterruptedException, FileNotFoundException
     {
         MatchGUI mGUI = new MatchGUI();
+        mGUI.setVisible(true);
 
         String workspaceDir = currentDir;
         String commentDir;

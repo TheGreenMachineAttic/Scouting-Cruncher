@@ -28,6 +28,7 @@ public class MatchGUI extends javax.swing.JFrame
     private static Extracter ext = new Extracter();
 
     private String dataTableHeader[] = new String[] {"Team", "Auto Score", "Main Score", "End Score", "Penalties"};
+    private String matchTableHeader[] = new String[] {"Match"};
     private static String[] matchList;
     private String matchPath = Main.currentDir + "/" + Main.workspaceFolderName + "/" + Main.matchFolderName;
 
@@ -35,8 +36,7 @@ public class MatchGUI extends javax.swing.JFrame
     public MatchGUI()
     {
         initComponents();
-
-        
+        init();
         getMatchList(matchPath, Main.matchListFile);
     }
 
@@ -225,10 +225,28 @@ public class MatchGUI extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
+    private void init()
+    {
+        String list[] = getMatchList(matchPath, Main.matchListFile);
+        showMatches(list);
+    }
+
     private void showData(String matchFolder, int matchNumber)
     {
         String table[][] = getTableData(matchFolder, matchNumber);
         displayData(table);
+    }
+
+    public void showMatches(String list[])
+    {
+        String data[][] = new String[list.length][1];
+
+        for(int i = 0; i < list.length; i++)
+        {
+            data[i][0] = list[i];
+        }
+
+        matchTable.setModel(new DefaultTableModel(data, matchTableHeader));
     }
 
     private String[][] getTableData(String matchFolder, int matchNumber)
