@@ -11,6 +11,7 @@
 
 package org.scouting.gui;
 import org.scouting.filer.*;
+import org.scouting.gui.utilities.*;
 import org.scouting.scout.Main;
 
 import java.util.ArrayList;
@@ -27,10 +28,13 @@ public class MatchGUI extends javax.swing.JFrame
     private static FileScanner scan = new FileScanner();
     private static Extracter ext = new Extracter();
 
-    private String dataTableHeader[] = new String[] {"Team", "Auto Score", "Main Score", "End Score", "Penalties"};
+    private String dataTableHeader[] = new String[] {"Team", "Auto Score", "Main Score", "End Game", "Penalties"};
     private String matchTableHeader[] = new String[] {"Match"};
-    private static String[] matchList;
+    private static String matchList[];
+    private static String recentData[][];
     private String matchPath = Main.currentDir + "/" + Main.workspaceFolderName + "/" + Main.matchFolderName;
+
+    private static final int DATA_POINTS = 5;
 
     /** Creates new form MatchGUI */
     public MatchGUI()
@@ -58,12 +62,12 @@ public class MatchGUI extends javax.swing.JFrame
         dataTable = new javax.swing.JTable();
         matchScrollPane = new javax.swing.JScrollPane();
         matchTable = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox();
+        sortDirComboBox = new javax.swing.JComboBox();
+        sortColComboBox = new javax.swing.JComboBox();
+        sortedByLabel = new javax.swing.JLabel();
+        resultsLabel = new javax.swing.JLabel();
+        matchesLabel = new javax.swing.JLabel();
+        sortMatchNumComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -130,30 +134,30 @@ public class MatchGUI extends javax.swing.JFrame
         });
         matchScrollPane.setViewportView(matchTable);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Low to High", "High to Low" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        sortDirComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Low to High", "High to Low" }));
+        sortDirComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                sortDirComboBoxActionPerformed(evt);
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Team", "Auto Score", "Main Game", "End Game" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        sortColComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Team", "Auto Score", "Main Game", "End Game" }));
+        sortColComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                sortColComboBoxActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Data sorted by");
+        sortedByLabel.setText("Data sorted by");
 
-        jLabel2.setText("with results");
+        resultsLabel.setText("with results");
 
-        jLabel3.setText("Teams sorted");
+        matchesLabel.setText("Matches sorted");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Low to High", "High to Low" }));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+        sortMatchNumComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Low to High", "High to Low" }));
+        sortMatchNumComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+                sortMatchNumComboBoxActionPerformed(evt);
             }
         });
 
@@ -162,23 +166,26 @@ public class MatchGUI extends javax.swing.JFrame
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(matchScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 129, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(layout.createSequentialGroup()
-                        .add(24, 24, 24)
-                        .add(jLabel3))
-                    .add(jComboBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(10, 10, 10)
+                        .addContainerGap()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(matchScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 129, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(sortMatchNumComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(10, 10, 10))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(matchesLabel)
+                        .add(30, 30, 30)))
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(jLabel1)
+                        .add(sortedByLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(sortColComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jLabel2)
+                        .add(resultsLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(sortDirComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(dataScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 508, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -190,15 +197,15 @@ public class MatchGUI extends javax.swing.JFrame
                     .add(layout.createSequentialGroup()
                         .add(matchScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 262, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jLabel3)
+                        .add(matchesLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jComboBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(sortMatchNumComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel2)
-                            .add(jComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel1))
+                            .add(sortDirComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(resultsLabel)
+                            .add(sortColComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(sortedByLabel))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(dataScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -213,27 +220,70 @@ public class MatchGUI extends javax.swing.JFrame
         showData(matchPath, matchNumber);
     }//GEN-LAST:event_matchTableMousePressed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void sortDirComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortDirComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+        sortColComboBoxActionPerformed(evt);
+    }//GEN-LAST:event_sortDirComboBoxActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void sortColComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortColComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+        Sorter sort = new Sorter(DATA_POINTS);
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        String optionChosen = sortColComboBox.getSelectedItem().toString();
+
+        int mode = sortDirComboBox.getSelectedItem().toString().equals("Low to High") ?
+            Sorter.LOW_TO_HIGH : Sorter.HIGH_TO_LOW;
+
+        String data[][] = {};
+
+        if(optionChosen.equals(dataTableHeader[0]))
+        {
+            data = sort.sortBest(recentData, 0, mode);
+        }
+        else if(optionChosen.equals(dataTableHeader[1]))
+        {
+            data = sort.sortBest(recentData, 1, mode);
+        }
+        else if(optionChosen.equals(dataTableHeader[2]))
+        {
+            data = sort.sortBest(recentData, 2, mode);
+        }
+        else if(optionChosen.equals(dataTableHeader[3]))
+        {
+            data = sort.sortBest(recentData, 3, mode);
+        }
+        else if(optionChosen.equals(dataTableHeader[4]))
+        {
+            // Penalties box! Make another sorter!
+            data = sort.filterPenalties(recentData, 4, mode);
+        }
+        else
+        {
+            System.err.println("OH GOD! THE BLOOD!! ITS EVERYWHERE");
+            System.exit(1);
+        }
+
+        displayData(data);
+    }//GEN-LAST:event_sortColComboBoxActionPerformed
+
+    private void sortMatchNumComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortMatchNumComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_sortMatchNumComboBoxActionPerformed
 
     private void init()
     {
         String list[] = getMatchList(matchPath, Main.matchListFile);
         showMatches(list);
+
+        showData(matchPath, Integer.parseInt(list[0]));
     }
 
     private void showData(String matchFolder, int matchNumber)
     {
         String table[][] = getTableData(matchFolder, matchNumber);
+
+        recentData = table;
+
         displayData(table);
     }
 
@@ -251,8 +301,6 @@ public class MatchGUI extends javax.swing.JFrame
 
     private String[][] getTableData(String matchFolder, int matchNumber)
     {
-        final int dataWidth = 5;
-
         scan.openFile(matchFolder, String.format("Match_%d.txt", matchNumber));
 
         ArrayList<String> list = new ArrayList<String>();
@@ -268,7 +316,7 @@ public class MatchGUI extends javax.swing.JFrame
             data[i] = list.get(i).toString();
         }
 
-        String table[][] = new String[list.size()][dataWidth];
+        String table[][] = new String[list.size()][DATA_POINTS];
 
         for(int i = 0; i < list.size(); i++)
         {
@@ -336,14 +384,14 @@ public class MatchGUI extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane dataScrollPane;
     private javax.swing.JTable dataTable;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane matchScrollPane;
     private javax.swing.JTable matchTable;
+    private javax.swing.JLabel matchesLabel;
+    private javax.swing.JLabel resultsLabel;
+    private javax.swing.JComboBox sortColComboBox;
+    private javax.swing.JComboBox sortDirComboBox;
+    private javax.swing.JComboBox sortMatchNumComboBox;
+    private javax.swing.JLabel sortedByLabel;
     // End of variables declaration//GEN-END:variables
 
 }

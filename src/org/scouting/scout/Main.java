@@ -4,7 +4,6 @@ import org.scouting.gui.*;
 
 // These may be unused, but they are still a good idea to keep!
 import java.io.*;
-import java.util.*;
 
 /*
  * @author aoneill
