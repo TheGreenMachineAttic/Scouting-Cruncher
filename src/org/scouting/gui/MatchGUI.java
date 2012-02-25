@@ -272,11 +272,11 @@ public class MatchGUI extends javax.swing.JFrame
 
         for(int i = 0; i < list.size(); i++)
         {
-            table[i][0] = ext.extractEntry(data[i], 0);
-            table[i][1] = ext.extractEntry(data[i], 1);
-            table[i][2] = ext.extractEntry(data[i], 2);
-            table[i][3] = ext.extractEntry(data[i], 3);
-            table[i][4] = ext.extractEntry(data[i], 4);
+            table[i][0] = ext.extractEntry(data[i], 1);
+            table[i][1] = ext.extractEntry(data[i], 2);
+            table[i][2] = ext.extractEntry(data[i], 3);
+            table[i][3] = ext.extractEntry(data[i], 4);
+            table[i][4] = ext.extractEntry(data[i], 5);
         }
 
         return table;
