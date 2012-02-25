@@ -27,10 +27,14 @@ public class Main
     public static String workspaceFolderName = "Workspace";
     public static String teamFolderName = "TeamDir";
     public static String commentFolderName = "Comments";
+    public static String matchFolderName = "Matches";
     public static String teamListFile = "TeamList.txt";
+    public static String matchListFile = "Match-List.txt";
 
     public static void main(String[] args) throws InterruptedException, FileNotFoundException
-    {   
+    {
+        MatchGUI mGUI = new MatchGUI();
+
         String workspaceDir = currentDir;
         String commentDir;
         boolean logActivate = false;

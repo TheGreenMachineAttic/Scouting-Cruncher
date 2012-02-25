@@ -10,6 +10,12 @@
  */
 
 package org.scouting.gui;
+import org.scouting.filer.*;
+import org.scouting.scout.Main;
+
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 
 /*
  * @author aoneill
@@ -18,11 +24,20 @@ package org.scouting.gui;
 public class MatchGUI extends javax.swing.JFrame
 {
     private static String VERSION = "";
+    private static FileScanner scan = new FileScanner();
+    private static Extracter ext = new Extracter();
+
+    private String dataTableHeader[] = new String[] {"Team", "Auto Score", "Main Score", "End Score", "Penalties"};
+    private static String[] matchList;
+    private String matchPath = Main.currentDir + "/" + Main.workspaceFolderName + "/" + Main.matchFolderName;
 
     /** Creates new form MatchGUI */
     public MatchGUI()
     {
         initComponents();
+
+        
+        getMatchList(matchPath, Main.matchListFile);
     }
 
     public MatchGUI(String version)
@@ -54,22 +69,22 @@ public class MatchGUI extends javax.swing.JFrame
 
         dataTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Team", "Auto Score", "Main Game", "End Game"
+                "Team", "Auto Score", "Main Game", "End Game", "Penalties"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -195,7 +210,7 @@ public class MatchGUI extends javax.swing.JFrame
     private void matchTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_matchTableMousePressed
         // TODO add your handling code here:
         int matchNumber = getMatchNumber();
-        showData(matchNumber);
+        showData(matchPath, matchNumber);
     }//GEN-LAST:event_matchTableMousePressed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -210,19 +225,82 @@ public class MatchGUI extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
-    private void showData(int matchNumber)
+    private void showData(String matchFolder, int matchNumber)
     {
-
+        String table[][] = getTableData(matchFolder, matchNumber);
+        displayData(table);
     }
 
-    private String[][] getMatchData(int matchNumber)
+    private String[][] getTableData(String matchFolder, int matchNumber)
     {
-        
+        final int dataWidth = 5;
+
+        scan.openFile(matchFolder, String.format("Match_%d.txt", matchNumber));
+
+        ArrayList<String> list = new ArrayList<String>();
+        while(scan.hasNextEntry())
+        {
+            list.add(scan.getNextLine());
+        }
+        list.remove(0);
+
+        String data[] = new String[list.size()];
+        for(int i = 0; i < list.size(); i++)
+        {
+            data[i] = list.get(i).toString();
+        }
+
+        String table[][] = new String[list.size()][dataWidth];
+
+        for(int i = 0; i < list.size(); i++)
+        {
+            table[i][0] = ext.extractEntry(data[i], 0);
+            table[i][1] = ext.extractEntry(data[i], 1);
+            table[i][2] = ext.extractEntry(data[i], 2);
+            table[i][3] = ext.extractEntry(data[i], 3);
+            table[i][4] = ext.extractEntry(data[i], 4);
+        }
+
+        return table;
+    }
+
+    private String[] getMatchList(String matchListFolder, String matchListFileName)
+    {
+        scan.openFile(matchListFolder, matchListFileName);
+
+        ArrayList<String> list = new ArrayList<String>();
+        while(scan.hasNextEntry())
+        {
+            list.add(scan.getNextLine());
+        }
+        list.remove(0);
+
+
+        String data[] = new String[list.size()];
+        for(int i = 0; i < list.size(); i++)
+        {
+            data[i] = list.get(i).toString();
+        }
+
+        matchList = data;
+
+        return data;
     }
 
     private int getMatchNumber()
     {
         return Integer.parseInt(matchTable.getValueAt(matchTable.getSelectedRow(), matchTable.getSelectedColumn()).toString());
+    }
+
+    private void displayData(String data[][])
+    {
+        dataTable.setModel(new DefaultTableModel(data, dataTableHeader));
+    }
+
+    private void updateTitle(String suffix)
+    {
+        String titleBase = "Match ";
+        setTitle(titleBase + suffix);
     }
 
     /**
