@@ -268,6 +268,14 @@ public class MatchGUI extends javax.swing.JFrame
 
     private void sortMatchNumComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortMatchNumComboBoxActionPerformed
         // TODO add your handling code here:
+        Sorter sort = new Sorter(1);
+
+        int mode = sortDirComboBox.getSelectedItem().toString().equals("Low to High") ?
+            Sorter.LOW_TO_HIGH : Sorter.HIGH_TO_LOW;
+
+        String data[] = sort.sortBest(matchList, mode);
+
+        showMatches(data);
     }//GEN-LAST:event_sortMatchNumComboBoxActionPerformed
 
     private void init()

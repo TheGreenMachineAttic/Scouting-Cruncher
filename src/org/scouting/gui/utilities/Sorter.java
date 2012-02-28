@@ -90,6 +90,27 @@ public class Sorter
         return parser.dataRowArrayToStringArray(list, DATA_POINTS);
     }
 
+    public String[] sortBest(String array[], int direction)
+    {
+        String newArray[][] = new String[array.length][1];
+
+        for(int i = 0; i < array.length; i++)
+        {
+            newArray[i][0] = array[i];
+        }
+
+        String data[][] = sortBest(newArray, 0, direction);
+
+        String finalArray[] = new String[array.length];
+
+        for(int i = 0; i < array.length; i++)
+        {
+            finalArray[i] = data[i][0];
+        }
+
+        return finalArray;
+    }
+
     public String[][] filterPenalties(String array[][], int member, int direction)
     {
         // System.out.println("--------------------------");
