@@ -45,7 +45,6 @@ public class MatchGUI extends javax.swing.JFrame
         sortColComboBox.setModel(new DefaultComboBoxModel(dataTableHeader));
 
         init();
-        getMatchList(matchPath, Main.matchListFile);
     }
 
     public MatchGUI(String version)
@@ -57,7 +56,6 @@ public class MatchGUI extends javax.swing.JFrame
         sortColComboBox.setModel(new DefaultComboBoxModel(dataTableHeader));
 
         init();
-        getMatchList(matchPath, Main.matchListFile);
     }
 
     /** This method is called from within the constructor to
@@ -259,6 +257,8 @@ public class MatchGUI extends javax.swing.JFrame
         showMatches(list);
 
         showData(matchPath, Integer.parseInt(list[0]));
+
+        setVisible(true);
     }
 
     private void showData(String matchFolder, int matchNumber)

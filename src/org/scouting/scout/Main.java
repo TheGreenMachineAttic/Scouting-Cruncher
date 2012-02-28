@@ -70,10 +70,11 @@ public class Main
             teamCount++;
         }
 
+        System.out.println();
+
         String teamData[][] = new String[teamCount][FINAL_DATA_POINTS];
         for(int i = 1; i < teamCount; i++)
         {
-            System.out.println();
             System.out.println("Team " + teamArray[i] + ":");
             teamFileScanner.openFile(currentDir + "/" + workspaceFolderName + "/" + teamFolderName, teamArray[i] + ".txt");
 
@@ -164,6 +165,7 @@ public class Main
             System.out.println("Avr. End: " + averageEndPoints);
             System.out.println("Total Penalties: " + totalPenalties);
             System.out.println("Total Average Score: " + averageTotalScore);
+            System.out.println();
 
             teamData[i - 1][0] = Double.toString(averageAutoPoints);
             teamData[i - 1][1] = Double.toString(averageMainPoints);
