@@ -181,7 +181,12 @@ public class CommentsGUI extends javax.swing.JFrame
         setTeamList(commentHolders);
         setComboBox(commentHolders);
 
-        setCommentsBox(comboBox.getSelectedItem().toString(), commentDir);
+        try {
+            setCommentsBox(comboBox.getSelectedItem().toString(), commentDir);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
 
     private void setCommentsBox(String teamName, String commentDirPath)

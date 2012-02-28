@@ -1,6 +1,7 @@
 package org.scouting.scout;
 import org.scouting.filer.*;
 import org.scouting.gui.*;
+import org.scouting.gui.utilities.*;
 
 // These may be unused, but they are still a good idea to keep!
 import java.io.*;
@@ -174,6 +175,7 @@ public class Main
             teamData[i - 1][4] = Integer.toString(penaltyNumber);
             teamData[i - 1][5] = totalPenalties;
         }
+        Sorter sort = new Sorter(2);
 
         String[][] autonomousData = new String[teamCount - 1][2];
         for(int i = 1; i < teamCount; i++)
@@ -181,7 +183,7 @@ public class Main
             autonomousData[i - 1][0] = teamArray[i];
             autonomousData[i - 1][1] = teamData[i - 1][0];
         }
-        autonomousData = sortBest(autonomousData);
+        autonomousData = sort.sortBest(autonomousData, 1, Sorter.HIGH_TO_LOW);
 
         String[][] mainGameData = new String[teamCount - 1][2];
         for(int i = 1; i < teamCount; i++)
@@ -189,7 +191,7 @@ public class Main
             mainGameData[i - 1][0] = teamArray[i];
             mainGameData[i - 1][1] = teamData[i - 1][1];
         }
-        mainGameData = sortBest(mainGameData);
+        mainGameData = sort.sortBest(mainGameData, 1, Sorter.HIGH_TO_LOW);
 
         String[][] endGameData = new String[teamCount - 1][2];
         for(int i = 1; i < teamCount; i++)
@@ -197,7 +199,7 @@ public class Main
             endGameData[i - 1][0] = teamArray[i];
             endGameData[i - 1][1] = teamData[i - 1][2];
         }
-        endGameData = sortBest(endGameData);
+        endGameData = sort.sortBest(endGameData, 1, Sorter.HIGH_TO_LOW);
 
         String[][] totalScoreData = new String[teamCount - 1][2];
         for(int i = 1; i < teamCount; i++)
@@ -205,7 +207,7 @@ public class Main
             totalScoreData[i - 1][0] = teamArray[i];
             totalScoreData[i - 1][1] = teamData[i - 1][3];
         }
-        totalScoreData = sortBest(totalScoreData);
+        totalScoreData = sort.sortBest(totalScoreData, 1, Sorter.HIGH_TO_LOW);
 
         String[][] penaltyData = new String[teamCount - 1][3];
         for(int i = 1; i < teamCount; i++)
@@ -240,47 +242,47 @@ public class Main
         rGUI.setVisible(true);
     }
 
-    public static String[][] sortBest(String array[][])
-    {
-        String result[][] = new String[array.length][2];
-
-        double topNumber = 0;
-        int teamNumber = 0;
-        for(int i = 0; i < array.length; i++)
-        {
-            double firstNumber = Double.parseDouble(array[i][1]);
-            if(firstNumber > topNumber)
-            {
-                teamNumber = Integer.parseInt(array[i][0]);
-                topNumber = Double.parseDouble(array[i][1]);
-            }
-        }
-
-        result[0][0] = Integer.toString(teamNumber);
-        result[0][1] = Double.toString(topNumber);
-
-        for(int i = 0; i < array.length - 1; i++)
-        {
-            topNumber = 0;
-            teamNumber = 0;
-            for(int j = 0; j < array.length; j++)
-            {
-                double currentNumber = Double.parseDouble(array[j][1]);
-                double lastNumber = Double.parseDouble(result[i][1]);
-
-                if(currentNumber > topNumber && currentNumber < lastNumber)
-                {
-                    teamNumber = Integer.parseInt(array[j][0]);
-                    topNumber = Double.parseDouble(array[j][1]);
-                }
-            }
-
-            result[i + 1][0] = Integer.toString(teamNumber);
-            result[i + 1][1] = Double.toString(topNumber);
-        }
-
-        return result;
-    }
+//    public static String[][] sortBest(String array[][])
+//    {
+//        String result[][] = new String[array.length][2];
+//
+//        double topNumber = 0;
+//        int teamNumber = 0;
+//        for(int i = 0; i < array.length; i++)
+//        {
+//            double firstNumber = Double.parseDouble(array[i][1]);
+//            if(firstNumber > topNumber)
+//            {
+//                teamNumber = Integer.parseInt(array[i][0]);
+//                topNumber = Double.parseDouble(array[i][1]);
+//            }
+//        }
+//
+//        result[0][0] = Integer.toString(teamNumber);
+//        result[0][1] = Double.toString(topNumber);
+//
+//        for(int i = 0; i < array.length - 1; i++)
+//        {
+//            topNumber = 0;
+//            teamNumber = 0;
+//            for(int j = 0; j < array.length; j++)
+//            {
+//                double currentNumber = Double.parseDouble(array[j][1]);
+//                double lastNumber = Double.parseDouble(result[i][1]);
+//
+//                if(currentNumber > topNumber && currentNumber < lastNumber)
+//                {
+//                    teamNumber = Integer.parseInt(array[j][0]);
+//                    topNumber = Double.parseDouble(array[j][1]);
+//                }
+//            }
+//
+//            result[i + 1][0] = Integer.toString(teamNumber);
+//            result[i + 1][1] = Double.toString(topNumber);
+//        }
+//
+//        return result;
+//    }
 
     public String getWorkspaceFolderName()
     {
