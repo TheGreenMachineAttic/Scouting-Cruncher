@@ -45,7 +45,9 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="byTeamButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="361" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="matchesButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="196" max="32767" attributes="0"/>
                       <Component id="penaltiesButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -77,6 +79,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="byTeamButton" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="penaltiesButton" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="matchesButton" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -400,6 +403,15 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="byTeamButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="matchesButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="See Data by Match"/>
+        <Property name="focusable" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="matchesButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

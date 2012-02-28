@@ -90,56 +90,6 @@ public class Sorter
         return parser.dataRowArrayToStringArray(list, DATA_POINTS);
     }
 
-    public String[] sortBest(String array[], int direction)
-    {
-        boolean finished = false;
-        int iter = 0;
-        while(!finished)
-        {
-            finished = true;
-            for(int tIter = 1; tIter < array.length; tIter++)
-            {
-                switch(direction)
-                {
-                    case LOW_TO_HIGH:
-                        if(Integer.parseInt(array[tIter]) < Integer.parseInt(array[tIter - 1]))
-                        {
-                            //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
-                            String oldVal = array[tIter - 1];
-
-                            array[tIter - 1] = array[tIter];
-                            array[tIter] = oldVal;
-
-                            finished = false;
-                            iter++;
-                            //System.out.println("Swapping teams...");
-                        }
-                        break;
-                    case HIGH_TO_LOW:
-                        if(Integer.parseInt(array[tIter]) > Integer.parseInt(array[tIter - 1]))
-                        {
-                            //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
-                            String oldVal = array[tIter - 1];
-
-                            array[tIter - 1] = array[tIter];
-                            array[tIter] = oldVal;
-
-                            finished = false;
-                            iter++;
-                        }
-                        break;
-                    default:
-                        System.err.println("I wont even try...");
-                        break;
-                }
-            }
-        }
-
-        System.out.println("Loops to Sort: " + iter);
-
-        return array;
-    }
-
     public String[][] filterPenalties(String array[][], int member, int direction)
     {
         // System.out.println("--------------------------");

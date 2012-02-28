@@ -73,6 +73,7 @@ public class ResultGUI extends javax.swing.JFrame
         penaltiesButton = new javax.swing.JButton();
         commentsButton = new javax.swing.JButton();
         byTeamButton = new javax.swing.JButton();
+        matchesButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Results");
@@ -280,6 +281,14 @@ public class ResultGUI extends javax.swing.JFrame
             }
         });
 
+        matchesButton.setText("See Data by Match");
+        matchesButton.setFocusable(false);
+        matchesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                matchesButtonActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -301,7 +310,9 @@ public class ResultGUI extends javax.swing.JFrame
                         .add(commentsButton))
                     .add(layout.createSequentialGroup()
                         .add(byTeamButton)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 361, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(matchesButton)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 196, Short.MAX_VALUE)
                         .add(penaltiesButton)))
                 .addContainerGap())
         );
@@ -325,7 +336,8 @@ public class ResultGUI extends javax.swing.JFrame
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(byTeamButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(penaltiesButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(penaltiesButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(matchesButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -361,6 +373,11 @@ public class ResultGUI extends javax.swing.JFrame
         // TODO add your handling code here:
         DataByTeamGUI dbtGUI = new DataByTeamGUI(teamList);
     }//GEN-LAST:event_byTeamButtonActionPerformed
+
+    private void matchesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matchesButtonActionPerformed
+        // TODO add your handling code here:
+        MatchGUI mGUI = new MatchGUI();
+    }//GEN-LAST:event_matchesButtonActionPerformed
 
     /**
     * @param args the command line arguments
@@ -538,6 +555,7 @@ public class ResultGUI extends javax.swing.JFrame
     private javax.swing.JLabel mainLabel;
     private javax.swing.JScrollPane mainScrollPane;
     private javax.swing.JTable mainTable;
+    private javax.swing.JButton matchesButton;
     private javax.swing.JButton moreButton;
     private javax.swing.JButton penaltiesButton;
     private javax.swing.JLabel totalLabel;

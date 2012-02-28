@@ -50,7 +50,14 @@ public class MatchGUI extends javax.swing.JFrame
 
     public MatchGUI(String version)
     {
+        initComponents();
+        
         VERSION = version;
+
+        sortColComboBox.setModel(new DefaultComboBoxModel(dataTableHeader));
+
+        init();
+        getMatchList(matchPath, Main.matchListFile);
     }
 
     /** This method is called from within the constructor to
