@@ -24,7 +24,7 @@ public class Sorter
     {
         // System.out.println("--------------------------");
 
-        int arrayLength = getArrayWidth(array);
+        int arrayLength = getArrayLength(array);
         DataRow list[] = new DataRow[arrayLength];
         DataRow dr2;
         DataRow dr1;
@@ -34,7 +34,7 @@ public class Sorter
         for(int mainC = 0; mainC < arrayLength; mainC++)
         {
             list[mainC] = new DataRow(array, mainC, DATA_POINTS);
-            //list[mainC].printRowData();
+            list[mainC].printRowData();
             //System.out.println("Storing Team " + list[mainC].valueAt(0));
         }
 
@@ -92,30 +92,59 @@ public class Sorter
 
     public String[] sortBest(String array[], int direction)
     {
-        String newArray[][] = new String[array.length][1];
-
-        for(int i = 0; i < array.length; i++)
+        boolean finished = false;
+        int iter = 0;
+        while(!finished)
         {
-            newArray[i][0] = array[i];
+            finished = true;
+            for(int tIter = 1; tIter < array.length; tIter++)
+            {
+                switch(direction)
+                {
+                    case LOW_TO_HIGH:
+                        if(Integer.parseInt(array[tIter]) < Integer.parseInt(array[tIter - 1]))
+                        {
+                            //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
+                            String oldVal = array[tIter - 1];
+
+                            array[tIter - 1] = array[tIter];
+                            array[tIter] = oldVal;
+
+                            finished = false;
+                            iter++;
+                            //System.out.println("Swapping teams...");
+                        }
+                        break;
+                    case HIGH_TO_LOW:
+                        if(Integer.parseInt(array[tIter]) > Integer.parseInt(array[tIter - 1]))
+                        {
+                            //System.out.println("Team " + dr2.valueAt(0) + " is better than team " + dr1.valueAt(0));
+                            String oldVal = array[tIter - 1];
+
+                            array[tIter - 1] = array[tIter];
+                            array[tIter] = oldVal;
+
+                            finished = false;
+                            iter++;
+                        }
+                        break;
+                    default:
+                        System.err.println("I wont even try...");
+                        break;
+                }
+            }
         }
 
-        String data[][] = sortBest(newArray, 0, direction);
+        System.out.println("Loops to Sort: " + iter);
 
-        String finalArray[] = new String[array.length];
-
-        for(int i = 0; i < array.length; i++)
-        {
-            finalArray[i] = data[i][0];
-        }
-
-        return finalArray;
+        return array;
     }
 
     public String[][] filterPenalties(String array[][], int member, int direction)
     {
         // System.out.println("--------------------------");
 
-        int arrayLength = getArrayWidth(array);
+        int arrayLength = getArrayLength(array);
         DataRow list[] = new DataRow[arrayLength];
         DataRow dr2;
         DataRow dr1;
@@ -181,7 +210,7 @@ public class Sorter
         return parser.dataRowArrayToStringArray(list, DATA_POINTS);
     }
 
-    private int getArrayWidth(String array[][])
+    private int getArrayLength(String array[][])
     {
         boolean done = false;
         int count = 0;

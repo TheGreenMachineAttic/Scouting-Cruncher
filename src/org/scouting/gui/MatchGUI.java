@@ -15,6 +15,7 @@ import org.scouting.gui.utilities.*;
 import org.scouting.scout.Main;
 
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -28,7 +29,7 @@ public class MatchGUI extends javax.swing.JFrame
     private static FileScanner scan = new FileScanner();
     private static Extracter ext = new Extracter();
 
-    private String dataTableHeader[] = new String[] {"Team", "Auto Score", "Main Score", "End Game", "Penalties"};
+    private String dataTableHeader[] = new String[] {"Team", "Auto Score", "Main Game", "End Game", "Penalties"};
     private String matchTableHeader[] = new String[] {"Match"};
     private static String matchList[];
     private static String recentData[][];
@@ -40,6 +41,9 @@ public class MatchGUI extends javax.swing.JFrame
     public MatchGUI()
     {
         initComponents();
+
+        sortColComboBox.setModel(new DefaultComboBoxModel(dataTableHeader));
+
         init();
         getMatchList(matchPath, Main.matchListFile);
     }
@@ -66,8 +70,6 @@ public class MatchGUI extends javax.swing.JFrame
         sortColComboBox = new javax.swing.JComboBox();
         sortedByLabel = new javax.swing.JLabel();
         resultsLabel = new javax.swing.JLabel();
-        matchesLabel = new javax.swing.JLabel();
-        sortMatchNumComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -152,31 +154,14 @@ public class MatchGUI extends javax.swing.JFrame
 
         resultsLabel.setText("with results");
 
-        matchesLabel.setText("Matches sorted");
-
-        sortMatchNumComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Low to High", "High to Low" }));
-        sortMatchNumComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sortMatchNumComboBoxActionPerformed(evt);
-            }
-        });
-
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(matchScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 129, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(sortMatchNumComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(10, 10, 10))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(matchesLabel)
-                        .add(30, 30, 30)))
+                .addContainerGap()
+                .add(matchScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 129, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(13, 13, 13)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .add(sortedByLabel)
@@ -194,12 +179,7 @@ public class MatchGUI extends javax.swing.JFrame
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(matchScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 262, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(matchesLabel)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(sortMatchNumComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(matchScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(sortDirComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -265,18 +245,6 @@ public class MatchGUI extends javax.swing.JFrame
 
         displayData(data);
     }//GEN-LAST:event_sortColComboBoxActionPerformed
-
-    private void sortMatchNumComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortMatchNumComboBoxActionPerformed
-        // TODO add your handling code here:
-        Sorter sort = new Sorter(1);
-
-        int mode = sortDirComboBox.getSelectedItem().toString().equals("Low to High") ?
-            Sorter.LOW_TO_HIGH : Sorter.HIGH_TO_LOW;
-
-        String data[] = sort.sortBest(matchList, mode);
-
-        showMatches(data);
-    }//GEN-LAST:event_sortMatchNumComboBoxActionPerformed
 
     private void init()
     {
@@ -394,11 +362,9 @@ public class MatchGUI extends javax.swing.JFrame
     private javax.swing.JTable dataTable;
     private javax.swing.JScrollPane matchScrollPane;
     private javax.swing.JTable matchTable;
-    private javax.swing.JLabel matchesLabel;
     private javax.swing.JLabel resultsLabel;
     private javax.swing.JComboBox sortColComboBox;
     private javax.swing.JComboBox sortDirComboBox;
-    private javax.swing.JComboBox sortMatchNumComboBox;
     private javax.swing.JLabel sortedByLabel;
     // End of variables declaration//GEN-END:variables
 

@@ -23,21 +23,9 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="matchScrollPane" alignment="0" min="-2" pref="129" max="-2" attributes="0"/>
-                          <Component id="sortMatchNumComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="1">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="matchesLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="matchScrollPane" min="-2" pref="129" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="sortedByLabel" min="-2" max="-2" attributes="0"/>
@@ -56,17 +44,11 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="matchScrollPane" min="-2" pref="262" max="-2" attributes="1"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="matchesLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="sortMatchNumComboBox" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
+                  <Component id="matchScrollPane" alignment="0" pref="321" max="32767" attributes="1"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="sortDirComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="resultsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -163,24 +145,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="with results"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="matchesLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Matches sorted"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="sortMatchNumComboBox">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="Low to High"/>
-            <StringItem index="1" value="High to Low"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sortMatchNumComboBoxActionPerformed"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>
