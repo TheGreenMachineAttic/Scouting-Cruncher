@@ -354,10 +354,7 @@ public class ResultGUI extends javax.swing.JFrame
 
     private void penaltiesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penaltiesButtonActionPerformed
         // TODO add your handling code here:
-        PenaltiesGUI pGUI = new PenaltiesGUI();
-        pGUI.setTeamCount(teamCount);
-        pGUI.setPenalties(allData);
-        pGUI.setVisible(true);
+        PenaltiesGUI pGUI = new PenaltiesGUI(teamCount, allData);
     }//GEN-LAST:event_penaltiesButtonActionPerformed
 
     private void commentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commentsButtonActionPerformed
