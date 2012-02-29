@@ -20,8 +20,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PenaltiesGUI extends javax.swing.JFrame
 {
-    private String teamNameString = "Team Number";
-    private String headerDataSeparator = "-----------";
     public String[][] allData;
     public String[] tableHeader = {"Team Number"};
     private int teamCount;

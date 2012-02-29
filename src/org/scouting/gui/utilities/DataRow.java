@@ -12,7 +12,6 @@ package org.scouting.gui.utilities;
 public class DataRow 
 {
     private String dataRow[];
-    private int dataLength;
 
     public DataRow() {}
 
@@ -32,7 +31,6 @@ public class DataRow
         }
 
         dataRow = result;
-        dataLength = arrayWidth;
     }
 
     public String valueAt(int member)
