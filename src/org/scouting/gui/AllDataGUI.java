@@ -35,8 +35,6 @@ public class AllDataGUI extends javax.swing.JFrame
     {
         initComponents();
         updateTitle("Team Number");
-
-        //ssortDirComboBox.setSelectedIndex(1);
     }
 
     /** This method is called from within the constructor to

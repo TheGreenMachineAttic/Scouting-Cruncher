@@ -99,6 +99,11 @@ public class PenaltiesGUI extends javax.swing.JFrame
                 return canEdit [columnIndex];
             }
         });
+        teamTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                teamTableMousePressed(evt);
+            }
+        });
         tableScrollPane.setViewportView(teamTable);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -129,6 +134,11 @@ public class PenaltiesGUI extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void teamTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamTableMousePressed
+        // TODO add your handling code here:
+        setExpandedPenalties(allData, String.valueOf(getTeamNumber()), teamCount);
+    }//GEN-LAST:event_teamTableMousePressed
 
     private void init()
     {
@@ -217,6 +227,11 @@ public class PenaltiesGUI extends javax.swing.JFrame
         }
 
         return result;
+    }
+
+    private int getTeamNumber()
+    {
+        return Integer.parseInt(teamTable.getValueAt(teamTable.getSelectedRow(), teamTable.getSelectedColumn()).toString());
     }
 
     /**

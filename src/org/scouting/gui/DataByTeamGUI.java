@@ -262,12 +262,6 @@ public class DataByTeamGUI extends javax.swing.JFrame
         showTeamList(teamList);
         showData(Integer.parseInt(teamList[0]));
         sortComboBox.setModel(new DefaultComboBoxModel(dataTableHeader));
-
-        System.out.println("-----------");
-        System.out.println("Init Data:");
-        System.out.println("Team Count: " + teamCount);
-        System.out.println("First Team: " + Integer.parseInt(teamList[0]));
-        System.out.println("-----------");
     }
 
     private void showData(int teamNumber)
@@ -356,7 +350,6 @@ public class DataByTeamGUI extends javax.swing.JFrame
 
         return extractedData;
     }
-
 
     private int getTeamNumber()
     {
