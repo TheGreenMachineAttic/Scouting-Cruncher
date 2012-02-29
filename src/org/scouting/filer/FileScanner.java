@@ -2,6 +2,7 @@ package org.scouting.filer;
 
 import java.io.File;
 import java.util.Scanner;
+import org.scouting.gui.utilities.ErrorGUI;
 import org.scouting.logger.*;
 import org.scouting.scout.Main;
 
@@ -34,7 +35,7 @@ public class FileScanner
         }
         catch(Exception e)
         {
-            scanLog.log(LOG_ID, "Could not open " + name + "... D:");
+            scanLog.log(LOG_ID, "Could not open " + name + " in " + path);
         }
     }
 
@@ -56,7 +57,7 @@ public class FileScanner
         }
         catch(Exception e)
         {
-            scanLog.log(LOG_ID, "File not found...");
+            scanLog.log(LOG_ID, name + " not found in " + path);
         }
         return res;
     }
@@ -67,7 +68,15 @@ public class FileScanner
         boolean result = false;
 
         // If the Scanner can read another line, return true
-        result = read.hasNext();
+        try
+        {
+            result = read.hasNext();
+        }
+        catch(Exception e)
+        {
+            scanLog.log(LOG_ID, "File was not opened correctly");
+            ErrorGUI eGUI = new ErrorGUI("File was not Found!\nCannot Continue!", ErrorGUI.ERROR_SEVERE);
+        }
         return result;
     }
 
@@ -84,7 +93,7 @@ public class FileScanner
         }
         catch(Exception e)
         {
-            scanLog.log(LOG_ID, "Error getting next line");
+            scanLog.log(LOG_ID, "Could not get next line");
         }
         return result;
     }

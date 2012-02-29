@@ -28,6 +28,8 @@ public class Main
     private static String LOG_ID = "Main";
 
     public static String currentDir = System.getProperty("user.dir");
+    public static String workspaceDir;
+    public static String commentDir;
     public static String workspaceFolderName = "Workspace";
     public static String teamFolderName = "TeamDir";
     public static String commentFolderName = "Comments";
@@ -39,16 +41,6 @@ public class Main
 
     public static void main(String[] args) throws InterruptedException, FileNotFoundException
     {
-        String workspaceDir = currentDir;
-        String commentDir;
-        
-        if((new File(currentDir + "/" + workspaceFolderName).isDirectory()))
-        {
-            workspaceDir = workspaceDir + "/" + workspaceFolderName;
-        }
-
-        commentDir = currentDir + "/" + workspaceFolderName + "/" + commentFolderName;
-
         SettingsGUI sGUI = new SettingsGUI();
         sGUI.setTeamDirField(workspaceDir);
         sGUI.setLogBox(logActivate);
@@ -56,13 +48,16 @@ public class Main
         sGUI.setVisible(false);
 
         workspaceDir = sGUI.getTeamDirPath();
+        commentDir = workspaceDir + "/" + commentFolderName;
+
         logActivate = sGUI.getLogBox();
+
         mainLog.setEnabled(logActivate);
 
         teamFileScanner = new FileScanner();
         teamListFileScanner = new FileScanner();
 
-        teamListFileScanner.openFile(currentDir + "/" + workspaceFolderName, teamListFile);
+        teamListFileScanner.openFile(workspaceDir, teamListFile);
 
         while(teamListFileScanner.hasNextEntry())
         {
@@ -71,7 +66,7 @@ public class Main
         }
 
         String teamArray[] = new String[teamCount];
-        teamListFileScanner.openFile(currentDir + "/" + workspaceFolderName, teamListFile);
+        teamListFileScanner.openFile(workspaceDir, teamListFile);
         teamCount = 0;
         while(teamListFileScanner.hasNextEntry())
         {
@@ -83,7 +78,7 @@ public class Main
         for(int i = 1; i < teamCount; i++)
         {
             mainLog.log(LOG_ID, "Team " + teamArray[i] + ":");
-            teamFileScanner.openFile(currentDir + "/" + workspaceFolderName + "/" + teamFolderName, teamArray[i] + ".txt");
+            teamFileScanner.openFile(workspaceDir + "/" + teamFolderName, teamArray[i] + ".txt");
 
             String nextLine = teamFileScanner.getNextLine();
             while(nextLine.startsWith("#"))
@@ -99,7 +94,7 @@ public class Main
             }
 
             String content[] = new String[lineCount];
-            teamFileScanner.openFile(currentDir + "/" + workspaceFolderName + "/" + teamFolderName, teamArray[i] + ".txt");
+            teamFileScanner.openFile(workspaceDir + "/" + teamFolderName, teamArray[i] + ".txt");
 
             nextLine = teamFileScanner.getNextLine();
             while(nextLine.startsWith("#"))
