@@ -42,6 +42,12 @@ public class Main
     public static void main(String[] args) throws InterruptedException, FileNotFoundException
     {
         SettingsGUI sGUI = new SettingsGUI();
+        
+        if((new File(currentDir + "/" + workspaceFolderName).isDirectory()))
+        {
+            workspaceDir = currentDir + "/" + workspaceFolderName;
+        }
+
         sGUI.setTeamDirField(workspaceDir);
         sGUI.setLogBox(logActivate);
         while(!sGUI.getScoutStatus()) {}
