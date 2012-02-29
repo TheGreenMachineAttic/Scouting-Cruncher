@@ -11,6 +11,7 @@
 
 package org.scouting.gui;
 
+import org.scouting.gui.utilities.ErrorGUI;
 import java.util.ArrayList;
 import org.scouting.filer.FileScanner;
 import javax.swing.DefaultComboBoxModel;

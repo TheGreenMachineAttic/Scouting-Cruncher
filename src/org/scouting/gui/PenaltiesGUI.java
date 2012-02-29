@@ -10,8 +10,8 @@
  */
 
 package org.scouting.gui;
+import org.scouting.gui.utilities.*;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 /*
