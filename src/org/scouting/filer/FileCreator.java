@@ -11,12 +11,8 @@ import org.scouting.logger.Logger;
 public class FileCreator 
 {
     private Formatter format;
-    private static Logger fileLog = new Logger("File Creator");
-
-    public FileCreator()
-    {
-        fileLog.setEnabled(Main.logActivate);
-    }
+    private static Logger fileLog = Main.mainLog;
+    private static String LOG_ID = "File Creator";
 
     // Used to create the text file
     public void createFile(String path, String name)
@@ -30,7 +26,7 @@ public class FileCreator
         }
         catch(Exception e)
         {
-            fileLog.log("Could not create " + name + " in " + path);
+            fileLog.log(LOG_ID, "Could not create " + name + " in " + path);
         }
     }
 
@@ -46,7 +42,7 @@ public class FileCreator
         }
         catch(Exception e)
         {
-            fileLog.log("Could not open " + name + " in " + path);
+            fileLog.log(LOG_ID, "Could not open " + name + " in " + path);
         }
     }
 

@@ -204,8 +204,6 @@ public class PenaltiesGUI extends javax.swing.JFrame
             }
         }
 
-        System.out.println("Found " + count + " valid Penalty holder(s) of " + teamCount + " valid teams");
-
         result = new String[count];
 
         count = 0;

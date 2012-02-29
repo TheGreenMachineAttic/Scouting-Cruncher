@@ -13,7 +13,8 @@ import org.scouting.scout.Main;
 public class FileScanner
 {
     private Scanner read;
-    private static Logger scanLog = new Logger("Scanner");
+    private static Logger scanLog = Main.mainLog;
+    private static final String LOG_ID = "Scanner";
 
     public FileScanner()
     {
@@ -26,14 +27,14 @@ public class FileScanner
         // Try to open the file at the path specified, and warn the user if it
         // fails
 
-        scanLog.log("Opening " + name + " in " + path);
+        scanLog.log(LOG_ID, "Opening " + name + " in " + path);
         try
         {
             read = new Scanner(new File(path + "/" + name));
         }
         catch(Exception e)
         {
-            scanLog.log("Could not open " + name + "... D:");
+            scanLog.log(LOG_ID, "Could not open " + name + "... D:");
         }
     }
 
@@ -55,7 +56,7 @@ public class FileScanner
         }
         catch(Exception e)
         {
-            scanLog.log("File not found...");
+            scanLog.log(LOG_ID, "File not found...");
         }
         return res;
     }
@@ -83,7 +84,7 @@ public class FileScanner
         }
         catch(Exception e)
         {
-            scanLog.log("Error getting next line");
+            scanLog.log(LOG_ID, "Error getting next line");
         }
         return result;
     }

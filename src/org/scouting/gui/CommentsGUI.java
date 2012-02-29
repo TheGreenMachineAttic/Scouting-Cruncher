@@ -14,7 +14,6 @@ package org.scouting.gui;
 import org.scouting.gui.utilities.ErrorGUI;
 import java.util.ArrayList;
 import org.scouting.filer.FileScanner;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -214,7 +213,6 @@ public class CommentsGUI extends javax.swing.JFrame
         for(int i = 0; i < length; i++)
         {
             result[i] = data[i][0];
-            System.out.println("Team " + result[i] + " Added");
         }
 
         return result;
@@ -227,7 +225,6 @@ public class CommentsGUI extends javax.swing.JFrame
         ArrayList<String> list = new ArrayList<String>();
         for(int i = 0; i < teamList.length; i++)
         {
-            System.out.println("Trying team " + teamList[i]);
             teamFileScanner.openFile(commentDirPath, teamList[i] + "-Comments.txt");
 
             String totalComments = "";
@@ -239,7 +236,6 @@ public class CommentsGUI extends javax.swing.JFrame
             if(!totalComments.equals(DEFAULT_COMMENT_FILE_HEADER))
             {
                 list.add(teamList[i]);
-                System.out.println("Added team " + teamList[i]);
             }
         }
 

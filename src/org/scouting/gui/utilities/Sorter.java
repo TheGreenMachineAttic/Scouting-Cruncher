@@ -18,15 +18,14 @@ public class Sorter
     public static final int LOW_TO_HIGH = 1;
     public static final int HIGH_TO_LOW = 2;
 
-    private static Logger sortLog = new Logger("Sorter");
+    private static Logger sortLog = Main.mainLog;
+    private static String LOG_ID = "Sorter";
 
     private int DATA_POINTS;
 
     public Sorter(int dataPoints)
     {
         DATA_POINTS = dataPoints;
-
-        sortLog.setEnabled(Main.logActivate);
     }
 
     public String[][] sortBest(String array[][], int member, int direction)
@@ -94,7 +93,7 @@ public class Sorter
             }
         }
 
-        sortLog.log("Loops to Sort: " + iter);
+        sortLog.log(LOG_ID, "Loops to Sort: " + iter);
 
         return parser.dataRowArrayToStringArray(list, DATA_POINTS);
     }
@@ -164,7 +163,7 @@ public class Sorter
             }
         }
 
-        sortLog.log("Loops to Sort: " + iter);
+        sortLog.log(LOG_ID, "Loops to Sort: " + iter);
 
         return parser.dataRowArrayToStringArray(list, DATA_POINTS);
     }

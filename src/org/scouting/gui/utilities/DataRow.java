@@ -15,15 +15,14 @@ import org.scouting.scout.Main;
 public class DataRow 
 {
     private String dataRow[];
-    private static Logger dataRowLog = new Logger("Data Row");
+    private static Logger dataRowLog = Main.mainLog;
+    private static String LOG_ID = "Data Row";
 
     public DataRow() {}
 
     public DataRow(String array[])
     {
         dataRow = array;
-
-        dataRowLog.setEnabled(Main.logActivate);
     }
 
     // Assumes that the first dimension is the column count
@@ -37,8 +36,6 @@ public class DataRow
         }
 
         dataRow = result;
-
-        dataRowLog.setEnabled(Main.logActivate);
     }
 
     public String valueAt(int member)
@@ -48,15 +45,15 @@ public class DataRow
 
     public void printRowData()
     {
-        dataRowLog.log("--------------");
-        dataRowLog.log("Data Row Data:");
-        dataRowLog.log("== Length: " + dataRow.length);
-        dataRowLog.log("== Data:");
+        dataRowLog.log(LOG_ID, "--------------");
+        dataRowLog.log(LOG_ID, "Data Row Data:");
+        dataRowLog.log(LOG_ID, "== Length: " + dataRow.length);
+        dataRowLog.log(LOG_ID, "== Data:");
         for(int i = 0; i < dataRow.length; i++)
         {
-            dataRowLog.log("== Row[" + i + "]: " + dataRow[i]);
+            dataRowLog.log(LOG_ID, "== Row[" + i + "]: " + dataRow[i]);
         }
-        dataRowLog.log("--------------");
+        dataRowLog.log(LOG_ID, "--------------");
     }
 
     public String[][] dataRowArrayToStringArray(DataRow array[], int finalWidth)

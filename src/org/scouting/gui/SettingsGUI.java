@@ -174,7 +174,7 @@ public class SettingsGUI extends javax.swing.JFrame
 
     public boolean getScoutStatus() throws InterruptedException
     {
-        Thread.currentThread().sleep(10);
+        Thread.sleep(10);
         return scoutBool;
     }
     /**

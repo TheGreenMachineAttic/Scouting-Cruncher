@@ -20,10 +20,12 @@ public class Main
 
 
     // ----- Variables -----//
-    private static FileScanner teamFileScanner = new FileScanner();
-    private static FileScanner teamListFileScanner = new FileScanner();
+    private static FileScanner teamFileScanner;
+    private static FileScanner teamListFileScanner;
     private static Extracter extract = new Extracter();
-    private static Logger mainLog = new Logger("Main");
+    
+    public static Logger mainLog = new Logger();
+    private static String LOG_ID = "Main";
 
     public static String currentDir = System.getProperty("user.dir");
     public static String workspaceFolderName = "Workspace";
@@ -57,6 +59,9 @@ public class Main
         logActivate = sGUI.getLogBox();
         mainLog.setEnabled(logActivate);
 
+        teamFileScanner = new FileScanner();
+        teamListFileScanner = new FileScanner();
+
         teamListFileScanner.openFile(currentDir + "/" + workspaceFolderName, teamListFile);
 
         while(teamListFileScanner.hasNextEntry())
@@ -77,7 +82,7 @@ public class Main
         String teamData[][] = new String[teamCount][FINAL_DATA_POINTS];
         for(int i = 1; i < teamCount; i++)
         {
-            mainLog.log("Team " + teamArray[i] + ":");
+            mainLog.log(LOG_ID, "Team " + teamArray[i] + ":");
             teamFileScanner.openFile(currentDir + "/" + workspaceFolderName + "/" + teamFolderName, teamArray[i] + ".txt");
 
             String nextLine = teamFileScanner.getNextLine();
@@ -162,11 +167,11 @@ public class Main
                 totalPenalties = "none";
             }
 
-            mainLog.log("Avr. Auto: " + averageAutoPoints);
-            mainLog.log("Avr. Main: " + averageMainPoints);
-            mainLog.log("Avr. End: " + averageEndPoints);
-            mainLog.log("Total Penalties: " + totalPenalties);
-            mainLog.log("Total Average Score: " + averageTotalScore);
+            mainLog.log(LOG_ID, "Avr. Auto: " + averageAutoPoints);
+            mainLog.log(LOG_ID, "Avr. Main: " + averageMainPoints);
+            mainLog.log(LOG_ID, "Avr. End: " + averageEndPoints);
+            mainLog.log(LOG_ID, "Total Penalties: " + totalPenalties);
+            mainLog.log(LOG_ID, "Total Average Score: " + averageTotalScore);
             mainLog.log();
 
             teamData[i - 1][0] = Double.toString(averageAutoPoints);

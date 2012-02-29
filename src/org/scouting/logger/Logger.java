@@ -11,7 +11,6 @@ package org.scouting.logger;
 
 public class Logger 
 {
-    private static String DEFAULT_ID = "[Log]";
     private static String PREFIX = " ";
     private static String SUFFIX = "";
 
@@ -22,12 +21,6 @@ public class Logger
         init();
     }
 
-    public Logger(String defaultID)
-    {
-        DEFAULT_ID = "[" + defaultID + "]";
-        init();
-    }
-
     private void init() {}
 
     public void setEnabled(boolean enabled)
@@ -35,19 +28,17 @@ public class Logger
         this.enabled = enabled;
     }
 
-    public void log(String message)
+    public void log(String ID, String message)
     {
+        String id = "[" + ID + "]";
+
         if(enabled)
-        {
-            System.out.println(DEFAULT_ID + PREFIX + message + SUFFIX);
-        }
+            System.out.println(id + PREFIX + message + SUFFIX);
     }
 
     public void log()
     {
         if(enabled)
-        {
             System.out.println();
-        }
     }
 }
