@@ -135,22 +135,22 @@ public class PenaltiesGUI extends javax.swing.JFrame
     private void init()
     {
         String list[] = extractTeamSequence(allData, teamCount);
+        list = removeNull(list);
 
-        setVisible(true);
+        try
+        {
+            setTeamList(list);
+            setExpandedPenalties(allData, list[0], teamCount);
+
+            setVisible(true);
+        }
+        catch(Exception e)
+        {
+            ErrorGUI eGUI = new ErrorGUI("No teams with penalties!", ErrorGUI.ERROR_LOW);
+            setVisible(false);
+        }
     }
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[])
-    {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PenaltiesGUI().setVisible(true);
-            }
-        });
-    }
-    
     public void setTeamList(String[] data)
     {
         String[][] list = new String[data.length][1];
@@ -160,17 +160,6 @@ public class PenaltiesGUI extends javax.swing.JFrame
         }
 
         teamTable.setModel(new DefaultTableModel(list, tableHeader));
-    }
-
-    public void setPenalties(String[][] data)
-    {
-        allData = data;
-        String[][] penaltiesTeams = sortBest(data, 5);
-        String[] list = extractTeamSequence(penaltiesTeams, teamCount);
-        list = removeNull(list);
-        setTeamList(list);
-        setComboBox(list);
-        setExpandedPenalties(penaltiesTeams, comboBox.getSelectedItem().toString(), teamCount);
     }
 
     public void setExpandedPenalties(String data[][], String currentTeam, int teamCount)
@@ -232,6 +221,18 @@ public class PenaltiesGUI extends javax.swing.JFrame
         }
 
         return result;
+    }
+
+    /**
+    * @param args the command line arguments
+    */
+    public static void main(String args[])
+    {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new PenaltiesGUI().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
