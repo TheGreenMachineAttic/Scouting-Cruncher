@@ -11,6 +11,7 @@
 
 package org.scouting.gui;
 
+import java.util.ArrayList;
 import org.scouting.filer.FileScanner;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
@@ -75,6 +76,7 @@ public class CommentsGUI extends javax.swing.JFrame
         setResizable(false);
 
         textArea.setColumns(20);
+        textArea.setEditable(false);
         textArea.setRows(5);
         textScrollPane.setViewportView(textArea);
 
@@ -151,14 +153,21 @@ public class CommentsGUI extends javax.swing.JFrame
 
     private void init()
     {
-        setVisible(true);
         String[] teamList = extractTeamSequence(allData, teamCount);
         String[] commentHolders = getTeamWithComments(commentDir, teamList);
         setTeamList(commentHolders);
 
-        setCommentsBox(Integer.parseInt(commentHolders[0]), commentDir);
+        try
+        {
+            setCommentsBox(Integer.parseInt(commentHolders[0]), commentDir);
+            setVisible(true);
+        }
+        catch(Exception e)
+        {
+            ErrorGUI eGUI = new ErrorGUI("No Teams have Comments!", ErrorGUI.ERROR_LOW);
+            setVisible(false);
+        }
 
-        setVisible(true);
     }
     
     private void setTeamList(String[] data)
@@ -213,10 +222,11 @@ public class CommentsGUI extends javax.swing.JFrame
     public String[] getTeamWithComments(String commentDirPath, String[] teamList)
     {
         FileScanner teamFileScanner = new FileScanner();
-        
-        int count = 0;
+
+        ArrayList<String> list = new ArrayList<String>();
         for(int i = 0; i < teamList.length; i++)
         {
+            System.out.println("Trying team " + teamList[i]);
             teamFileScanner.openFile(commentDirPath, teamList[i] + "-Comments.txt");
 
             String totalComments = "";
@@ -227,28 +237,15 @@ public class CommentsGUI extends javax.swing.JFrame
 
             if(!totalComments.equals(DEFAULT_COMMENT_FILE_HEADER))
             {
-                count++;
+                list.add(teamList[i]);
+                System.out.println("Added team " + teamList[i]);
             }
         }
 
-        String[] result = new String[count];
-
-        count = 0;
-        for(int i = 0; i < teamList.length; i++)
+        String result[] = new String[list.size()];
+        for(int i = 0; i < list.size(); i++)
         {
-            teamFileScanner.openFile(commentDirPath, teamList[i] + "-Comments.txt");
-
-            String totalComments = "";
-            while(teamFileScanner.hasNextEntry())
-            {
-                totalComments = totalComments + teamFileScanner.getNextLine() + "\n";
-            }
-
-            if(!totalComments.equals(DEFAULT_COMMENT_FILE_HEADER))
-            {
-                result[count] = teamList[i];
-                count++;
-            }
+            result[i] = list.get(i).toString();
         }
 
         return result;
