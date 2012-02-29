@@ -13,7 +13,6 @@ package org.scouting.gui;
 
 import org.scouting.gui.utilities.*;
 
-import java.text.DecimalFormat;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -27,7 +26,6 @@ public class AllDataGUI extends javax.swing.JFrame
 
     private static final int DATA_POINTS = 7;
     private static final String TITLE_BASE = "All Scores - ";
-    private String DECIMAL_FORMAT = "#.###";
 
 
     /** Creates new form AllDataGUI */
@@ -203,13 +201,6 @@ public class AllDataGUI extends javax.swing.JFrame
     {
         allData = data;
     }
-
-    private double roundTwoDecimals(double number)
-    {
-        DecimalFormat dFormat = new DecimalFormat(DECIMAL_FORMAT);
-        return Double.valueOf(dFormat.format(number));
-    }
-    
 
     private void updateTitle(String suffix)
     {

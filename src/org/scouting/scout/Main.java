@@ -6,6 +6,7 @@ import org.scouting.logger.*;
 
 // These may be unused, but they are still a good idea to keep!
 import java.io.*;
+import java.text.DecimalFormat;
 
 /*
  * @author aoneill
@@ -23,7 +24,9 @@ public class Main
     private static FileScanner teamFileScanner;
     private static FileScanner teamListFileScanner;
     private static Extracter extract = new Extracter();
-    
+
+    private static String DECIMAL_FORMAT = "#.####";
+
     public static Logger mainLog = new Logger();
     private static String LOG_ID = "Main";
 
@@ -157,9 +160,9 @@ public class Main
                 }
             }
 
-            averageAutoPoints = averageAutoPoints/lineCount;
-            averageMainPoints = averageMainPoints/lineCount;
-            averageEndPoints = averageEndPoints/lineCount;
+            averageAutoPoints = (double) averageAutoPoints/lineCount;
+            averageMainPoints = (double) averageMainPoints/lineCount;
+            averageEndPoints = (double) averageEndPoints/lineCount;
 
             averageTotalScore = (double) (averageAutoPoints + averageMainPoints + averageEndPoints)/3;
 
@@ -175,10 +178,10 @@ public class Main
             mainLog.log(LOG_ID, "Total Average Score: " + averageTotalScore);
             mainLog.log();
 
-            teamData[i - 1][0] = Double.toString(averageAutoPoints);
-            teamData[i - 1][1] = Double.toString(averageMainPoints);
-            teamData[i - 1][2] = Double.toString(averageEndPoints);
-            teamData[i - 1][3] = Double.toString(averageTotalScore);
+            teamData[i - 1][0] = Double.toString(round(averageAutoPoints));
+            teamData[i - 1][1] = Double.toString(round(averageMainPoints));
+            teamData[i - 1][2] = Double.toString(round(averageEndPoints));
+            teamData[i - 1][3] = Double.toString(round(averageTotalScore));
             teamData[i - 1][4] = Integer.toString(penaltyNumber);
             teamData[i - 1][5] = totalPenalties;
         }
@@ -249,55 +252,10 @@ public class Main
         rGUI.setVisible(true);
     }
 
-//    public static String[][] sortBest(String array[][])
-//    {
-//        String result[][] = new String[array.length][2];
-//
-//        double topNumber = 0;
-//        int teamNumber = 0;
-//        for(int i = 0; i < array.length; i++)
-//        {
-//            double firstNumber = Double.parseDouble(array[i][1]);
-//            if(firstNumber > topNumber)
-//            {
-//                teamNumber = Integer.parseInt(array[i][0]);
-//                topNumber = Double.parseDouble(array[i][1]);
-//            }
-//        }
-//
-//        result[0][0] = Integer.toString(teamNumber);
-//        result[0][1] = Double.toString(topNumber);
-//
-//        for(int i = 0; i < array.length - 1; i++)
-//        {
-//            topNumber = 0;
-//            teamNumber = 0;
-//            for(int j = 0; j < array.length; j++)
-//            {
-//                double currentNumber = Double.parseDouble(array[j][1]);
-//                double lastNumber = Double.parseDouble(result[i][1]);
-//
-//                if(currentNumber > topNumber && currentNumber < lastNumber)
-//                {
-//                    teamNumber = Integer.parseInt(array[j][0]);
-//                    topNumber = Double.parseDouble(array[j][1]);
-//                }
-//            }
-//
-//            result[i + 1][0] = Integer.toString(teamNumber);
-//            result[i + 1][1] = Double.toString(topNumber);
-//        }
-//
-//        return result;
-//    }
 
-    public String getWorkspaceFolderName()
+    private static double round(double number)
     {
-        return workspaceFolderName;
-    }
-
-    public String getTeamFolderName()
-    {
-        return teamFolderName;
+        DecimalFormat dFormat = new DecimalFormat(DECIMAL_FORMAT);
+        return Double.valueOf(dFormat.format(number));
     }
 }
