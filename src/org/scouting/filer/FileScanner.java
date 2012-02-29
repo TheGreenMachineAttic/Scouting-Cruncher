@@ -2,6 +2,8 @@ package org.scouting.filer;
 
 import java.io.File;
 import java.util.Scanner;
+import org.scouting.logger.*;
+import org.scouting.scout.Main;
 
 /**
  * @author Alex O'Neill
@@ -11,6 +13,12 @@ import java.util.Scanner;
 public class FileScanner
 {
     private Scanner read;
+    private static Logger scanLog = new Logger("Scanner");
+
+    public FileScanner()
+    {
+        scanLog.setEnabled(Main.logActivate);
+    }
 
     // Used to open the text file in the Scanner
     public void openFile(String path, String name)
@@ -18,14 +26,14 @@ public class FileScanner
         // Try to open the file at the path specified, and warn the user if it
         // fails
 
-        System.out.println("Scanner: Opening " + name + " in " + path);
+        scanLog.log("Opening " + name + " in " + path);
         try
         {
             read = new Scanner(new File(path + "/" + name));
         }
         catch(Exception e)
         {
-            System.out.println("Could not open " + name + "... D:");
+            scanLog.log("Could not open " + name + "... D:");
         }
     }
 
@@ -47,7 +55,7 @@ public class FileScanner
         }
         catch(Exception e)
         {
-            System.out.println("File not found...");
+            scanLog.log("File not found...");
         }
         return res;
     }
@@ -75,7 +83,7 @@ public class FileScanner
         }
         catch(Exception e)
         {
-            System.out.print("Error getting next line");
+            scanLog.log("Error getting next line");
         }
         return result;
     }

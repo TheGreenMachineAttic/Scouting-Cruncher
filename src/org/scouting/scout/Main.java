@@ -2,6 +2,7 @@ package org.scouting.scout;
 import org.scouting.filer.*;
 import org.scouting.gui.*;
 import org.scouting.gui.utilities.*;
+import org.scouting.logger.*;
 
 // These may be unused, but they are still a good idea to keep!
 import java.io.*;
@@ -22,6 +23,7 @@ public class Main
     private static FileScanner teamFileScanner = new FileScanner();
     private static FileScanner teamListFileScanner = new FileScanner();
     private static Extracter extract = new Extracter();
+    private static Logger mainLog = new Logger("Main");
 
     public static String currentDir = System.getProperty("user.dir");
     public static String workspaceFolderName = "Workspace";
@@ -31,11 +33,12 @@ public class Main
     public static String teamListFile = "TeamList.txt";
     public static String matchListFile = "Match-List.txt";
 
+    public static boolean logActivate = false;
+
     public static void main(String[] args) throws InterruptedException, FileNotFoundException
     {
         String workspaceDir = currentDir;
         String commentDir;
-        boolean logActivate = false;
         
         if((new File(currentDir + "/" + workspaceFolderName).isDirectory()))
         {
@@ -52,7 +55,7 @@ public class Main
 
         workspaceDir = sGUI.getTeamDirPath();
         logActivate = sGUI.getLogBox();
-
+        mainLog.setEnabled(logActivate);
 
         teamListFileScanner.openFile(currentDir + "/" + workspaceFolderName, teamListFile);
 
@@ -71,12 +74,10 @@ public class Main
             teamCount++;
         }
 
-        System.out.println();
-
         String teamData[][] = new String[teamCount][FINAL_DATA_POINTS];
         for(int i = 1; i < teamCount; i++)
         {
-            System.out.println("Team " + teamArray[i] + ":");
+            mainLog.log("Team " + teamArray[i] + ":");
             teamFileScanner.openFile(currentDir + "/" + workspaceFolderName + "/" + teamFolderName, teamArray[i] + ".txt");
 
             String nextLine = teamFileScanner.getNextLine();
@@ -161,12 +162,12 @@ public class Main
                 totalPenalties = "none";
             }
 
-            System.out.println("Avr. Auto: " + averageAutoPoints);
-            System.out.println("Avr. Main: " + averageMainPoints);
-            System.out.println("Avr. End: " + averageEndPoints);
-            System.out.println("Total Penalties: " + totalPenalties);
-            System.out.println("Total Average Score: " + averageTotalScore);
-            System.out.println();
+            mainLog.log("Avr. Auto: " + averageAutoPoints);
+            mainLog.log("Avr. Main: " + averageMainPoints);
+            mainLog.log("Avr. End: " + averageEndPoints);
+            mainLog.log("Total Penalties: " + totalPenalties);
+            mainLog.log("Total Average Score: " + averageTotalScore);
+            mainLog.log();
 
             teamData[i - 1][0] = Double.toString(averageAutoPoints);
             teamData[i - 1][1] = Double.toString(averageMainPoints);

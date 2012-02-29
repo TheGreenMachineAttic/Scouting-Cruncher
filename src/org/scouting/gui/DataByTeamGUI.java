@@ -270,16 +270,6 @@ public class DataByTeamGUI extends javax.swing.JFrame
         System.out.println("-----------");
     }
 
-    private void showData()
-    {
-        int teamNumber = getTeamNumber();
-        String data[][] = getContent(teamNumber);
-        displayData(data);
-        updateTitle(String.valueOf(teamNumber));
-
-        recentData = data;
-    }
-
     private void showData(int teamNumber)
     {
         String data[][] = getContent(teamNumber);

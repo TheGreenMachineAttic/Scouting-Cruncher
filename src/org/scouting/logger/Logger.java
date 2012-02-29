@@ -12,10 +12,9 @@ package org.scouting.logger;
 public class Logger 
 {
     private static String DEFAULT_ID = "[Log]";
-    private static LoggerGUI logGUI = new LoggerGUI();
+    private static String PREFIX = " ";
+    private static String SUFFIX = "";
 
-
-    private boolean guiEnabled = false;
     private boolean enabled = false;
 
     public Logger()
@@ -25,17 +24,11 @@ public class Logger
 
     public Logger(String defaultID)
     {
-        DEFAULT_ID = defaultID;
+        DEFAULT_ID = "[" + defaultID + "]";
         init();
     }
 
     private void init() {}
-
-    public void setGUIVisible(boolean enabled)
-    {
-        guiEnabled = enabled;
-        logGUI.setVisible(guiEnabled);
-    }
 
     public void setEnabled(boolean enabled)
     {
@@ -46,12 +39,15 @@ public class Logger
     {
         if(enabled)
         {
-            System.out.println(DEFAULT_ID + ": " + message);
+            System.out.println(DEFAULT_ID + PREFIX + message + SUFFIX);
         }
+    }
 
-        if(guiEnabled)
+    public void log()
+    {
+        if(enabled)
         {
-            logGUI.addMessage(message);
+            System.out.println();
         }
     }
 }

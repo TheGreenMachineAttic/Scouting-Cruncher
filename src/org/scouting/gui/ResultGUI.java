@@ -12,9 +12,7 @@
 package org.scouting.gui;
 
 import java.text.DecimalFormat;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /*
  * @author aoneill
