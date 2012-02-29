@@ -31,7 +31,7 @@ public class ResultGUI extends javax.swing.JFrame
     private static String endData[][];
     private static String totalData[][];
     private static String[][] penaltiesData;
-    private static String[][] over9000Data;
+    private static String[][] allData;
     private static String[] teamList;
 
     private int teamCount;
@@ -347,7 +347,7 @@ public class ResultGUI extends javax.swing.JFrame
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
         // TODO add your handling code here:
         AllDataGUI aGUI= new AllDataGUI();
-        aGUI.setAllData(over9000Data);
+        aGUI.setAllData(allData);
         aGUI.initTable();
         aGUI.setVisible(true);
     }//GEN-LAST:event_moreButtonActionPerformed
@@ -356,17 +356,13 @@ public class ResultGUI extends javax.swing.JFrame
         // TODO add your handling code here:
         PenaltiesGUI pGUI = new PenaltiesGUI();
         pGUI.setTeamCount(teamCount);
-        pGUI.setPenalties(over9000Data);
+        pGUI.setPenalties(allData);
         pGUI.setVisible(true);
     }//GEN-LAST:event_penaltiesButtonActionPerformed
 
     private void commentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commentsButtonActionPerformed
         // TODO add your handling code here:
-        CommentsGUI cGUI = new CommentsGUI();
-        cGUI.setTeamCount(teamCount);
-        cGUI.setCommentDir(commentDir);
-        cGUI.setComments(over9000Data);
-        cGUI.setVisible(true);
+        CommentsGUI cGUI = new CommentsGUI(teamCount, commentDir, allData);
     }//GEN-LAST:event_commentsButtonActionPerformed
 
     private void byTeamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_byTeamButtonActionPerformed
@@ -518,7 +514,7 @@ public class ResultGUI extends javax.swing.JFrame
 
     public void setAllScoresTable(String data[][])
     {
-        over9000Data = data;
+        allData = data;
     }
 
     public void setTeamList(String data[])

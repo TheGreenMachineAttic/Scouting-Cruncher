@@ -22,17 +22,28 @@ import javax.swing.table.DefaultTableModel;
 public class CommentsGUI extends javax.swing.JFrame
 {
     private String[] tableHeader = {"Team Number"};
-    private int teamCount;
-    private String commentDir;
     private String TEAM_LIST_NAME = "TeamList";
     private String DEFAULT_COMMENT_FILE_HEADER = "# Comments #\n";
 
+    private int teamCount;
+    private String commentDir;
+    private String allData[][];
+
+
+    public CommentsGUI() {}
 
     /** Creates new form PenaltiesGUI */
-    public CommentsGUI()
+    public CommentsGUI(int teamCount, String commentDir, String allData[][])
     {
         initComponents();
+
+        this.allData = allData;
+        this.commentDir = commentDir;
+        this.teamCount = teamCount;
+
+        init();
     }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -44,11 +55,9 @@ public class CommentsGUI extends javax.swing.JFrame
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        comboBox = new javax.swing.JComboBox();
         textScrollPane = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
         tableLabel = new javax.swing.JLabel();
-        comboLabel = new javax.swing.JLabel();
         tableScrollPane = new javax.swing.JScrollPane();
         teamTable = new javax.swing.JTable();
 
@@ -65,20 +74,11 @@ public class CommentsGUI extends javax.swing.JFrame
 
         setResizable(false);
 
-        comboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxActionPerformed(evt);
-            }
-        });
-
         textArea.setColumns(20);
         textArea.setRows(5);
         textScrollPane.setViewportView(textArea);
 
         tableLabel.setText("Teams With Comments");
-
-        comboLabel.setText("Comments For");
 
         teamTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -115,41 +115,27 @@ public class CommentsGUI extends javax.swing.JFrame
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(tableScrollPane, 0, 0, Short.MAX_VALUE)
-                    .add(tableLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 189, Short.MAX_VALUE)
-                        .add(comboLabel)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(comboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(layout.createSequentialGroup()
-                        .add(24, 24, 24)
-                        .add(textScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, tableLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, tableScrollPane, 0, 0, Short.MAX_VALUE))
+                .add(18, 18, 18)
+                .add(textScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 364, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(31, 31, 31)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(tableLabel)
-                    .add(comboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(comboLabel))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(textScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                    .add(tableScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 275, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, textScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                    .add(layout.createSequentialGroup()
+                        .add(tableLabel)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(tableScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxActionPerformed
-        // TODO add your handling code here:
-        setCommentsBox(comboBox.getSelectedItem().toString(), commentDir);
-    }//GEN-LAST:event_comboBoxActionPerformed
 
     /**
     * @param args the command line arguments
@@ -161,6 +147,18 @@ public class CommentsGUI extends javax.swing.JFrame
                 new CommentsGUI().setVisible(true);
             }
         });
+    }
+
+    private void init()
+    {
+        setVisible(true);
+        String[] teamList = extractTeamSequence(allData, teamCount);
+        String[] commentHolders = getTeamWithComments(commentDir, teamList);
+        setTeamList(commentHolders);
+
+        setCommentsBox(Integer.parseInt(commentHolders[0]), commentDir);
+
+        setVisible(true);
     }
     
     private void setTeamList(String[] data)
@@ -174,22 +172,7 @@ public class CommentsGUI extends javax.swing.JFrame
         teamTable.setModel(new DefaultTableModel(list, tableHeader));
     }
 
-    public void setComments(String[][] allData)
-    {
-        String[] teamList = extractTeamSequence(allData, teamCount);
-        String[] commentHolders = getTeamWithComments(commentDir, teamList);
-        setTeamList(commentHolders);
-        setComboBox(commentHolders);
-
-        try {
-            setCommentsBox(comboBox.getSelectedItem().toString(), commentDir);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-    }
-
-    private void setCommentsBox(String teamName, String commentDirPath)
+    private void setCommentsBox(int teamName, String commentDirPath)
     {
         String teamFileName = teamName + "-Comments.txt";
 
@@ -203,11 +186,6 @@ public class CommentsGUI extends javax.swing.JFrame
         }
 
         textArea.setText(commentData);
-    }
-
-    private void setComboBox(String[] data)
-    {
-        comboBox.setModel(new DefaultComboBoxModel(data));
     }
 
     public void setTeamCount(int num)
@@ -226,6 +204,7 @@ public class CommentsGUI extends javax.swing.JFrame
         for(int i = 0; i < length; i++)
         {
             result[i] = data[i][0];
+            System.out.println("Team " + result[i] + " Added");
         }
 
         return result;
@@ -275,27 +254,12 @@ public class CommentsGUI extends javax.swing.JFrame
         return result;
     }
 
-    public String[] findCommentHolders(String commentDirPath)
+    public String getSelectedTeam()
     {
-        String[] result;
-
-        int count = 0;
-        boolean filesRemain = false;
-        while(!filesRemain)
-        {
-            
-        }
-
-        System.out.println("Found " + count + " valid Comment holder(s) of " + teamCount + " valid teams");
-
-        result = new String[count];
-
-        return result;
+        return teamTable.getValueAt(teamTable.getSelectedRow(), teamTable.getSelectedColumn()).toString();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox comboBox;
-    private javax.swing.JLabel comboLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel tableLabel;
     private javax.swing.JScrollPane tableScrollPane;
