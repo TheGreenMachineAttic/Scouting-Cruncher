@@ -11,6 +11,8 @@
 
 package org.scouting.gui;
 
+import org.scouting.scout.Main;
+
 import java.text.DecimalFormat;
 import javax.swing.table.DefaultTableModel;
 
@@ -74,7 +76,6 @@ public class ResultGUI extends javax.swing.JFrame
         dataByMatch = new javax.swing.JMenuItem();
         commentData = new javax.swing.JMenuItem();
         penaltyData = new javax.swing.JMenuItem();
-        edit = new javax.swing.JMenu();
         help = new javax.swing.JMenu();
         about = new javax.swing.JMenuItem();
 
@@ -296,12 +297,14 @@ public class ResultGUI extends javax.swing.JFrame
 
         menuBar.add(file);
 
-        edit.setText("Edit");
-        menuBar.add(edit);
-
         help.setText("Help");
 
         about.setText("About");
+        about.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutActionPerformed(evt);
+            }
+        });
         help.add(about);
 
         menuBar.add(help);
@@ -369,6 +372,11 @@ public class ResultGUI extends javax.swing.JFrame
         // TODO add your handling code here:
         PenaltiesGUI pGUI = new PenaltiesGUI(teamCount, allData);
     }//GEN-LAST:event_penaltyDataActionPerformed
+
+    private void aboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutActionPerformed
+        // TODO add your handling code here:
+        AboutGUI aGUI = new AboutGUI(Main.VERSION);
+    }//GEN-LAST:event_aboutActionPerformed
 
     /**
     * @param args the command line arguments
@@ -543,7 +551,6 @@ public class ResultGUI extends javax.swing.JFrame
     private javax.swing.JMenuItem commentData;
     private javax.swing.JMenuItem dataByMatch;
     private javax.swing.JMenuItem dataPerTeam;
-    private javax.swing.JMenu edit;
     private javax.swing.JLabel endLabel;
     private javax.swing.JScrollPane endScrollPane;
     private javax.swing.JTable endTable;

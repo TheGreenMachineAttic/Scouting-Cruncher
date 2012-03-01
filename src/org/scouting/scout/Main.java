@@ -41,6 +41,7 @@ public class Main
     public static String matchListFile = "Match-List.txt";
 
     public static boolean logActivate = false;
+    public static String VERSION = "Version 1.0";
 
     public static void main(String[] args) throws InterruptedException, FileNotFoundException
     {
