@@ -394,6 +394,7 @@ public class ResultGUI extends javax.swing.JFrame
 
     private void exportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportActionPerformed
         // TODO add your handling code here:
+        ExportGUI eGUI = new ExportGUI();
     }//GEN-LAST:event_exportActionPerformed
 
     /**
