@@ -72,6 +72,9 @@ public class ResultGUI extends javax.swing.JFrame
         commentsButton = new javax.swing.JButton();
         byTeamButton = new javax.swing.JButton();
         matchesButton = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Results");
@@ -286,6 +289,14 @@ public class ResultGUI extends javax.swing.JFrame
                 matchesButtonActionPerformed(evt);
             }
         });
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -543,6 +554,9 @@ public class ResultGUI extends javax.swing.JFrame
     private javax.swing.JLabel endLabel;
     private javax.swing.JScrollPane endScrollPane;
     private javax.swing.JTable endTable;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel mainLabel;
     private javax.swing.JScrollPane mainScrollPane;
     private javax.swing.JTable mainTable;
