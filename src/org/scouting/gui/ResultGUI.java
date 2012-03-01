@@ -71,11 +71,13 @@ public class ResultGUI extends javax.swing.JFrame
         totalTable = new javax.swing.JTable();
         menuBar = new javax.swing.JMenuBar();
         file = new javax.swing.JMenu();
+        dataMenu = new javax.swing.JMenu();
         averageData = new javax.swing.JMenuItem();
         dataPerTeam = new javax.swing.JMenuItem();
         dataByMatch = new javax.swing.JMenuItem();
         commentData = new javax.swing.JMenuItem();
         penaltyData = new javax.swing.JMenuItem();
+        export = new javax.swing.JMenuItem();
         help = new javax.swing.JMenu();
         about = new javax.swing.JMenuItem();
 
@@ -255,13 +257,15 @@ public class ResultGUI extends javax.swing.JFrame
 
         file.setText("File");
 
+        dataMenu.setText("Data");
+
         averageData.setText("See All Average Data");
         averageData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 averageDataActionPerformed(evt);
             }
         });
-        file.add(averageData);
+        dataMenu.add(averageData);
 
         dataPerTeam.setText("See All Data By Team");
         dataPerTeam.addActionListener(new java.awt.event.ActionListener() {
@@ -269,7 +273,7 @@ public class ResultGUI extends javax.swing.JFrame
                 dataPerTeamActionPerformed(evt);
             }
         });
-        file.add(dataPerTeam);
+        dataMenu.add(dataPerTeam);
 
         dataByMatch.setText("See Data By Match");
         dataByMatch.addActionListener(new java.awt.event.ActionListener() {
@@ -277,7 +281,7 @@ public class ResultGUI extends javax.swing.JFrame
                 dataByMatchActionPerformed(evt);
             }
         });
-        file.add(dataByMatch);
+        dataMenu.add(dataByMatch);
 
         commentData.setText("See Comments");
         commentData.addActionListener(new java.awt.event.ActionListener() {
@@ -285,7 +289,7 @@ public class ResultGUI extends javax.swing.JFrame
                 commentDataActionPerformed(evt);
             }
         });
-        file.add(commentData);
+        dataMenu.add(commentData);
 
         penaltyData.setText("See Penalties");
         penaltyData.addActionListener(new java.awt.event.ActionListener() {
@@ -293,7 +297,17 @@ public class ResultGUI extends javax.swing.JFrame
                 penaltyDataActionPerformed(evt);
             }
         });
-        file.add(penaltyData);
+        dataMenu.add(penaltyData);
+
+        file.add(dataMenu);
+
+        export.setText("Export Data...");
+        export.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportActionPerformed(evt);
+            }
+        });
+        file.add(export);
 
         menuBar.add(file);
 
@@ -377,6 +391,10 @@ public class ResultGUI extends javax.swing.JFrame
         // TODO add your handling code here:
         AboutGUI aGUI = new AboutGUI(Main.VERSION);
     }//GEN-LAST:event_aboutActionPerformed
+
+    private void exportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exportActionPerformed
 
     /**
     * @param args the command line arguments
@@ -550,10 +568,12 @@ public class ResultGUI extends javax.swing.JFrame
     private javax.swing.JPanel avrTotalScorePanel;
     private javax.swing.JMenuItem commentData;
     private javax.swing.JMenuItem dataByMatch;
+    private javax.swing.JMenu dataMenu;
     private javax.swing.JMenuItem dataPerTeam;
     private javax.swing.JLabel endLabel;
     private javax.swing.JScrollPane endScrollPane;
     private javax.swing.JTable endTable;
+    private javax.swing.JMenuItem export;
     private javax.swing.JMenu file;
     private javax.swing.JMenu help;
     private javax.swing.JLabel mainLabel;
