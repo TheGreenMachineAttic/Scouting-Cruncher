@@ -67,14 +67,16 @@ public class ResultGUI extends javax.swing.JFrame
         totalLabel = new javax.swing.JLabel();
         totalScrollPane = new javax.swing.JScrollPane();
         totalTable = new javax.swing.JTable();
-        moreButton = new javax.swing.JButton();
-        penaltiesButton = new javax.swing.JButton();
-        commentsButton = new javax.swing.JButton();
-        byTeamButton = new javax.swing.JButton();
-        matchesButton = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        menuBar = new javax.swing.JMenuBar();
+        file = new javax.swing.JMenu();
+        averageData = new javax.swing.JMenuItem();
+        dataPerTeam = new javax.swing.JMenuItem();
+        dataByMatch = new javax.swing.JMenuItem();
+        commentData = new javax.swing.JMenuItem();
+        penaltyData = new javax.swing.JMenuItem();
+        edit = new javax.swing.JMenu();
+        help = new javax.swing.JMenu();
+        about = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Results");
@@ -250,53 +252,61 @@ public class ResultGUI extends javax.swing.JFrame
                 .add(totalScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
         );
 
-        moreButton.setText("See All Average Data");
-        moreButton.setFocusable(false);
-        moreButton.addActionListener(new java.awt.event.ActionListener() {
+        file.setText("File");
+
+        averageData.setText("See All Average Data");
+        averageData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                moreButtonActionPerformed(evt);
+                averageDataActionPerformed(evt);
             }
         });
+        file.add(averageData);
 
-        penaltiesButton.setText("See Penalties");
-        penaltiesButton.setFocusable(false);
-        penaltiesButton.addActionListener(new java.awt.event.ActionListener() {
+        dataPerTeam.setText("See All Data By Team");
+        dataPerTeam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                penaltiesButtonActionPerformed(evt);
+                dataPerTeamActionPerformed(evt);
             }
         });
+        file.add(dataPerTeam);
 
-        commentsButton.setText("Comments");
-        commentsButton.setFocusable(false);
-        commentsButton.addActionListener(new java.awt.event.ActionListener() {
+        dataByMatch.setText("See Data By Match");
+        dataByMatch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                commentsButtonActionPerformed(evt);
+                dataByMatchActionPerformed(evt);
             }
         });
+        file.add(dataByMatch);
 
-        byTeamButton.setText("See All Data Per Team");
-        byTeamButton.setFocusable(false);
-        byTeamButton.addActionListener(new java.awt.event.ActionListener() {
+        commentData.setText("See Comments");
+        commentData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                byTeamButtonActionPerformed(evt);
+                commentDataActionPerformed(evt);
             }
         });
+        file.add(commentData);
 
-        matchesButton.setText("See Data by Match");
-        matchesButton.setFocusable(false);
-        matchesButton.addActionListener(new java.awt.event.ActionListener() {
+        penaltyData.setText("See Penalties");
+        penaltyData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                matchesButtonActionPerformed(evt);
+                penaltyDataActionPerformed(evt);
             }
         });
+        file.add(penaltyData);
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        menuBar.add(file);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        edit.setText("Edit");
+        menuBar.add(edit);
 
-        setJMenuBar(jMenuBar1);
+        help.setText("Help");
+
+        about.setText("About");
+        help.add(about);
+
+        menuBar.add(help);
+
+        setJMenuBar(menuBar);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -305,25 +315,13 @@ public class ResultGUI extends javax.swing.JFrame
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(avrAutoScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(avrMainScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(18, 18, 18)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(avrEndScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, avrTotalScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                    .add(layout.createSequentialGroup()
-                        .add(moreButton)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 381, Short.MAX_VALUE)
-                        .add(commentsButton))
-                    .add(layout.createSequentialGroup()
-                        .add(byTeamButton)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(matchesButton)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 196, Short.MAX_VALUE)
-                        .add(penaltiesButton)))
-                .addContainerGap())
+                    .add(avrAutoScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(avrMainScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(18, 18, 18)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(avrEndScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, avrTotalScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -333,53 +331,44 @@ public class ResultGUI extends javax.swing.JFrame
                     .add(layout.createSequentialGroup()
                         .add(avrEndScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
-                        .add(avrTotalScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18)
-                        .add(commentsButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(avrTotalScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
                         .add(avrAutoScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
-                        .add(avrMainScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(17, 17, 17)
-                        .add(moreButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(byTeamButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(penaltiesButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(matchesButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .add(avrMainScorePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
+    private void averageDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_averageDataActionPerformed
         // TODO add your handling code here:
         AllDataGUI aGUI= new AllDataGUI();
         aGUI.setAllData(allData);
         aGUI.initTable();
         aGUI.setVisible(true);
-    }//GEN-LAST:event_moreButtonActionPerformed
+    }//GEN-LAST:event_averageDataActionPerformed
 
-    private void penaltiesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penaltiesButtonActionPerformed
-        // TODO add your handling code here:
-        PenaltiesGUI pGUI = new PenaltiesGUI(teamCount, allData);
-    }//GEN-LAST:event_penaltiesButtonActionPerformed
-
-    private void commentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commentsButtonActionPerformed
-        // TODO add your handling code here:
-        CommentsGUI cGUI = new CommentsGUI(teamCount, commentDir, allData);
-    }//GEN-LAST:event_commentsButtonActionPerformed
-
-    private void byTeamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_byTeamButtonActionPerformed
+    private void dataPerTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataPerTeamActionPerformed
         // TODO add your handling code here:
         DataByTeamGUI dbtGUI = new DataByTeamGUI(teamList);
-    }//GEN-LAST:event_byTeamButtonActionPerformed
+    }//GEN-LAST:event_dataPerTeamActionPerformed
 
-    private void matchesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matchesButtonActionPerformed
+    private void dataByMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataByMatchActionPerformed
         // TODO add your handling code here:
         MatchGUI mGUI = new MatchGUI();
-    }//GEN-LAST:event_matchesButtonActionPerformed
+    }//GEN-LAST:event_dataByMatchActionPerformed
+
+    private void commentDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commentDataActionPerformed
+        // TODO add your handling code here:
+        CommentsGUI cGUI = new CommentsGUI(teamCount, commentDir, allData);
+    }//GEN-LAST:event_commentDataActionPerformed
+
+    private void penaltyDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penaltyDataActionPerformed
+        // TODO add your handling code here:
+        PenaltiesGUI pGUI = new PenaltiesGUI(teamCount, allData);
+    }//GEN-LAST:event_penaltyDataActionPerformed
 
     /**
     * @param args the command line arguments
@@ -542,27 +531,29 @@ public class ResultGUI extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem about;
     private javax.swing.JLabel autoLabel;
     private javax.swing.JScrollPane autoScrolPane;
     private javax.swing.JTable autoTable;
+    private javax.swing.JMenuItem averageData;
     private javax.swing.JPanel avrAutoScorePanel;
     private javax.swing.JPanel avrEndScorePanel;
     private javax.swing.JPanel avrMainScorePanel;
     private javax.swing.JPanel avrTotalScorePanel;
-    private javax.swing.JButton byTeamButton;
-    private javax.swing.JButton commentsButton;
+    private javax.swing.JMenuItem commentData;
+    private javax.swing.JMenuItem dataByMatch;
+    private javax.swing.JMenuItem dataPerTeam;
+    private javax.swing.JMenu edit;
     private javax.swing.JLabel endLabel;
     private javax.swing.JScrollPane endScrollPane;
     private javax.swing.JTable endTable;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu file;
+    private javax.swing.JMenu help;
     private javax.swing.JLabel mainLabel;
     private javax.swing.JScrollPane mainScrollPane;
     private javax.swing.JTable mainTable;
-    private javax.swing.JButton matchesButton;
-    private javax.swing.JButton moreButton;
-    private javax.swing.JButton penaltiesButton;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem penaltyData;
     private javax.swing.JLabel totalLabel;
     private javax.swing.JScrollPane totalScrollPane;
     private javax.swing.JTable totalTable;
