@@ -28,7 +28,7 @@ public class ExportGUI extends javax.swing.JFrame
     private static int exportFileType;
     private static String allData[][];
 
-    private static String fileTypes[] = {"Text File (.txt)", "Microsoft Powerpoint (.ppt)"};
+    private static String fileTypes[] = {"Microsoft Powerpoint (.ppt)", "Text File (.txt)"};
     private static String currentDir = System.getProperty("user.dir");
 
     /** Creates new form ExportGUI */
