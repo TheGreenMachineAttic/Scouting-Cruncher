@@ -362,10 +362,7 @@ public class ResultGUI extends javax.swing.JFrame
 
     private void averageDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_averageDataActionPerformed
         // TODO add your handling code here:
-        AllDataGUI aGUI= new AllDataGUI();
-        aGUI.setAllData(allData);
-        aGUI.initTable();
-        aGUI.setVisible(true);
+        AllDataGUI aGUI= new AllDataGUI(allData);
     }//GEN-LAST:event_averageDataActionPerformed
 
     private void dataPerTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataPerTeamActionPerformed
@@ -551,6 +548,16 @@ public class ResultGUI extends javax.swing.JFrame
 
         teamList = newData;
     }
+    
+    public void setTeamCount(int num)
+    {
+        teamCount = num;
+    }
+
+    public void setCommentDir(String dir)
+    {
+        commentDir = dir;
+    }
 
     double roundTwoDecimals(double num)
     {
@@ -588,13 +595,4 @@ public class ResultGUI extends javax.swing.JFrame
     private javax.swing.JTable totalTable;
     // End of variables declaration//GEN-END:variables
 
-    public void setTeamCount(int num)
-    {
-        teamCount = num;
-    }
-    
-    public void setCommentDir(String dir) 
-    {
-        commentDir = dir;
-    }
 }

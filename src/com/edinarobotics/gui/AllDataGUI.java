@@ -27,11 +27,18 @@ public class AllDataGUI extends javax.swing.JFrame
     private static final int DATA_POINTS = 7;
     private static final String TITLE_BASE = "All Scores - ";
 
+    public AllDataGUI() {}
 
     /** Creates new form AllDataGUI */
-    public AllDataGUI()
+    public AllDataGUI(String[][] allData)
     {
+        this.allData = allData;
+
         initComponents();
+
+        initTable();
+        setVisible(true);
+
         updateTitle("Team Number");
     }
 
@@ -185,21 +192,16 @@ public class AllDataGUI extends javax.swing.JFrame
         });
     }
 
-    public void initTable()
+    private void initTable()
     {
         Sorter sort = new Sorter(DATA_POINTS);
         String data[][] = sort.sortBest(allData, 0, Sorter.LOW_TO_HIGH);
         writeToTable(data);
     }
 
-    public void writeToTable(String data[][])
+    private void writeToTable(String data[][])
     {
         dataTable.setModel(new DefaultTableModel(data, tableHeader));
-    }
-
-    public void setAllData(String data[][])
-    {
-        allData = data;
     }
 
     private void updateTitle(String suffix)
