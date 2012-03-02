@@ -17,7 +17,7 @@ public class TextFileExport
 {
     private FileCreator fileCreo = new FileCreator();
     private Extracter extract = new Extracter();
-    private Sorter sort = new Sorter();
+    private Sorter sort;
 
     private static String allData[][];
     private static int teamCount;

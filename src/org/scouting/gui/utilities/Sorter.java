@@ -23,8 +23,6 @@ public class Sorter
 
     private int DATA_POINTS;
 
-    public Sorter() {}
-
     public Sorter(int dataPoints)
     {
         DATA_POINTS = dataPoints;
