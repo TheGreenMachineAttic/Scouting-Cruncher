@@ -5,13 +5,17 @@
 
 package org.scouting.export;
 
+import java.awt.Color;
+import java.awt.geom.Rectangle2D;
 import org.scouting.gui.utilities.Sorter;
 
-import org.apache.poi.hslf.HSLFSlideShow;
 import org.apache.poi.hslf.model.Slide;
 import org.apache.poi.hslf.usermodel.SlideShow;
 
 import java.io.FileOutputStream;
+import org.apache.poi.hslf.model.TextBox;
+import org.apache.poi.hslf.model.TextShape;
+import org.apache.poi.hslf.usermodel.RichTextRun;
 
 
 /*
@@ -45,7 +49,41 @@ class PowerPointExport
     {
         try
         {
-            Slide slide = slideShow.createSlide();
+            Slide introSlide = slideShow.createSlide();
+            TextBox intro = introSlide.addTitle();
+            intro.setFillColor(Color.LIGHT_GRAY);
+            intro.setLineColor(Color.GREEN);
+            RichTextRun rtrIntro = intro.getTextRun().getRichTextRunAt(0);
+            rtrIntro.setFontSize(60);
+            rtrIntro.setFontName("Helvetica");
+            intro.setText("Green Machine\nScouting");
+
+            for(int i = 0; i < teamCount; i++)
+            {
+                Slide slide = slideShow.createSlide();
+                TextBox title = slide.addTitle();
+                title.setFillColor(Color.LIGHT_GRAY);
+                title.setLineColor(Color.GREEN);
+                RichTextRun rtrTitle = title.getTextRun().getRichTextRunAt(0);
+                rtrTitle.setFontSize(32);
+                rtrTitle.setFontName("Arial");
+                title.setText("Team " + allData[i][0]);
+
+                TextBox data = slide.addTitle();
+                data.setMarginTop(100);
+                data.setHorizontalAlignment(TextBox.AlignLeft);
+                RichTextRun rtrData = data.getTextRun().getRichTextRunAt(0);
+                rtrData.setFontSize(32);
+                rtrData.setFontName("Arial");
+
+                String teamAutoScore = "Average Autonomous Score: " + allData[i][1];
+                String teamMainGameScore = "Average Main Game Score: " + allData[i][2];
+                String teamEndGameScore = "Average End Game Score: " + allData[i][3];
+                String teamTotalAverageScore = "Average Total Score: " + allData[i][4];
+
+                data.setText(teamAutoScore + "\n" + teamMainGameScore + "\n" + teamEndGameScore + "\n" + teamTotalAverageScore);
+
+            }
         }
         catch(Exception e) {}
     }
@@ -54,7 +92,7 @@ class PowerPointExport
     {
         try
         {
-            FileOutputStream out = new FileOutputStream("slideshow.ppt");
+            FileOutputStream out = new FileOutputStream(filePath + "/" + fileName + ".ppt");
             slideShow.write(out);
             out.close();
         }
