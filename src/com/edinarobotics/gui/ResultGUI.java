@@ -31,7 +31,6 @@ public class ResultGUI extends javax.swing.JFrame
     private static String mainData[][];
     private static String endData[][];
     private static String totalData[][];
-    private static String[][] penaltiesData;
     private static String[][] allData;
     private static String[] teamList;
 
@@ -525,11 +524,6 @@ public class ResultGUI extends javax.swing.JFrame
         {
             totalTable.setModel(new DefaultTableModel(totalData, tableHeader));
         }
-    }
-
-    public void setPeanltiesData(String data[][])
-    {
-        penaltiesData = data;
     }
 
     public void setAllScoresTable(String data[][])
