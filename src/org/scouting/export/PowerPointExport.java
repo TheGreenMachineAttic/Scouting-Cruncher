@@ -25,7 +25,7 @@ import org.apache.poi.hslf.usermodel.RichTextRun;
 
 class PowerPointExport
 {
-    Sorter sort = new Sorter();
+    Sorter sort = new Sorter(7);
 
     private static SlideShow slideShow = new SlideShow();
     
@@ -36,7 +36,7 @@ class PowerPointExport
 
     public PowerPointExport(String teamData[][], String name, String path)
     {
-        allData = teamData;
+        allData = sort.sortBest(teamData, 4, Sorter.HIGH_TO_LOW);
         teamCount = sort.getArrayLength(allData);
         fileName = name;
         filePath = path;
@@ -53,10 +53,13 @@ class PowerPointExport
             TextBox intro = introSlide.addTitle();
             intro.setFillColor(Color.LIGHT_GRAY);
             intro.setLineColor(Color.GREEN);
+            intro.setMarginTop(150);
+            intro.setMarginBottom(150);
             RichTextRun rtrIntro = intro.getTextRun().getRichTextRunAt(0);
             rtrIntro.setFontSize(60);
             rtrIntro.setFontName("Helvetica");
             intro.setText("Green Machine\nScouting");
+
 
             for(int i = 0; i < teamCount; i++)
             {
@@ -64,8 +67,9 @@ class PowerPointExport
                 TextBox title = slide.addTitle();
                 title.setFillColor(Color.LIGHT_GRAY);
                 title.setLineColor(Color.GREEN);
+                title.setMarginTop(10);
                 RichTextRun rtrTitle = title.getTextRun().getRichTextRunAt(0);
-                rtrTitle.setFontSize(32);
+                rtrTitle.setFontSize(64);
                 rtrTitle.setFontName("Arial");
                 title.setText("Team " + allData[i][0]);
 
@@ -76,12 +80,13 @@ class PowerPointExport
                 rtrData.setFontSize(32);
                 rtrData.setFontName("Arial");
 
-                String teamAutoScore = "Average Autonomous Score: " + allData[i][1];
-                String teamMainGameScore = "Average Main Game Score: " + allData[i][2];
-                String teamEndGameScore = "Average End Game Score: " + allData[i][3];
-                String teamTotalAverageScore = "Average Total Score: " + allData[i][4];
+                String teamAutoScore = "    Average Autonomous Score:  " + allData[i][1];
+                String teamMainGameScore = "    Average Main Game Score:  " + allData[i][2];
+                String teamEndGameScore = "    Average End Game Score:  " + allData[i][3];
+                String dataBreak = "+ _____________________________";
+                String teamTotalAverageScore = "    Average Total Score:  " + allData[i][4];
 
-                data.setText(teamAutoScore + "\n" + teamMainGameScore + "\n" + teamEndGameScore + "\n" + teamTotalAverageScore);
+                data.setText(teamAutoScore + "\n" + teamMainGameScore + "\n" + teamEndGameScore + "\n" + dataBreak + "\n\n" + teamTotalAverageScore);
 
             }
         }
