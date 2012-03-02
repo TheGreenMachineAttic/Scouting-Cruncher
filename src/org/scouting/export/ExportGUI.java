@@ -9,7 +9,7 @@
  * Created on Mar 1, 2012, 11:37:13 AM
  */
 
-package org.scouting.gui;
+package org.scouting.export;
 
 import java.io.File;
 import javax.swing.DefaultComboBoxModel;
@@ -20,20 +20,25 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class ExportGUI extends javax.swing.JFrame
 {
-    private static int FILE_TYPE_TXT = 1;
-    private static int FILE_TYPE_PPT = 2;
+    private static final int FILE_TYPE_TXT = 1;
+    private static final int FILE_TYPE_PPT = 2;
 
     private static String exportName;
     private static String exportLocation;
     private static int exportFileType;
+    private static String allData[][];
 
     private static String fileTypes[] = {"Text File (.txt)", "Microsoft Powerpoint (.ppt)"};
     private static String currentDir = System.getProperty("user.dir");
 
     /** Creates new form ExportGUI */
-    public ExportGUI()
+    public ExportGUI() {}
+
+    public ExportGUI(String teamData[][])
     {
         initComponents();
+
+        allData = teamData;
 
         whereBox.setText(currentDir);
         
@@ -155,8 +160,24 @@ public class ExportGUI extends javax.swing.JFrame
 
         exportName = fileName.getText();
         exportLocation = whereBox.getText();
+
         exportFileType = formatComboBox.getSelectedItem().toString().equals(fileTypes[0]) ?
             FILE_TYPE_TXT : FILE_TYPE_PPT;
+
+        switch(exportFileType)
+        {
+            case FILE_TYPE_TXT:
+                TextFileExport tfex = new TextFileExport(allData, exportName, exportLocation);
+                break;
+
+            case FILE_TYPE_PPT:
+                PowerPointExport pptex = new PowerPointExport(allData, exportName, exportLocation);
+                break;
+
+            default:
+                break;
+        }
+
     }//GEN-LAST:event_exportButtonActionPerformed
 
     private void bowseBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bowseBoxActionPerformed

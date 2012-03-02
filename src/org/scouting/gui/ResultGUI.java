@@ -11,6 +11,7 @@
 
 package org.scouting.gui;
 
+import org.scouting.export.ExportGUI;
 import org.scouting.scout.Main;
 
 import java.text.DecimalFormat;
@@ -394,7 +395,7 @@ public class ResultGUI extends javax.swing.JFrame
 
     private void exportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportActionPerformed
         // TODO add your handling code here:
-        ExportGUI eGUI = new ExportGUI();
+        ExportGUI eGUI = new ExportGUI(allData);
     }//GEN-LAST:event_exportActionPerformed
 
     /**

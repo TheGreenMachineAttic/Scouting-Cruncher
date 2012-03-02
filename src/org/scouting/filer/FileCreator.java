@@ -78,7 +78,11 @@ public class FileCreator
     {
         format.format("%s", entry + System.getProperty("line.separator"));
     }
-    
+
+    public void addEntry()
+    {
+        format.format("%s", System.getProperty("line.separator"));
+    }
 
     // Used to close the text file
     // Make sure you do this!! It wont actaully add stuff to your file if you

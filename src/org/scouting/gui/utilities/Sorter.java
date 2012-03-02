@@ -23,6 +23,8 @@ public class Sorter
 
     private int DATA_POINTS;
 
+    public Sorter() {}
+
     public Sorter(int dataPoints)
     {
         DATA_POINTS = dataPoints;
@@ -168,7 +170,7 @@ public class Sorter
         return parser.dataRowArrayToStringArray(list, DATA_POINTS);
     }
 
-    private int getArrayLength(String array[][])
+    public int getArrayLength(String array[][])
     {
         boolean done = false;
         int count = 0;
