@@ -9,34 +9,42 @@
  * Created on Dec 17, 2011, 10:52:13 PM
  */
 
-package org.scouting.gui;
-import org.scouting.gui.utilities.*;
+package com.edinarobotics.gui;
 
+import com.edinarobotics.gui.utilities.ErrorGUI;
+import java.util.ArrayList;
+import com.edinarobotics.file.FileScanner;
 import javax.swing.table.DefaultTableModel;
 
 /*
  * @author aoneill
  * @note Made by the Netbeans built-in GUI creator
  */
-public class PenaltiesGUI extends javax.swing.JFrame
+public class CommentsGUI extends javax.swing.JFrame
 {
-    public String[][] allData;
-    public String[] tableHeader = {"Team Number"};
-    private int teamCount;
-    private String penaltiesBoxHeader = "- Penalties -";
+    private String[] tableHeader = {"Team Number"};
+    private String TEAM_LIST_NAME = "TeamList";
+    private String DEFAULT_COMMENT_FILE_HEADER = "# Comments #\n";
 
-    private PenaltiesGUI() {}
+    private int teamCount;
+    private String commentDir;
+    private String allData[][];
+
+
+    public CommentsGUI() {}
 
     /** Creates new form PenaltiesGUI */
-    public PenaltiesGUI(int teamCount, String allData[][])
+    public CommentsGUI(int teamCount, String commentDir, String allData[][])
     {
         initComponents();
 
-        this.teamCount = teamCount;
         this.allData = allData;
+        this.commentDir = commentDir;
+        this.teamCount = teamCount;
 
         init();
     }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -68,10 +76,11 @@ public class PenaltiesGUI extends javax.swing.JFrame
         setResizable(false);
 
         textArea.setColumns(20);
+        textArea.setEditable(false);
         textArea.setRows(5);
         textScrollPane.setViewportView(textArea);
 
-        tableLabel.setText("Teams With Penalties");
+        tableLabel.setText("Teams With Comments");
 
         teamTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -99,11 +108,6 @@ public class PenaltiesGUI extends javax.swing.JFrame
                 return canEdit [columnIndex];
             }
         });
-        teamTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                teamTableMousePressed(evt);
-            }
-        });
         tableScrollPane.setViewportView(teamTable);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -112,11 +116,11 @@ public class PenaltiesGUI extends javax.swing.JFrame
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(tableLabel)
-                    .add(tableScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 154, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(textScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, tableLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, tableScrollPane, 0, 0, Short.MAX_VALUE))
+                .add(18, 18, 18)
+                .add(textScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 364, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -124,7 +128,7 @@ public class PenaltiesGUI extends javax.swing.JFrame
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(textScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, textScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
                     .add(layout.createSequentialGroup()
                         .add(tableLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -135,31 +139,38 @@ public class PenaltiesGUI extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void teamTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teamTableMousePressed
-        // TODO add your handling code here:
-        setExpandedPenalties(allData, String.valueOf(getTeamNumber()), teamCount);
-    }//GEN-LAST:event_teamTableMousePressed
+    /**
+    * @param args the command line arguments
+    */
+    public static void main(String args[])
+    {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new CommentsGUI().setVisible(true);
+            }
+        });
+    }
 
     private void init()
     {
-        String list[] = extractTeamSequence(allData, teamCount);
-        list = removeNull(list);
+        String[] teamList = extractTeamSequence(allData, teamCount);
+        String[] commentHolders = getTeamWithComments(commentDir, teamList);
+        setTeamList(commentHolders);
 
         try
         {
-            setTeamList(list);
-            setExpandedPenalties(allData, list[0], teamCount);
-
+            setCommentsBox(Integer.parseInt(commentHolders[0]), commentDir);
             setVisible(true);
         }
         catch(Exception e)
         {
-            ErrorGUI eGUI = new ErrorGUI("No teams with penalties!", ErrorGUI.ERROR_LOW);
+            ErrorGUI eGUI = new ErrorGUI("No Teams have Comments!", ErrorGUI.ERROR_LOW);
             setVisible(false);
         }
-    }
 
-    public void setTeamList(String[] data)
+    }
+    
+    private void setTeamList(String[] data)
     {
         String[][] list = new String[data.length][1];
         for(int i = 0; i < data.length; i++)
@@ -170,24 +181,30 @@ public class PenaltiesGUI extends javax.swing.JFrame
         teamTable.setModel(new DefaultTableModel(list, tableHeader));
     }
 
-    public void setExpandedPenalties(String data[][], String currentTeam, int teamCount)
+    private void setCommentsBox(int teamName, String commentDirPath)
     {
-        String extractedPenalties = "";
+        String teamFileName = teamName + "-Comments.txt";
 
-        for(int i = 0; i < teamCount; i++)
+        FileScanner teamReader = new FileScanner();
+        teamReader.openFile(commentDirPath, teamFileName);
+
+        String commentData = "";
+        while(teamReader.hasNextEntry())
         {
-            if(data[i][0].equals(currentTeam))
-            {
-                extractedPenalties = data[i][6];
-            }
+            commentData = commentData + teamReader.getNextLine() + "\n";
         }
 
-        textArea.setText(penaltiesBoxHeader + "\n");
+        textArea.setText(commentData);
+    }
 
-        extractedPenalties = extractedPenalties.replaceAll(":", "\n");
+    public void setTeamCount(int num)
+    {
+        teamCount = num;
+    }
 
-        textArea.append(extractedPenalties);
-
+    public void setCommentDir(String path)
+    {
+        commentDir = path;
     }
 
     public String[] extractTeamSequence(String data[][], int length)
@@ -201,49 +218,39 @@ public class PenaltiesGUI extends javax.swing.JFrame
         return result;
     }
 
-    public String[] removeNull(String[] data)
+    public String[] getTeamWithComments(String commentDirPath, String[] teamList)
     {
-        String[] result;
+        FileScanner teamFileScanner = new FileScanner();
 
-        int count = 0;
-        for(int i = 0; i < data.length; i++)
+        ArrayList<String> list = new ArrayList<String>();
+        for(int i = 0; i < teamList.length; i++)
         {
-            if(Integer.parseInt(data[i]) != 0)
+            teamFileScanner.openFile(commentDirPath, teamList[i] + "-Comments.txt");
+
+            String totalComments = "";
+            while(teamFileScanner.hasNextEntry())
             {
-                count++;
+                totalComments = totalComments + teamFileScanner.getNextLine() + "\n";
+            }
+
+            if(!totalComments.equals(DEFAULT_COMMENT_FILE_HEADER))
+            {
+                list.add(teamList[i]);
             }
         }
 
-        result = new String[count];
-
-        count = 0;
-        for(int i = 0; i < data.length; i++)
+        String result[] = new String[list.size()];
+        for(int i = 0; i < list.size(); i++)
         {
-            if(Integer.parseInt(data[i]) != 0)
-            {
-                result[count] = data[i];
-                count++;
-            }
+            result[i] = list.get(i).toString();
         }
 
         return result;
     }
 
-    private int getTeamNumber()
+    public String getSelectedTeam()
     {
-        return Integer.parseInt(teamTable.getValueAt(teamTable.getSelectedRow(), teamTable.getSelectedColumn()).toString());
-    }
-
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[])
-    {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PenaltiesGUI().setVisible(true);
-            }
-        });
+        return teamTable.getValueAt(teamTable.getSelectedRow(), teamTable.getSelectedColumn()).toString();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

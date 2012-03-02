@@ -1,10 +1,10 @@
-package org.scouting.filer;
+package com.edinarobotics.file;
 
 import java.io.File;
 import java.util.Scanner;
-import org.scouting.gui.utilities.ErrorGUI;
-import org.scouting.logger.*;
-import org.scouting.scout.Main;
+import com.edinarobotics.gui.utilities.ErrorGUI;
+import com.edinarobotics.logger.*;
+import com.edinarobotics.scout.Main;
 
 /**
  * @author Alex O'Neill

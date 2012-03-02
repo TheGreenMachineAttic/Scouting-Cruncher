@@ -9,11 +9,11 @@
  * Created on Feb 21, 2012, 11:46:13 AM
  */
 
-package org.scouting.gui;
+package com.edinarobotics.gui;
 
-import org.scouting.gui.utilities.*;
-import org.scouting.filer.*;
-import org.scouting.scout.Main;
+import com.edinarobotics.gui.utilities.*;
+import com.edinarobotics.file.*;
+import com.edinarobotics.scout.Main;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;

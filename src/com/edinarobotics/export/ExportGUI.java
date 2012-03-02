@@ -9,7 +9,7 @@
  * Created on Mar 1, 2012, 11:37:13 AM
  */
 
-package org.scouting.export;
+package com.edinarobotics.export;
 
 import java.io.File;
 import javax.swing.DefaultComboBoxModel;

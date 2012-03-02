@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.scouting.logger;
+package com.edinarobotics.logger;
 /*
  * @author aoneill
  * @breif

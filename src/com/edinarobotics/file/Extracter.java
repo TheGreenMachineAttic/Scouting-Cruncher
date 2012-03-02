@@ -1,4 +1,4 @@
-package org.scouting.filer;
+package com.edinarobotics.file;
 
 /**
  * @author Alex O'Neill

@@ -3,10 +3,10 @@
  * and open the template in the editor.
  */
 
-package org.scouting.export;
-import org.scouting.filer.Extracter;
-import org.scouting.filer.FileCreator;
-import org.scouting.gui.utilities.Sorter;
+package com.edinarobotics.export;
+import com.edinarobotics.file.Extracter;
+import com.edinarobotics.file.FileCreator;
+import com.edinarobotics.gui.utilities.Sorter;
 
 /*
  * @author aoneill

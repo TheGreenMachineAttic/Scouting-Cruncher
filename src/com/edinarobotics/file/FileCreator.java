@@ -1,8 +1,8 @@
-package org.scouting.filer;
+package com.edinarobotics.file;
 
 import java.util.Formatter;
-import org.scouting.scout.*;
-import org.scouting.logger.Logger;
+import com.edinarobotics.scout.*;
+import com.edinarobotics.logger.Logger;
 
 /**
  * @author Alex O'Neill

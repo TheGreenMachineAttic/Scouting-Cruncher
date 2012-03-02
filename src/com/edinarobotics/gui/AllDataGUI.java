@@ -9,9 +9,9 @@
  * Created on Dec 17, 2011, 10:47:18 PM
  */
 
-package org.scouting.gui;
+package com.edinarobotics.gui;
 
-import org.scouting.gui.utilities.*;
+import com.edinarobotics.gui.utilities.*;
 
 import javax.swing.table.DefaultTableModel;
 

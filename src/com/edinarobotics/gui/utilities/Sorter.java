@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package org.scouting.gui.utilities;
-import org.scouting.logger.Logger;
-import org.scouting.scout.Main;
+package com.edinarobotics.gui.utilities;
+import com.edinarobotics.logger.Logger;
+import com.edinarobotics.scout.Main;
 
 
 /*

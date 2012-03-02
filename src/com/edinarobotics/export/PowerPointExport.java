@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package org.scouting.export;
-import org.scouting.gui.utilities.Sorter;
-import org.scouting.filer.Extracter;
+package com.edinarobotics.export;
+import com.edinarobotics.gui.utilities.Sorter;
+import com.edinarobotics.file.Extracter;
 
 import org.apache.poi.hslf.model.Slide;
 import org.apache.poi.hslf.model.TextBox;

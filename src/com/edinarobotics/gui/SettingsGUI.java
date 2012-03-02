@@ -9,7 +9,7 @@
  * Created on Nov 3, 2011, 9:13:40 PM
  */
 
-package org.scouting.gui;
+package com.edinarobotics.gui;
 
 import java.io.File;
 

@@ -9,10 +9,10 @@
  * Created on Feb 24, 2012, 11:42:15 AM
  */
 
-package org.scouting.gui;
-import org.scouting.filer.*;
-import org.scouting.gui.utilities.*;
-import org.scouting.scout.Main;
+package com.edinarobotics.gui;
+import com.edinarobotics.file.*;
+import com.edinarobotics.gui.utilities.*;
+import com.edinarobotics.scout.Main;
 
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;

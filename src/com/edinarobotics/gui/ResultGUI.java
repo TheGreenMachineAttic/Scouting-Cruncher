@@ -9,10 +9,10 @@
  * Created on Nov 23, 2011, 8:40:02 AM
  */
 
-package org.scouting.gui;
+package com.edinarobotics.gui;
 
-import org.scouting.export.ExportGUI;
-import org.scouting.scout.Main;
+import com.edinarobotics.export.ExportGUI;
+import com.edinarobotics.scout.Main;
 
 import java.text.DecimalFormat;
 import javax.swing.table.DefaultTableModel;

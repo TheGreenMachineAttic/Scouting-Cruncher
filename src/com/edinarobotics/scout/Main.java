@@ -1,8 +1,8 @@
-package org.scouting.scout;
-import org.scouting.filer.*;
-import org.scouting.gui.*;
-import org.scouting.gui.utilities.*;
-import org.scouting.logger.*;
+package com.edinarobotics.scout;
+import com.edinarobotics.file.*;
+import com.edinarobotics.gui.*;
+import com.edinarobotics.gui.utilities.*;
+import com.edinarobotics.logger.*;
 
 // These may be unused, but they are still a good idea to keep!
 import java.io.*;
