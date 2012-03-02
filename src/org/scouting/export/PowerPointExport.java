@@ -7,6 +7,13 @@ package org.scouting.export;
 
 import org.scouting.gui.utilities.Sorter;
 
+import org.apache.poi.hslf.HSLFSlideShow;
+import org.apache.poi.hslf.model.Slide;
+import org.apache.poi.hslf.usermodel.SlideShow;
+
+import java.io.FileOutputStream;
+
+
 /*
  * @author aoneill
  * @breif
@@ -14,7 +21,9 @@ import org.scouting.gui.utilities.Sorter;
 
 class PowerPointExport
 {
-    Sorter sort;
+    Sorter sort = new Sorter();
+
+    private static SlideShow slideShow = new SlideShow();
     
     private static String allData[][];
     private static int teamCount;
@@ -28,12 +37,27 @@ class PowerPointExport
         fileName = name;
         filePath = path;
 
-
+        createPPT();
+        writeOut();
     }
-    
 
+    private void createPPT()
+    {
+        try
+        {
+            Slide slide = slideShow.createSlide();
+        }
+        catch(Exception e) {}
+    }
 
-
-
-
+    private void writeOut()
+    {
+        try
+        {
+            FileOutputStream out = new FileOutputStream("slideshow.ppt");
+            slideShow.write(out);
+            out.close();
+        }
+        catch(Exception e) {}
+    }
 }
