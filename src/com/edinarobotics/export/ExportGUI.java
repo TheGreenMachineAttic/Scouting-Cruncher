@@ -162,7 +162,7 @@ public class ExportGUI extends javax.swing.JFrame
         exportLocation = whereBox.getText();
 
         exportFileType = formatComboBox.getSelectedItem().toString().equals(fileTypes[0]) ?
-            FILE_TYPE_TXT : FILE_TYPE_PPT;
+            FILE_TYPE_PPT : FILE_TYPE_TXT;
 
         switch(exportFileType)
         {

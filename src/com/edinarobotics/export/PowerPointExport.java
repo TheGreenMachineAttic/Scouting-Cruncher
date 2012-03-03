@@ -13,6 +13,7 @@ import org.apache.poi.hslf.usermodel.SlideShow;
 import org.apache.poi.hslf.usermodel.RichTextRun;
 
 import java.awt.Color;
+import java.awt.geom.Rectangle2D;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
@@ -37,7 +38,7 @@ class PowerPointExport
     private static String TITLE_TEXT = "Green Machine\nScouting";
 
     private static String DATA_FONT = "Arial";
-    private static int DATA_FONT_SIZE = 32*7;
+    private static int DATA_FONT_SIZE = 40 * 7;
     
     private static String allData[][];
     private static int teamCount;
@@ -64,8 +65,11 @@ class PowerPointExport
             TextBox intro = introSlide.addTitle();
             intro.setFillColor(TITLE_BACKGROUND_COLOR);
             intro.setLineColor(TITLE_BORDER_COLOR);
-            intro.setMarginTop(150);
-            intro.setMarginBottom(150);
+
+            Rectangle2D introRect = new Rectangle2D.Double(50, 50, 620, 435);
+            intro.setAnchor(introRect);
+
+            intro.setMarginTop(120);
             RichTextRun rtrIntro = intro.getTextRun().getRichTextRunAt(0);
             rtrIntro.setFontSize(TITLE_FONT_SIZE);
             rtrIntro.setFontName(TITLE_FONT);
@@ -80,6 +84,10 @@ class PowerPointExport
                 TextBox title = slide.addTitle();
                 title.setFillColor(TITLE_BACKGROUND_COLOR);
                 title.setLineColor(TITLE_BORDER_COLOR);
+
+                Rectangle2D titleRect = new Rectangle2D.Double(50, 50, 620, 100);
+                title.setAnchor(titleRect);
+
                 title.setMarginTop(10);
                 RichTextRun rtrTitle = title.getTextRun().getRichTextRunAt(0);
                 rtrTitle.setFontSize(TITLE_FONT_SIZE);
@@ -88,7 +96,11 @@ class PowerPointExport
                 title.setText("Team " + allData[i][0]);
 
                 TextBox data = slide.addTitle();
-                data.setMarginTop(150);
+
+                Rectangle2D dataRect = new Rectangle2D.Double(50, 150, 620, 435);
+                data.setAnchor(dataRect);
+
+                data.setMarginTop(10);
                 data.setHorizontalAlignment(TextBox.AlignLeft);
                 RichTextRun rtrData = data.getTextRun().getRichTextRunAt(0);
                 rtrData.setFontName(DATA_FONT);
