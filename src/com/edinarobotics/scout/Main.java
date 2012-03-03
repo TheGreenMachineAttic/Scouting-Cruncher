@@ -1,5 +1,4 @@
 package com.edinarobotics.scout;
-import com.edinarobotics.export.ExportGUI;
 import com.edinarobotics.file.*;
 import com.edinarobotics.gui.*;
 import com.edinarobotics.gui.utilities.*;
