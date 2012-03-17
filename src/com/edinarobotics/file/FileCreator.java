@@ -3,6 +3,7 @@ package com.edinarobotics.file;
 import java.util.Formatter;
 import com.edinarobotics.scout.*;
 import com.edinarobotics.logger.Logger;
+import java.util.ArrayList;
 
 /**
  * @author Alex O'Neill
@@ -77,6 +78,14 @@ public class FileCreator
     public void addEntry(String entry)
     {
         format.format("%s", entry + System.getProperty("line.separator"));
+    }
+
+    public void addEntry(ArrayList<String> list)
+    {
+        for(int i = 0; i < list.size(); i++)
+        {
+            format.format("%s", list.get(i));
+        }
     }
 
     public void addEntry()

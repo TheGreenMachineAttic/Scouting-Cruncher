@@ -101,6 +101,11 @@ public class DataByTeamGUI extends javax.swing.JFrame
             }
         });
         teamTable.setCellSelectionEnabled(true);
+        teamTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                teamTableKeyPressed(evt);
+            }
+        });
         teamTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 teamTableMousePressed(evt);
@@ -255,6 +260,12 @@ public class DataByTeamGUI extends javax.swing.JFrame
         updateTitle(recentTeamNumber + " - " + optionChosen);
     }//GEN-LAST:event_resultComboBoxActionPerformed
 
+    private void teamTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_teamTableKeyPressed
+        // TODO add your handling code here:
+        int teamNumber = getTeamNumber();
+        showData(teamNumber);
+    }//GEN-LAST:event_teamTableKeyPressed
+
     private void init(String list[])
     {
         teamList = list;
@@ -348,7 +359,9 @@ public class DataByTeamGUI extends javax.swing.JFrame
             extractedData[j][4] = extract.extractEntry(content[j], 5);
         }
 
-        return extractedData;
+        Sorter sort = new Sorter(5);
+
+        return sort.sortBest(extractedData, 0, Sorter.LOW_TO_HIGH);
     }
 
     private int getTeamNumber()

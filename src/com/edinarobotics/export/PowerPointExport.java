@@ -38,7 +38,7 @@ class PowerPointExport
     private static String TITLE_TEXT = "Green Machine\nScouting";
 
     private static String DATA_FONT = "Arial";
-    private static int DATA_FONT_SIZE = 40 * 7;
+    private static int DATA_FONT_SIZE = 32 * 7;
     
     private static String allData[][];
     private static int teamCount;

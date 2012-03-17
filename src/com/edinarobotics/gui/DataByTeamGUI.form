@@ -82,6 +82,7 @@
             <Property name="cellSelectionEnabled" type="boolean" value="true"/>
           </Properties>
           <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="teamTableKeyPressed"/>
             <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="teamTableMousePressed"/>
           </Events>
         </Component>
