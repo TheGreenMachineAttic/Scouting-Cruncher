@@ -165,7 +165,7 @@ public class Main
             averageMainPoints = (double) averageMainPoints/lineCount;
             averageEndPoints = (double) averageEndPoints/lineCount;
 
-            averageTotalScore = (double) (averageAutoPoints + averageMainPoints + averageEndPoints)/3;
+            averageTotalScore = averageAutoPoints + averageMainPoints + averageEndPoints;
 
             if(totalPenalties.equals(""))
             {
