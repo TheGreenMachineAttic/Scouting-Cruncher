@@ -15,21 +15,23 @@ import java.text.DecimalFormat;
 
 public class Main 
 {
+    // ----- Very Important Variables ----- //
     private static int EXTRACTED_DATA_POINTS = 4;
     private static int FINAL_DATA_POINTS = 6;
     private static int teamCount = 0;
 
-
-    // ----- Variables -----//
+    // ----- Variables ----- //
     private static FileScanner teamFileScanner;
     private static FileScanner teamListFileScanner;
     private static Extracter extract = new Extracter();
 
     private static String DECIMAL_FORMAT = "#.####";
 
+    // ----- Logger Stuff ----- //
     public static Logger mainLog = new Logger();
     private static String LOG_ID = "Main";
 
+    // ----- Dirs and File Names ----- //
     public static String currentDir = System.getProperty("user.dir");
     public static String workspaceDir;
     public static String commentDir;
@@ -40,11 +42,14 @@ public class Main
     public static String teamListFile = "TeamList.txt";
     public static String matchListFile = "Match-List.txt";
 
+    // ----- Other Important Variables ----- //
     public static boolean logActivate = false;
-    public static String VERSION = "Version 1.0";
+    public static String VERSION = "Version 2.0";
 
     public static void main(String[] args) throws InterruptedException, FileNotFoundException
     {
+        mainLog.setEnabled(true);
+
         SettingsGUI sGUI = new SettingsGUI();
         
         if((new File(currentDir + "/" + workspaceFolderName).isDirectory()))
