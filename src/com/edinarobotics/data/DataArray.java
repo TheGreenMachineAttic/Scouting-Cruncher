@@ -48,6 +48,10 @@ public class DataArray
     String[][] allData;
     String[] teamArray;
     
+    /**
+     * Constructor.
+     * Reads the team data, splits it, and then updates the global values
+     */
     public DataArray()
     {
         // Get the team data
@@ -60,6 +64,10 @@ public class DataArray
         updateGlobal();
     }
     
+    /**
+     * Opens up the team files from the Workspace and compiles all data into an array.
+     * @return the array of team data
+     */
     private String[][] getTeamData()
     {
         // Open the file which holds the list of teams
@@ -197,6 +205,10 @@ public class DataArray
         return teamData;
     }
     
+    /**
+     * Splits the large chunk of data passed in into smaller, more managable arrays.
+     * @param teamData the data to be separated
+     */
     private void splitData(String[][] teamData)
     {
         // Sort the big data into different arrays
@@ -256,6 +268,9 @@ public class DataArray
         }
     }
     
+    /**
+     * Update the global variables.
+     */
     private void updateGlobal()
     {
         Global.autonomousData = autonomousData;
@@ -267,9 +282,17 @@ public class DataArray
         Global.teamArray = teamArray;
     }
     
+    /**
+     * Round a number based on a format
+     * @param number the number to be rounded
+     * @return the rounded number
+     */
     private double round(double number)
     {
+        // Create a new format
         DecimalFormat dFormat = new DecimalFormat(DECIMAL_FORMAT);
+        
+        // Return the formatted number
         return Double.valueOf(dFormat.format(number));
     }
 }
