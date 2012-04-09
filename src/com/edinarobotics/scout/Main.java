@@ -1,11 +1,12 @@
 package com.edinarobotics.scout;
-import com.edinarobotics.file.*;
-import com.edinarobotics.gui.*;
-import com.edinarobotics.gui.utilities.*;
-import com.edinarobotics.logger.*;
-
-// These may be unused, but they are still a good idea to keep!
-import java.io.*;
+import com.edinarobotics.file.Extracter;
+import com.edinarobotics.file.FileScanner;
+import com.edinarobotics.gui.ResultGUI;
+import com.edinarobotics.gui.SettingsGUI;
+import com.edinarobotics.gui.utilities.Sorter;
+import com.edinarobotics.logger.Logger;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 
 /*
@@ -14,38 +15,39 @@ import java.text.DecimalFormat;
  */
 
 public class Main 
-{
+{   
     // ----- Very Important Variables ----- //
-    private static int EXTRACTED_DATA_POINTS = 4;
-    private static int FINAL_DATA_POINTS = 6;
-    private static int teamCount = 0;
+    private static final int EXTRACTED_DATA_POINTS = Global.EXTRACTED_DATA_POINTS;
+    private static final int FINAL_DATA_POINTS = Global.FINAL_DATA_POINTS;
+    private static final String VERSION = Global.VERSION;
 
     // ----- Variables ----- //
-    private static FileScanner teamFileScanner;
-    private static FileScanner teamListFileScanner;
-    private static Extracter extract = new Extracter();
+    private static final FileScanner teamFileScanner = Global.teamFileScanner;
+    private static final FileScanner teamListFileScanner = Global.teamListFileScanner;
+    private static final Extracter extract = Global.extract;
 
-    private static String DECIMAL_FORMAT = "#.####";
 
     // ----- Logger Stuff ----- //
-    public static Logger mainLog = new Logger();
-    private static String LOG_ID = "Main";
+    private static final Logger mainLog = Global.log;
+    private static final String LOG_ID = "Main";
 
     // ----- Dirs and File Names ----- //
-    public static String currentDir = System.getProperty("user.dir");
-    public static String workspaceDir;
-    public static String commentDir;
-    public static String workspaceFolderName = "Workspace";
-    public static String teamFolderName = "TeamDir";
-    public static String commentFolderName = "Comments";
-    public static String matchFolderName = "Matches";
-    public static String teamListFile = "TeamList.txt";
-    public static String matchListFile = "Match-List.txt";
+    private static final String currentDir = Global.currentDir;
+    private static String workspaceDir;
+    private static String commentDir;
+    private static final String workspaceFolderName = Global.workspaceFolderName;
+    private static final String teamFolderName = Global.teamFolderName;
+    private static final String commentFolderName = Global.commentFolderName;
+    private static final String matchFolderName = Global.matchFolderName;
+    private static final String teamListFile = Global.teamListFile;
+    private static final String matchListFile = Global.matchListFile;
+    
+    private static int teamCount = 0;
+    private static final String DECIMAL_FORMAT = "#.####";
 
     // ----- Other Important Variables ----- //
-    public static boolean logActivate = false;
-    public static String VERSION = "Version 2.0";
-
+    private static boolean logActivate = false;
+    
     public static void main(String[] args) throws InterruptedException, FileNotFoundException
     {
         mainLog.setEnabled(true);
@@ -68,9 +70,6 @@ public class Main
         logActivate = sGUI.getLogBox();
 
         mainLog.setEnabled(logActivate);
-
-        teamFileScanner = new FileScanner();
-        teamListFileScanner = new FileScanner();
 
         teamListFileScanner.openFile(workspaceDir, teamListFile);
 

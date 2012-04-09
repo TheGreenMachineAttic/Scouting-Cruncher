@@ -5,6 +5,7 @@
 
 package com.edinarobotics.gui.utilities;
 import com.edinarobotics.logger.Logger;
+import com.edinarobotics.scout.Global;
 import com.edinarobotics.scout.Main;
 
 /*
@@ -15,7 +16,7 @@ import com.edinarobotics.scout.Main;
 public class DataRow 
 {
     private String dataRow[];
-    private static Logger dataRowLog = Main.mainLog;
+    private static Logger dataRowLog = Global.log;
     private static String LOG_ID = "Data Row";
 
     public DataRow() {}

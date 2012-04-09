@@ -1,10 +1,10 @@
 package com.edinarobotics.file;
 
+import com.edinarobotics.gui.utilities.ErrorGUI;
+import com.edinarobotics.logger.Logger;
+import com.edinarobotics.scout.Global;
 import java.io.File;
 import java.util.Scanner;
-import com.edinarobotics.gui.utilities.ErrorGUI;
-import com.edinarobotics.logger.*;
-import com.edinarobotics.scout.Main;
 
 /**
  * @author Alex O'Neill
@@ -14,12 +14,12 @@ import com.edinarobotics.scout.Main;
 public class FileScanner
 {
     private Scanner read;
-    private static Logger scanLog = Main.mainLog;
+    private static Logger scanLog = Global.log;
     private static final String LOG_ID = "Scanner";
 
     public FileScanner()
     {
-        scanLog.setEnabled(Main.logActivate);
+        scanLog.setEnabled(Global.logActivate);
     }
 
     // Used to open the text file in the Scanner

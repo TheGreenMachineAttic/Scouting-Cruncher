@@ -12,8 +12,7 @@
 package com.edinarobotics.gui;
 
 import com.edinarobotics.export.ExportGUI;
-import com.edinarobotics.scout.Main;
-
+import com.edinarobotics.scout.Global;
 import java.text.DecimalFormat;
 import javax.swing.table.DefaultTableModel;
 
@@ -386,7 +385,7 @@ public class ResultGUI extends javax.swing.JFrame
 
     private void aboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutActionPerformed
         // TODO add your handling code here:
-        AboutGUI aGUI = new AboutGUI(Main.VERSION);
+        AboutGUI aGUI = new AboutGUI(Global.VERSION);
     }//GEN-LAST:event_aboutActionPerformed
 
     private void exportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportActionPerformed

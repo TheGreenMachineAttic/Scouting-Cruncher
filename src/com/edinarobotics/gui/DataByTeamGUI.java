@@ -11,10 +11,10 @@
 
 package com.edinarobotics.gui;
 
-import com.edinarobotics.gui.utilities.*;
-import com.edinarobotics.file.*;
-import com.edinarobotics.scout.Main;
-
+import com.edinarobotics.file.Extracter;
+import com.edinarobotics.file.FileScanner;
+import com.edinarobotics.gui.utilities.Sorter;
+import com.edinarobotics.scout.Global;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,6 +34,10 @@ public class DataByTeamGUI extends javax.swing.JFrame
     private String teamTableHeader[] = new String[] {"Team Number"};
     private int teamCount;
     private int recentTeamNumber;
+    
+    String currentDir = Global.currentDir;
+    String workspaceFolderName = Global.workspaceFolderName;
+    String teamFolderName = Global.teamFolderName;
 
     /** Creates new form DataByTeamGUI */
     public DataByTeamGUI() {}
@@ -312,10 +316,6 @@ public class DataByTeamGUI extends javax.swing.JFrame
     {
         FileScanner teamFileScanner = new FileScanner();
         Extracter extract = new Extracter();
-
-        String currentDir = Main.currentDir;
-        String workspaceFolderName = Main.workspaceFolderName;
-        String teamFolderName = Main.teamFolderName;
 
         teamFileScanner.openFile(currentDir + "/" + workspaceFolderName + "/" + teamFolderName, String.valueOf(teamNumber) + ".txt");
 

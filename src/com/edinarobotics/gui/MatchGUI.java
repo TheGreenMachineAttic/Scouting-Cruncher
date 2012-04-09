@@ -10,10 +10,10 @@
  */
 
 package com.edinarobotics.gui;
-import com.edinarobotics.file.*;
-import com.edinarobotics.gui.utilities.*;
-import com.edinarobotics.scout.Main;
-
+import com.edinarobotics.file.Extracter;
+import com.edinarobotics.file.FileScanner;
+import com.edinarobotics.gui.utilities.Sorter;
+import com.edinarobotics.scout.Global;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
@@ -33,7 +33,7 @@ public class MatchGUI extends javax.swing.JFrame
     private String matchTableHeader[] = new String[] {"Match"};
     private static String matchList[];
     private static String recentData[][];
-    private String matchPath = Main.currentDir + "/" + Main.workspaceFolderName + "/" + Main.matchFolderName;
+    private String matchPath = Global.currentDir + "/" + Global.workspaceFolderName + "/" + Global.matchFolderName;
 
     private static final int DATA_POINTS = 5;
 
@@ -253,7 +253,7 @@ public class MatchGUI extends javax.swing.JFrame
 
     private void init()
     {
-        String list[] = getMatchList(matchPath, Main.matchListFile);
+        String list[] = getMatchList(matchPath, Global.matchListFile);
         showMatches(list);
 
         showData(matchPath, Integer.parseInt(list[0]));

@@ -1,9 +1,9 @@
 package com.edinarobotics.file;
 
-import java.util.Formatter;
-import com.edinarobotics.scout.*;
 import com.edinarobotics.logger.Logger;
+import com.edinarobotics.scout.Global;
 import java.util.ArrayList;
+import java.util.Formatter;
 
 /**
  * @author Alex O'Neill
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class FileCreator 
 {
     private Formatter format;
-    private static Logger fileLog = Main.mainLog;
+    private static Logger fileLog = Global.log;
     private static String LOG_ID = "File Creator";
 
     // Used to create the text file

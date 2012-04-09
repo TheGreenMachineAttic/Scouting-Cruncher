@@ -5,7 +5,7 @@
 
 package com.edinarobotics.gui.utilities;
 import com.edinarobotics.logger.Logger;
-import com.edinarobotics.scout.Main;
+import com.edinarobotics.scout.Global;
 
 
 /*
@@ -18,7 +18,7 @@ public class Sorter
     public static final int LOW_TO_HIGH = 1;
     public static final int HIGH_TO_LOW = 2;
 
-    private static Logger sortLog = Main.mainLog;
+    private static Logger sortLog = Global.log;
     private static String LOG_ID = "Sorter";
 
     private int DATA_POINTS;
