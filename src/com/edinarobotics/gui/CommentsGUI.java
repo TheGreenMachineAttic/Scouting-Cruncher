@@ -13,7 +13,7 @@ package com.edinarobotics.gui;
 
 import com.edinarobotics.gui.utilities.ErrorGUI;
 import java.util.ArrayList;
-import com.edinarobotics.file.FileScanner;
+import com.edinarobotics.filer.FileScanner;
 import javax.swing.table.DefaultTableModel;
 
 /*

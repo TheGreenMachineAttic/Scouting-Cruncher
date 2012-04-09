@@ -25,22 +25,32 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="logCheckBox" min="-2" max="-2" attributes="0"/>
-          </Group>
-          <Group type="103" alignment="0" groupAlignment="2" attributes="0">
-              <Component id="scoutButton" alignment="2" min="-2" pref="124" max="-2" attributes="0"/>
-              <Component id="wDirPanel" alignment="2" min="-2" max="-2" attributes="1"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="logCheckBox" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
+                      <Component id="scoutButton" min="-2" pref="124" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="wDirPanel" max="32767" attributes="1"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <Component id="wDirPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="scoutButton" min="-2" pref="37" max="-2" attributes="0"/>
+              <Component id="wDirPanel" min="-2" pref="82" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="logCheckBox" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="scoutButton" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="logCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -55,7 +65,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="scoutButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Scout!"/>
+        <Property name="text" type="java.lang.String" value="Crunch!"/>
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
       <Events>
@@ -76,9 +86,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="teamDirLocation" alignment="0" pref="628" max="32767" attributes="0"/>
+                      <Component id="workspaceLocationBox" alignment="0" pref="616" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="521" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="chooseButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -89,7 +99,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="teamDirLocation" min="-2" max="-2" attributes="0"/>
+                  <Component id="workspaceLocationBox" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="chooseButton" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -97,7 +107,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="teamDirLocation">
+        <Component class="javax.swing.JTextField" name="workspaceLocationBox">
           <Properties>
             <Property name="columns" type="int" value="50"/>
             <Property name="editable" type="boolean" value="false"/>

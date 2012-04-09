@@ -10,8 +10,8 @@
  */
 
 package com.edinarobotics.gui;
-import com.edinarobotics.file.Extracter;
-import com.edinarobotics.file.FileScanner;
+import com.edinarobotics.filer.Extracter;
+import com.edinarobotics.filer.FileScanner;
 import com.edinarobotics.gui.utilities.Sorter;
 import com.edinarobotics.scout.Global;
 import java.util.ArrayList;

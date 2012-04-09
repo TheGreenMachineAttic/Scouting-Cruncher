@@ -6,7 +6,6 @@
 package com.edinarobotics.gui.utilities;
 import com.edinarobotics.logger.Logger;
 import com.edinarobotics.scout.Global;
-import com.edinarobotics.scout.Main;
 
 /*
  * @author aoneill
