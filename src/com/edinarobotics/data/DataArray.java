@@ -50,6 +50,18 @@ public class DataArray
     
     public DataArray()
     {
+        // Get the team data
+        String[][] teamData = getTeamData();
+        
+        // Split the data into new arrays
+        splitData(teamData);
+        
+        // Update the global variables
+        updateGlobal();
+    }
+    
+    private String[][] getTeamData()
+    {
         // Open the file which holds the list of teams
         teamListFileScanner.openFile(workspaceDir, teamListFile);
 
@@ -181,6 +193,12 @@ public class DataArray
             teamData[i][5] = totalPenalties;
         }
         
+        // Return the data
+        return teamData;
+    }
+    
+    private void splitData(String[][] teamData)
+    {
         // Sort the big data into different arrays
         int arrayWidth = 2;
         Sorter sort = new Sorter(arrayWidth);
@@ -236,7 +254,10 @@ public class DataArray
             allData[i][5] = teamData[i][4];
             allData[i][6] = teamData[i][5];
         }
-        
+    }
+    
+    private void updateGlobal()
+    {
         Global.autonomousData = autonomousData;
         Global.mainGameData = mainGameData;
         Global.endGameData = endGameData;
