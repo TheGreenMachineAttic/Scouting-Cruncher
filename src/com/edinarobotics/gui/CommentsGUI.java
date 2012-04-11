@@ -11,9 +11,10 @@
 
 package com.edinarobotics.gui;
 
-import com.edinarobotics.gui.utilities.ErrorGUI;
-import java.util.ArrayList;
 import com.edinarobotics.filer.FileScanner;
+import com.edinarobotics.gui.utilities.ErrorGUI;
+import com.edinarobotics.scout.Global;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -26,25 +27,16 @@ public class CommentsGUI extends javax.swing.JFrame
     private String TEAM_LIST_NAME = "TeamList";
     private String DEFAULT_COMMENT_FILE_HEADER = "# Comments #\n";
 
-    private int teamCount;
-    private String commentDir;
-    private String allData[][];
-
-
-    public CommentsGUI() {}
+    private int teamCount = Global.teamCount;
+    private String commentDir = Global.commentDir;
+    private String allData[][] = Global.allData;
 
     /** Creates new form PenaltiesGUI */
-    public CommentsGUI(int teamCount, String commentDir, String allData[][])
+    public CommentsGUI()
     {
         initComponents();
-
-        this.allData = allData;
-        this.commentDir = commentDir;
-        this.teamCount = teamCount;
-
         init();
     }
-
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -138,19 +130,7 @@ public class CommentsGUI extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[])
-    {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CommentsGUI().setVisible(true);
-            }
-        });
-    }
-
+    
     private void init()
     {
         String[] teamList = extractTeamSequence(allData, teamCount);
@@ -251,6 +231,18 @@ public class CommentsGUI extends javax.swing.JFrame
     public String getSelectedTeam()
     {
         return teamTable.getValueAt(teamTable.getSelectedRow(), teamTable.getSelectedColumn()).toString();
+    }
+    
+    /**
+    * @param args the command line arguments
+    */
+    public static void main(String args[])
+    {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new CommentsGUI().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

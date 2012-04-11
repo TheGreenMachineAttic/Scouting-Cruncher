@@ -28,8 +28,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="pic" min="-2" max="-2" attributes="0"/>
-                  <Component id="whoIsLabel" alignment="1" pref="350" max="32767" attributes="0"/>
-                  <Component id="devLabel" alignment="0" pref="350" max="32767" attributes="0"/>
+                  <Component id="whoIsLabel" alignment="1" max="32767" attributes="0"/>
+                  <Component id="devLabel" alignment="0" max="32767" attributes="0"/>
                   <Component id="versionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -45,7 +45,7 @@
               <Component id="devLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="whoIsLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <EmptySpace pref="22" max="32767" attributes="0"/>
               <Component id="versionLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -56,7 +56,7 @@
     <Component class="javax.swing.JLabel" name="pic">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/org/scouting/rescources/Logo.png"/>
+          <Image iconType="3" name="/com/edinarobotics/rescources/Logo.png"/>
         </Property>
       </Properties>
     </Component>
@@ -80,7 +80,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="versionLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Beta 0.1"/>
+        <Property name="text" type="java.lang.String" value="version"/>
       </Properties>
     </Component>
   </SubComponents>

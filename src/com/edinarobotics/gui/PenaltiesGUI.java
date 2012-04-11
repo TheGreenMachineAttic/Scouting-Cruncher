@@ -11,6 +11,7 @@
 
 package com.edinarobotics.gui;
 import com.edinarobotics.gui.utilities.*;
+import com.edinarobotics.scout.Global;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -20,9 +21,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PenaltiesGUI extends javax.swing.JFrame
 {
-    public String[][] allData;
+    public String[][] allData = Global.allData;
     public String[] tableHeader = {"Team Number"};
-    private int teamCount;
+    private int teamCount = Global.teamCount;
     private String penaltiesBoxHeader = "- Penalties -";
 
     private PenaltiesGUI() {}

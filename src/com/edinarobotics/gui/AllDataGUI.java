@@ -11,8 +11,8 @@
 
 package com.edinarobotics.gui;
 
-import com.edinarobotics.gui.utilities.*;
-
+import com.edinarobotics.gui.utilities.Sorter;
+import com.edinarobotics.scout.Global;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -22,24 +22,16 @@ import javax.swing.table.DefaultTableModel;
 public class AllDataGUI extends javax.swing.JFrame
 {
     private static String tableHeader[] = new String[] {"Team Name", "Auto Score", "Main Score", "End Score", "Overall Score", "Penalty Number"};
-    private String[][] allData;
+    private String[][] allData = Global.allData;
 
     private static final int DATA_POINTS = 7;
     private static final String TITLE_BASE = "All Scores - ";
 
-    public AllDataGUI() {}
-
     /** Creates new form AllDataGUI */
-    public AllDataGUI(String[][] allData)
+    public AllDataGUI()
     {
-        this.allData = allData;
-
         initComponents();
-
-        initTable();
-        setVisible(true);
-
-        updateTitle("Team Number");
+        init();
     }
 
     /** This method is called from within the constructor to
@@ -130,6 +122,13 @@ public class AllDataGUI extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void init()
+    {
+        initTable();
+        updateTitle("Team Number");
+        setVisible(true);
+    }
+    
     private void modeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeComboBoxActionPerformed
         // TODO add your handling code here:
         Sorter sort = new Sorter(DATA_POINTS);
@@ -180,18 +179,6 @@ public class AllDataGUI extends javax.swing.JFrame
         modeComboBoxActionPerformed(evt);
     }//GEN-LAST:event_sortDirComboBoxActionPerformed
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[])
-    {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AllDataGUI().setVisible(true);
-            }
-        });
-    }
-
     private void initTable()
     {
         Sorter sort = new Sorter(DATA_POINTS);
@@ -207,6 +194,18 @@ public class AllDataGUI extends javax.swing.JFrame
     private void updateTitle(String suffix)
     {
         setTitle(TITLE_BASE + suffix);
+    }
+    
+    /**
+    * @param args the command line arguments
+    */
+    public static void main(String args[])
+    {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AllDataGUI().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -40,14 +40,5 @@ public class Main
         DataArray dArray = new DataArray();
 
         ResultGUI rGUI = new ResultGUI();
-        rGUI.setTeamCount(Global.teamArray.length);
-        rGUI.setCommentDir(Global.commentDir);
-        rGUI.setAutonomousTable(Global.autonomousData);
-        rGUI.setMainTable(Global.mainGameData);
-        rGUI.setEndTable(Global.endGameData);
-        rGUI.setOverallTable(Global.totalScoreData);
-        rGUI.setAllScoresTable(Global.allData);
-        rGUI.setTeamList(Global.teamArray);
-        rGUI.setVisible(true);
     }
 }

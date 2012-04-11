@@ -24,20 +24,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DataByTeamGUI extends javax.swing.JFrame
 {
-    private static String VERSION = "";
     private static String TITLE_BASE = "Data For Team ";
     private int DATA_POINTS = 5;
 
-    private String teamList[];
     private String recentData[][];
     private String dataTableHeader[] = new String[] {"Match Number", "Auto Score", "Main Score", "End Score", "Penalties"};
     private String teamTableHeader[] = new String[] {"Team Number"};
-    private int teamCount;
     private int recentTeamNumber;
     
-    String currentDir = Global.currentDir;
-    String workspaceFolderName = Global.workspaceFolderName;
-    String teamFolderName = Global.teamFolderName;
+    private String teamList[] = Global.teamArray;
+    private String currentDir = Global.currentDir;
+    private String workspaceFolderName = Global.workspaceFolderName;
+    private String teamFolderName = Global.teamFolderName;
 
     /** Creates new form DataByTeamGUI */
     public DataByTeamGUI() {}

@@ -11,35 +11,21 @@
 
 package com.edinarobotics.gui;
 
+import com.edinarobotics.scout.Global;
+
 /*
  * @author aoneill
  * @note Made by the Netbeans built-in GUI creator
  */
 public class AboutGUI extends javax.swing.JFrame
 {
-    private static String VERSION = "versionError";
+    private static String VERSION = Global.VERSION;
 
     /** Creates new form AboutGUI */
     public AboutGUI()
     {
         initComponents();
-
-        setVersion(VERSION);
-
-        setLocation(350,250);
-        setVisible(true);
-    }
-
-    public AboutGUI(String version)
-    {
-        initComponents();
-
-        setLocation(350,250);
-
-        VERSION = version;
-        setVersion(VERSION);
-
-        setVisible(true);
+        init();
     }
 
     /** This method is called from within the constructor to
@@ -60,17 +46,17 @@ public class AboutGUI extends javax.swing.JFrame
         setTitle("About");
         setResizable(false);
 
-        pic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/scouting/rescources/Logo.png"))); // NOI18N
+        pic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edinarobotics/rescources/Logo.png"))); // NOI18N
 
-        devLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        devLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         devLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         devLabel.setText("Developed By");
 
-        whoIsLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24));
+        whoIsLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         whoIsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         whoIsLabel.setText("The Programmers of 1816");
 
-        versionLabel.setText("Beta 0.1");
+        versionLabel.setText("version");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,8 +66,8 @@ public class AboutGUI extends javax.swing.JFrame
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(pic)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, whoIsLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                    .add(devLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, whoIsLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(devLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(versionLabel))
                 .addContainerGap())
         );
@@ -94,7 +80,7 @@ public class AboutGUI extends javax.swing.JFrame
                 .add(devLabel)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(whoIsLabel)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 22, Short.MAX_VALUE)
                 .add(versionLabel)
                 .addContainerGap())
         );
@@ -102,6 +88,17 @@ public class AboutGUI extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void init()
+    {
+        setVersion(VERSION);
+        setVisible(true);
+    }
+    
+    private void setVersion(String version)
+    {
+        versionLabel.setText(version);
+    }
+    
     /**
     * @param args the command line arguments
     */
@@ -112,11 +109,6 @@ public class AboutGUI extends javax.swing.JFrame
                 new AboutGUI().setVisible(true);
             }
         });
-    }
-
-    private void setVersion(String version)
-    {
-        versionLabel.setText(version);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

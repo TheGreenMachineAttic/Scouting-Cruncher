@@ -276,10 +276,11 @@ public class DataArray
         Global.autonomousData = autonomousData;
         Global.mainGameData = mainGameData;
         Global.endGameData = endGameData;
-        Global.totalScoreData = totalScoreData;
+        Global.overallScoreData = totalScoreData;
         Global.penaltyData = penaltyData;
         Global.allData = allData;
         Global.teamArray = teamArray;
+        Global.teamCount = teamCount;
     }
     
     /**

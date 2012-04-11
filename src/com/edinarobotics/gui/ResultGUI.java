@@ -13,7 +13,6 @@ package com.edinarobotics.gui;
 
 import com.edinarobotics.export.ExportGUI;
 import com.edinarobotics.scout.Global;
-import java.text.DecimalFormat;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -26,21 +25,18 @@ import javax.swing.table.DefaultTableModel;
 public class ResultGUI extends javax.swing.JFrame
 {
     private static String tableHeader[] = {"Team Name", "Score"};
-    private static String autoData[][];
-    private static String mainData[][];
-    private static String endData[][];
-    private static String totalData[][];
-    private static String[][] allData;
-    private static String[] teamList;
-
-    private int teamCount;
-    private String commentDir;
-    private String DECIMAL_FORMAT = "#.###";
+    private static String[][] autoData = Global.autonomousData;
+    private static String[][] mainData = Global.mainGameData;
+    private static String[][] endData = Global.endGameData;
+    private static String[][] overallData = Global.overallScoreData;
+    private static String[][] allData = Global.allData;
+    private static String[] teamList = Global.teamArray;
 
     /** Creates new form ResultGUI */
     public ResultGUI()
     {
         initComponents();
+        init();
     }
 
     /** This method is called from within the constructor to
@@ -358,14 +354,23 @@ public class ResultGUI extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void init()
+    {
+        setAutonomousTable(autoData);
+        setMainTable(mainData);
+        setEndTable(endData);
+        setOverallTable(overallData);
+        setVisible(true);
+    }
+    
     private void averageDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_averageDataActionPerformed
         // TODO add your handling code here:
-        AllDataGUI aGUI= new AllDataGUI(allData);
+        AllDataGUI aGUI= new AllDataGUI();
     }//GEN-LAST:event_averageDataActionPerformed
 
     private void dataPerTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataPerTeamActionPerformed
         // TODO add your handling code here:
-        DataByTeamGUI dbtGUI = new DataByTeamGUI(teamList);
+        DataByTeamGUI dbtGUI = new DataByTeamGUI();
     }//GEN-LAST:event_dataPerTeamActionPerformed
 
     private void dataByMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataByMatchActionPerformed
@@ -375,22 +380,22 @@ public class ResultGUI extends javax.swing.JFrame
 
     private void commentDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commentDataActionPerformed
         // TODO add your handling code here:
-        CommentsGUI cGUI = new CommentsGUI(teamCount, commentDir, allData);
+        CommentsGUI cGUI = new CommentsGUI();
     }//GEN-LAST:event_commentDataActionPerformed
 
     private void penaltyDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penaltyDataActionPerformed
         // TODO add your handling code here:
-        PenaltiesGUI pGUI = new PenaltiesGUI(teamCount, allData);
+        PenaltiesGUI pGUI = new PenaltiesGUI();
     }//GEN-LAST:event_penaltyDataActionPerformed
 
     private void aboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutActionPerformed
         // TODO add your handling code here:
-        AboutGUI aGUI = new AboutGUI(Global.VERSION);
+        AboutGUI aGUI = new AboutGUI();
     }//GEN-LAST:event_aboutActionPerformed
 
     private void exportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportActionPerformed
         // TODO add your handling code here:
-        ExportGUI eGUI = new ExportGUI(allData);
+        ExportGUI eGUI = new ExportGUI();
     }//GEN-LAST:event_exportActionPerformed
 
     /**
@@ -412,7 +417,7 @@ public class ResultGUI extends javax.swing.JFrame
         int counter = 0;
         try
         {
-            while(!data[counter][0].equals(null))
+            while(data[counter][0] != null)
             {
                 counter++;
             }
@@ -424,7 +429,7 @@ public class ResultGUI extends javax.swing.JFrame
             for(int i = 0; i < 5; i++)
             {
                 displayData[i][0] = data[i][0];
-                displayData[i][1] = Double.toString(roundTwoDecimals(Double.parseDouble(data[i][1])));
+                displayData[i][1] = Double.toString(Double.parseDouble(data[i][1]));
             }
 
             autoTable.setModel(new DefaultTableModel(displayData, tableHeader));
@@ -442,7 +447,7 @@ public class ResultGUI extends javax.swing.JFrame
         int counter = 0;
         try
         {
-            while(!data[counter][0].equals(null))
+            while(data[counter][0] != null)
             {
                 counter++;
             }
@@ -454,7 +459,7 @@ public class ResultGUI extends javax.swing.JFrame
             for(int i = 0; i < 5; i++)
             {
                 displayData[i][0] = data[i][0];
-                displayData[i][1] = Double.toString(roundTwoDecimals(Double.parseDouble(data[i][1])));
+                displayData[i][1] = Double.toString(Double.parseDouble(data[i][1]));
             }
 
             mainTable.setModel(new DefaultTableModel(displayData, tableHeader));
@@ -472,7 +477,7 @@ public class ResultGUI extends javax.swing.JFrame
         int counter = 0;
         try
         {
-            while(!data[counter][0].equals(null))
+            while(data[counter][0] != null)
             {
                 counter++;
             }
@@ -484,7 +489,7 @@ public class ResultGUI extends javax.swing.JFrame
             for(int i = 0; i < 5; i++)
             {
                 displayData[i][0] = data[i][0];
-                displayData[i][1] = Double.toString(roundTwoDecimals(Double.parseDouble(data[i][1])));
+                displayData[i][1] = Double.toString(Double.parseDouble(data[i][1]));
             }
 
             endTable.setModel(new DefaultTableModel(displayData, tableHeader));
@@ -497,12 +502,12 @@ public class ResultGUI extends javax.swing.JFrame
 
     public void setOverallTable(String data[][])
     {
-        totalData = data;
+        allData = data;
         String[][] displayData = new String[5][2];
         int counter = 0;
         try
         {
-            while(!data[counter][0].equals(null))
+            while(data[counter][0] != null)
             {
                 counter++;
             }
@@ -514,48 +519,15 @@ public class ResultGUI extends javax.swing.JFrame
             for(int i = 0; i < 5; i++)
             {
                 displayData[i][0] = data[i][0];
-                displayData[i][1] = Double.toString(roundTwoDecimals(Double.parseDouble(data[i][1])));
+                displayData[i][1] = Double.toString(Double.parseDouble(data[i][1]));
             }
 
             totalTable.setModel(new DefaultTableModel(displayData, tableHeader));
         }
         else
         {
-            totalTable.setModel(new DefaultTableModel(totalData, tableHeader));
+            totalTable.setModel(new DefaultTableModel(allData, tableHeader));
         }
-    }
-
-    public void setAllScoresTable(String data[][])
-    {
-        allData = data;
-    }
-
-    public void setTeamList(String data[])
-    {
-        String newData[] = new String[data.length - 1];
-
-        for(int i = 0; i < newData.length; i++)
-        {
-            newData[i] = data[i + 1];
-        }
-
-        teamList = newData;
-    }
-    
-    public void setTeamCount(int num)
-    {
-        teamCount = num;
-    }
-
-    public void setCommentDir(String dir)
-    {
-        commentDir = dir;
-    }
-
-    double roundTwoDecimals(double num)
-    {
-        DecimalFormat form = new DecimalFormat(DECIMAL_FORMAT);
-        return Double.valueOf(form.format(num));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

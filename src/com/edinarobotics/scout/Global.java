@@ -41,10 +41,11 @@ public class Global
     public static String[][] autonomousData;
     public static String[][] mainGameData;
     public static String[][] endGameData;
-    public static String[][] totalScoreData;
+    public static String[][] overallScoreData;
     public static String[][] penaltyData;
     public static String[][] allData;
     public static String[] teamArray;
+    public static int teamCount;
 
     // ----- Other Important Variables ----- //
     public static boolean logActivate = false;
