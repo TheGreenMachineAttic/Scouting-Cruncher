@@ -38,24 +38,10 @@ public class DataByTeamGUI extends javax.swing.JFrame
     private String teamFolderName = Global.teamFolderName;
 
     /** Creates new form DataByTeamGUI */
-    public DataByTeamGUI() {}
-
-    public DataByTeamGUI(String teamList[])
+    public DataByTeamGUI()
     {
         initComponents();
-
-        this.teamList = teamList;
-        init(teamList);
-
-        setVisible(true);
-    }
-
-    public DataByTeamGUI(String teamList[], String version)
-    {
-        VERSION = version;
-        init(teamList);
-
-        setVisible(true);
+        init();
     }
 
     /** This method is called from within the constructor to
@@ -268,13 +254,12 @@ public class DataByTeamGUI extends javax.swing.JFrame
         showData(teamNumber);
     }//GEN-LAST:event_teamTableKeyPressed
 
-    private void init(String list[])
+    private void init()
     {
-        teamList = list;
-        teamCount = teamList.length - 1;
         showTeamList(teamList);
         showData(Integer.parseInt(teamList[0]));
         sortComboBox.setModel(new DefaultComboBoxModel(dataTableHeader));
+        setVisible(true);
     }
 
     private void showData(int teamNumber)

@@ -25,36 +25,21 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MatchGUI extends javax.swing.JFrame
 {
-    private static String VERSION = "";
     private static FileScanner scan = new FileScanner();
     private static Extracter ext = new Extracter();
 
     private String dataTableHeader[] = new String[] {"Team", "Auto Score", "Main Game", "End Game", "Penalties"};
     private String matchTableHeader[] = new String[] {"Match"};
-    private static String matchList[];
-    private static String recentData[][];
-    private String matchPath = Global.currentDir + "/" + Global.workspaceFolderName + "/" + Global.matchFolderName;
+    private static String[] matchList;
+    private static String[][] recentData;
+    private String matchPath = Global.matchDir;
 
-    private static final int DATA_POINTS = 5;
+    private static final int DATA_POINTS = Global.FINAL_DATA_POINTS - 1;
 
     /** Creates new form MatchGUI */
     public MatchGUI()
     {
         initComponents();
-
-        sortColComboBox.setModel(new DefaultComboBoxModel(dataTableHeader));
-
-        init();
-    }
-
-    public MatchGUI(String version)
-    {
-        initComponents();
-        
-        VERSION = version;
-
-        sortColComboBox.setModel(new DefaultComboBoxModel(dataTableHeader));
-
         init();
     }
 
@@ -253,11 +238,10 @@ public class MatchGUI extends javax.swing.JFrame
 
     private void init()
     {
+        sortColComboBox.setModel(new DefaultComboBoxModel(dataTableHeader));
         String list[] = getMatchList(matchPath, Global.matchListFile);
         showMatches(list);
-
         showData(matchPath, Integer.parseInt(list[0]));
-
         setVisible(true);
     }
 

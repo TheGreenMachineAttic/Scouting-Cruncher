@@ -6,6 +6,7 @@
 package com.edinarobotics.export;
 import com.edinarobotics.gui.utilities.Sorter;
 import com.edinarobotics.filer.Extracter;
+import com.edinarobotics.scout.Global;
 
 import org.apache.poi.hslf.model.Slide;
 import org.apache.poi.hslf.model.TextBox;
@@ -40,15 +41,15 @@ class PowerPointExport
     private static String DATA_FONT = "Arial";
     private static int DATA_FONT_SIZE = 32 * 7;
     
-    private static String allData[][];
-    private static int teamCount;
+    private static String[][] allData = Global.allData;
+    private static int teamCount = Global.teamCount;
+    
     private static String fileName;
     private static String filePath;
 
-    public PowerPointExport(String teamData[][], String name, String path)
+    public PowerPointExport(String path, String name)
     {
-        allData = sort.sortBest(teamData, 4, Sorter.HIGH_TO_LOW);
-        teamCount = sort.getArrayLength(allData);
+        allData = sort.sortBest(allData, 4, Sorter.HIGH_TO_LOW);
         fileName = name;
         filePath = path;
 
@@ -113,9 +114,9 @@ class PowerPointExport
 
 
                 ArrayList<String> penalties = new ArrayList<String>();
-                penalties.add("Penalties:");
                 if(Integer.parseInt(allData[i][5]) > 1)
                 {
+                    penalties.add("Penalties:");
                     for(int j = 0; j < Integer.parseInt(allData[i][5]); j++)
                     {
                         penalties.add(ext.extractEntry(allData[i][6], j));

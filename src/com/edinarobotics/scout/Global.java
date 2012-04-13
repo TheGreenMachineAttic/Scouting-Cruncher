@@ -28,6 +28,8 @@ public class Global
     public static final String currentDir = System.getProperty("user.dir");
     public static String workspaceDir;
     public static String commentDir;
+    public static String matchDir;
+    
     public static final String configFileDir = currentDir;
     public static final String configFile = "config.txt";
     public static final String workspaceFolderName = "Workspace";

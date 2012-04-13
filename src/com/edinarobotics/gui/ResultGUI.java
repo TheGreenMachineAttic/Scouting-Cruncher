@@ -30,7 +30,6 @@ public class ResultGUI extends javax.swing.JFrame
     private static String[][] endData = Global.endGameData;
     private static String[][] overallData = Global.overallScoreData;
     private static String[][] allData = Global.allData;
-    private static String[] teamList = Global.teamArray;
 
     /** Creates new form ResultGUI */
     public ResultGUI()

@@ -24,7 +24,6 @@ import javax.swing.table.DefaultTableModel;
 public class CommentsGUI extends javax.swing.JFrame
 {
     private String[] tableHeader = {"Team Number"};
-    private String TEAM_LIST_NAME = "TeamList";
     private String DEFAULT_COMMENT_FILE_HEADER = "# Comments #\n";
 
     private int teamCount = Global.teamCount;

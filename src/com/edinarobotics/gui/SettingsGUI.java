@@ -157,6 +157,7 @@ public class SettingsGUI extends javax.swing.JFrame
         
         Global.workspaceDir = workspaceLocationBox.getText();
         Global.commentDir = selectedWorkspaceDir + "/" + Global.commentFolderName;
+        Global.matchDir = selectedWorkspaceDir + "/" + Global.matchFolderName;
         
         Global.logActivate = logCheckBox.isSelected();
         log.setEnabled(logActivate);

@@ -7,6 +7,7 @@ package com.edinarobotics.export;
 import com.edinarobotics.filer.Extracter;
 import com.edinarobotics.filer.FileCreator;
 import com.edinarobotics.gui.utilities.Sorter;
+import com.edinarobotics.scout.Global;
 
 /*
  * @author aoneill
@@ -19,15 +20,15 @@ public class TextFileExport
     private Extracter extract = new Extracter();
     private Sorter sort = new Sorter();
 
-    private static String allData[][];
-    private static int teamCount;
+    private static String[][] allData = Global.allData;
+    private static int teamCount = Global.teamCount;
+    
     private static String fileName;
     private static String filePath;
 
-    public TextFileExport(String teamData[][], String name, String path)
+    public TextFileExport(String name, String path)
     {
-        allData = teamData;
-        teamCount = sort.getArrayLength(allData);
+        allData = sort.sortBest(allData, 4, Sorter.HIGH_TO_LOW);
         fileName = name + ".txt";
         filePath = path;
 
@@ -63,10 +64,9 @@ public class TextFileExport
             fileCreo.addEntry("Average End Game Score: " + teamEndGameScore);
             fileCreo.addEntry("Average Total Score: " + teamTotalAverageScore);
 
-            fileCreo.addEntry("Penalties: ");
-
             if(Integer.parseInt(allData[i][5]) > 1)
             {
+                fileCreo.addEntry("Penalties: ");
                 for(int j = 0; j < Integer.parseInt(allData[i][5]); j++)
                 {
                     fileCreo.addEntry(" - " + extract.extractEntry(allData[i][6], j));

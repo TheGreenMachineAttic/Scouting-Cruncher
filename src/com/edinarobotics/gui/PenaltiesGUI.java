@@ -10,9 +10,8 @@
  */
 
 package com.edinarobotics.gui;
-import com.edinarobotics.gui.utilities.*;
+import com.edinarobotics.gui.utilities.ErrorGUI;
 import com.edinarobotics.scout.Global;
-
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -25,17 +24,12 @@ public class PenaltiesGUI extends javax.swing.JFrame
     public String[] tableHeader = {"Team Number"};
     private int teamCount = Global.teamCount;
     private String penaltiesBoxHeader = "- Penalties -";
-
-    private PenaltiesGUI() {}
-
+    
+    
     /** Creates new form PenaltiesGUI */
-    public PenaltiesGUI(int teamCount, String allData[][])
+    public PenaltiesGUI()
     {
         initComponents();
-
-        this.teamCount = teamCount;
-        this.allData = allData;
-
         init();
     }
 

@@ -167,11 +167,11 @@ public class ExportGUI extends javax.swing.JFrame
         switch(exportFileType)
         {
             case FILE_TYPE_TXT:
-                TextFileExport tfex = new TextFileExport(allData, exportName, exportLocation);
+                TextFileExport tfex = new TextFileExport(exportName, exportLocation);
                 break;
 
             case FILE_TYPE_PPT:
-                PowerPointExport pptex = new PowerPointExport(allData, exportName, exportLocation);
+                PowerPointExport pptex = new PowerPointExport(exportName, exportLocation);
                 break;
 
             default:
